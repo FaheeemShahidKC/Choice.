@@ -1,0 +1,65 @@
+<%- include('../adminView/layout/adminHeader.ejs')%>
+<%- include('../adminView/layout/adminSidebar.ejs')%>
+
+<div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row ">
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Product Details</h4>
+                <a href="/admin/addProduct"><button type="button" class="btn btn-outline-primary btn-fw">Add product</button></a>
+                <br><br><br>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th> No. </th>
+                        <th> Product </th>
+                        <th> Category </th>
+                        <th> Stock </th>
+                        <th> Price </th>
+                        <th> Edit </th>
+                        <th> Delete </th>
+                      </tr>
+                    </thead>
+                          <tbody>
+                                <% count = 1 %>
+                                <% productData.forEach((element)=>{ %>
+                                      <tr>
+                                            <td>
+                                                  <%= count %>
+                                            </td>
+                                            <td>
+                                                  <img src="/products/crop/<%= element.images.image1 %>" alt="image" />
+                                                  <span class="pl-2"><%= element.name %></span>
+                                            </td>
+                                            <td> <%= element.category %> </td>
+                                            <td> <%= element.quantity %> </td>
+                                            <td> <%= element.price %> </td>
+                                            <td><a href="/admin/editProduct?id=<%= element._id %>"><button type="button" class="btn btn-inverse-info ">Edit</button></a></td>
+                                            <td><a href="/admin/deleteProduct?id=<%= element._id %>"><button type="button" class="btn btn-inverse-danger ">Delete</button></a></td>
+                                      </tr>
+
+                                <% count++ %>
+                                <%})%>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <!-- partial:partials/_footer.html -->
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+
+<%- include('../adminView/layout/adminFooter.ejs')%>

@@ -1,0 +1,63 @@
+<%- include('../adminView/layout/adminHeader.ejs')%>
+<%- include('../adminView/layout/adminSidebar.ejs')%>
+
+<div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row ">
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Order Status</h4>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th> No. </th>
+                        <th> User Name </th>
+                        <th> Email </th>
+                        <th> Contact </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                          <% let userCount = 1; %>
+                          <% if (userData && Array.isArray(userData)) { %>
+                                <!-- Iterate over userData here -->
+                                <% userData.forEach(function(user) { %>
+                                    <tr>  
+                                          <td><%= userCount %></td>
+                                          <td>
+                                            <!-- <img src="assets/images/faces/face1.jpg" alt="image" /> -->
+                                            <span class="pl-2"><%= user.name %> </span>
+                                          </td>
+                                          <td> <%= user.email %> </td>
+                                          <td> <%= user.mobile %> </td>
+                                          <td>
+                                          <% if(user.is_block){ %>
+                                                <a href="/admin/blockUser?id=<%= user._id %>"><button type="button" class="btn btn-inverse-success ">Unblock</button></a>
+                                          <% }else{ %>
+                                                <a href="/admin/blockUser?id=<%= user._id %>"><button type="button" class="btn btn-inverse-danger ">Block</button></a>
+                                          <% } %>
+                                          </td>
+                                    </tr>
+                                          <% userCount++; %>
+                                <% }); %>
+                            <% } else { %>
+                                <p>No user data available.</p>
+                            <% } %>                                
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<%- include('../adminView/layout/adminFooter.ejs')%>

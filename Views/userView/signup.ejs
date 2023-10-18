@@ -1,0 +1,50 @@
+<%- include('../userView/layouts/header.ejs')%>
+
+      <body>
+
+            <div class="wrapper-login" style="background-image: url('');">
+                  <div class="inner-login">
+                        <div class="image-holder">
+                              <img class="img-login" src="/userSide/images/sofa.png" alt="">
+                        </div>
+                        <form method="post" action="/clickedSignup">
+                              <h3 class="texts-login">Registration Form</h3>
+                              <div class="form-wrapper-login">
+                                    <input type="text" placeholder="Username" name="signupName" class="form-control-login style-login">
+                                    <i class="zmdi zmdi-account"></i>
+                              </div>
+                              <div class="form-wrapper-login">
+                                    <input type="text" name="signupEmail" placeholder="Email Address"
+                                          class="form-control-login style-login">
+                                    <i class="zmdi zmdi-email"></i>
+                              </div>
+                              <div class="form-wrapper-login">
+                                    <input type="number" placeholder="Mobile"
+                                          class="form-control-login style-login"
+                                          name="signupMobileNumber">
+                                    <i class="zmdi zmdi-email"></i>
+                              </div>
+                              <div class="form-wrapper-login">
+                                    <input type="password" name="signupPassword" placeholder="Password"
+                                          class="form-control-login style-login">
+                                    <i class="zmdi zmdi-lock"></i>
+                              </div>
+                              <div class="form-wrapper-login">
+                                    <input type="password" name="signupConfirmPassword" placeholder="Confirm Password"
+                                          class="form-control-login style-login">
+                                    <i class="zmdi zmdi-lock"></i>
+                              </div>
+                              <P style="color: red;"><%=locals.error?error:""%></P>
+                              <button type="submit" class="style-login button-login">Signup
+                                    <i class="zmdi zmdi-arrow-right"></i>
+                              </button>
+                              <br><br>
+                              <p>Already have an account? <a href="/login">Login</a></p>
+                              <br><br>
+                        </form>
+                  </div>
+            </div>
+
+      </body>
+
+      <%- include('../userView/layouts/footer.ejs')%>

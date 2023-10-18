@@ -1,0 +1,128 @@
+<%- include('../adminView/layout/adminHeader.ejs')%>
+<%- include('../adminView/layout/adminSidebar.ejs')%>
+
+<div class="main-panel">
+      <div class="content-wrapper">
+            <div class="row ">
+                  <div class="col-12 grid-margin">
+                        <div class="card">
+                              <div class="col-12 grid-margin stretch-card">
+                                    <div class="card">
+                                          <div class="card-body">
+                                                <h4 class="card-title">Add product</h4>
+                                                <form method="post" action="/admin/addedProduct"
+                                                      class="forms-sample"
+                                                      enctype="multipart/form-data">
+                                                      <div class="form-group">
+                                                            <label for="exampleInputName1">Product
+                                                                  Name</label>
+                                                            <input type="text" name="productName"
+                                                                  class="form-control"
+                                                                  required
+                                                                  id="exampleInputName1"
+                                                                  placeholder="Name">
+                                                      </div>
+                                                      <div class="form-group">
+                                                            <label for="exampleInputCategory">Category</label>
+                                                            <select name="category" class="form-control" id="exampleInputCategory">
+                                                                  <% categoryData.forEach((element)=>{ %>
+                                                                        <option><%=element.categoryName%></option>
+                                                                  <% }) %>
+                                                            </select>
+                                                      </div>                                                                            
+                                                      <div class="form-group">
+                                                            <label
+                                                                  for="exampleInputName1">Stock</label>
+                                                            <input type="number" name="quantity"
+                                                                  class="form-control"
+                                                                  required
+                                                                  id="exampleInputName1"
+                                                                  placeholder="Stock">
+                                                      </div>
+                                                      <div class="form-group">
+                                                            <label
+                                                                  for="exampleInputName1">Price</label>
+                                                            <input type="number" name="price"
+                                                                  class="form-control"
+                                                                  required
+                                                                  id="exampleInputName1"
+                                                                  placeholder="Price">
+                                                      </div>
+                                                      <!-- hashir -->
+                                                      <div style="display: flex;">
+                                                            <div
+                                                                  class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                  <div class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                        <label for="imageInput1" class="image-label ">Image 1
+                                                                              <div class="sqr-img">
+                                                                                    <img src="/products/images/ru89P.jpg" alt="">
+                                                                              </div>                                                                                            
+                                                                              <input name="image1" type="file" accept="image/*" id="imageInput1" accept="" class="imageInput">
+                                                                        </label>
+                                                                  </div>
+                                                            </div>
+                                                            <div
+                                                                  class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                  <div class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                        <label for="imageInput2" class="image-label ">Image 2
+                                                                              <div class="sqr-img">
+                                                                                    <img src="/products/images/ru89P.jpg" alt="">
+                                                                              </div>                                                                                            
+                                                                              <input name="image2" type="file" accept="image/*" id="imageInput2" accept="" class="imageInput">
+                                                                        </label>
+                                                                  </div>
+                                                            </div>
+                                                            <div
+                                                                  class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                  <div class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                        <label for="imageInput3" class="image-label ">Image 3
+                                                                              <div class="sqr-img">
+                                                                                    <img src="/products/images/ru89P.jpg" alt="">
+                                                                              </div>                                                                                            
+                                                                              <input name="image3" type="file" accept="image/*" id="imageInput3" accept="" class="imageInput">
+                                                                        </label>
+                                                                  </div>
+                                                            </div>
+                                                            <div
+                                                                  class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                  <div class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                        <label for="imageInput4" class="image-label ">Image 4
+                                                                              <div class="sqr-img">
+                                                                                    <img src="/products/images/ru89P.jpg" alt="">
+                                                                              </div>                                                                                            
+                                                                              <input name="image4" type="file" accept="image/*" id="imageInput4" accept="" class="imageInput">
+                                                                        </label>
+                                                                  </div>
+                                                            </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                            <label
+                                                                  for="exampleTextarea1">Description</label>
+                                                            <textarea class="form-control"
+                                                                  required
+                                                                  name="description"
+                                                                  id="exampleTextarea1"
+                                                                  rows="4"></textarea>
+                                                      </div>
+                                                      <button type="submit"
+                                                            class="btn btn-primary mr-2">Submit</button>
+                                                      <a href="/admin/productManagmen"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                                </form>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <!-- partial:partials/_footer.html -->
+      <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<%- include('../adminView/layout/adminFooter.ejs')%>

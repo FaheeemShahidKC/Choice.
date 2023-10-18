@@ -1,0 +1,224 @@
+<%- include('../userView/layouts/header.ejs')%>
+
+  <body>
+    <!-- Start Hero Section -->
+    <div class="hero">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-lg-5">
+            <div class="intro-excerpt">
+              <h1>Cart</h1>
+            </div>
+          </div>
+          <div class="col-lg-7">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Hero Section -->
+
+
+    <%if(cartProducts.length> 0){%>
+      <div class="untree_co-section before-footer-section">
+        <div class="container">
+          <div class="row mb-5">
+            <form class="col-md-12" method="post">
+              <div class="site-blocks-table">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="product-thumbnail">Image</th>
+                      <th class="product-name">Product</th>
+                      <th class="product-price">Price</th>
+                      <th class="product-quantity">Quantity</th>
+                      <th class="product-total">Total</th>
+                      <th class="product-remove">Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <% cartProducts.forEach((product)=>{ %>
+                      <tr>
+                        <td class="product-thumbnail">
+                          <img src="/products/crop/<%= product.productId.images.image1 %>" alt="Image"
+                            class="img-fluid">
+                        </td>
+                        <td class="product-name">
+                          <h2 class="h5 text-black">
+                            <%= product.productId.name %>
+                          </h2>
+                        </td>
+                        <td>$<%= product.productId.price %>
+                        </td>
+                        <td>
+                          <div class="input-group mb-3 d-flex align-items-center quantity-container"
+                            style="max-width: 120px;">
+                            <div class="input-group-prepend">
+                              <button
+                                onclick="changeQuantity('<%= product.userId %>','<%= product.productId._id %>',-1)"
+                                class="btn btn-outline-black decrease" type="button">&minus;</button>
+                            </div>
+                            <input type="text" class="form-control text-center quantity-amount"
+                              value="<%= product.count %>" placeholder="" aria-label="Example text with button addon"
+                              aria-describedby="button-addon1">
+                            <div class="input-group-append">
+                              <button onclick="changeQuantity('<%= product.userId %>','<%= product.productId._id %>',1)"
+                                class="btn btn-outline-black increase" type="button">&plus;</button>
+                            </div>
+                          </div>
+                        </td>
+                        <td>$ <%= product.totalPrice %>
+                        </td>
+                        <td><a onclick="deleteCartItem('<%= product.productId._id %>')"
+                            class="btn btn-black btn-sm">X</a></td>
+                      </tr>
+                      <% }) %>
+
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row mb-5">
+                <div class="col-md-6 mb-3 mb-md-0">
+                  <button class="btn btn-black btn-sm btn-block">Update Cart</button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="text-black h4" for="coupon">Coupon</label>
+                  <p>Enter your coupon code if you have one.</p>
+                </div>
+                <div class="col-md-8 mb-3 mb-md-0">
+                  <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
+                </div>
+                <div class="col-md-4">
+                  <button class="btn btn-black">Apply Coupon</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 pl-5">
+              <div class="row justify-content-end">
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-12 text-right border-bottom mb-5">
+                      <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <span class="text-black">Subtotal</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">$ <%= total[0].total %></strong>
+                    </div>
+                  </div>
+                  <div class="row mb-5">
+                    <div class="col-md-6">
+                      <span class="text-black">Total</span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <strong class="text-black">$ <%= total[0].total %></strong>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <a href="/checkout"><button class="btn btn-black btn-lg py-3 btn-block" 
+                        onclick="window.location='checkout.html'">Proceed To Checkout</button></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%}else{%>
+        <div class="untree_co-section before-footer-section"
+          style="display: flex; justify-content: center; align-items: center;">
+          <div class="col-md-6" style="align-items: center; display: flex; justify-content: center;">
+            <h6 style="color: rgb(71, 69, 69);">cart is Empty!!</h4>
+          </div>
+        </div>
+        <%}%>
+          <script>
+            function deleteCartItem(proId) {
+              console.log(proId);
+              swal
+                .fire({
+                  title: "Are You Sure?",
+                  Text: " You wont be able to revert this!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, delete it!",
+                  cancelButtonText: "cancel",
+                })
+                .then((result) => {
+                  if (result.isConfirmed) {
+                    $.ajax({
+                      url: "/removeCartItem",
+                      data: {
+                        product: proId,
+                      },
+                      method: "post",
+                      success: (response) => {
+                        if ((response.remove = true)) {
+                          location.reload()
+                          swal.fire({
+                            title: "Deleted!",
+                            text: "Your item has been deleted.",
+                            icon: "Suscces",
+                            timer: 1500,
+                            showConfirmButton: false,
+                          });
+                        }
+                      },
+                    });
+                  }
+                });
+            }
+
+
+
+            function changeQuantity(userId, proId, count) {
+              $.ajax({
+                url: "/cartQuantityUpdation",
+                data: {
+                  user: userId,
+                  product: proId,
+                  count: count,
+                },
+                method: "post",
+                success: (response) => {
+                  if (response.success) {
+                    location.reload()
+                  } else if (response.check) {
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "Out of stock",
+                    }).then(() => {
+                      location.reload();
+                    });
+                  } else {
+                    location.reload()
+                  }
+                },
+                error: (error) => {
+                  console.log(error);
+                },
+              });
+            }
+          </script>
+          <%- include('../userView/layouts/footer.ejs')%>

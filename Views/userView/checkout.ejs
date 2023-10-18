@@ -1,0 +1,151 @@
+<%- include('../userView/layouts/header.ejs')%>
+
+<!-- Start Hero Section -->
+<div class="hero">
+      <div class="container">
+            <div class="row justify-content-between">
+                  <div class="col-lg-5">
+                        <div class="intro-excerpt">
+                              <h1>Checkout</h1>
+                        </div>
+                  </div>
+                  <div class="col-lg-7">
+                        
+                  </div>
+            </div>
+      </div>
+</div>
+<!-- End Hero Section -->
+
+
+<div class="untree_co-section">
+<form id="orderForm">
+<div class="container">
+<div class="row mb-5">
+  <div class="col-md-12">
+    <div class="border p-4 rounded" role="alert">
+      Returning customer? <a href="#">Click here</a> to login
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 mb-5 mb-md-0">
+      <div class="p-3 p-lg-5 border bg-white" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+            <!-- <form id="billing-address-form"> -->
+              <h3>Select Billing Address</h3>
+              <div class="form-check">
+                <% if (address) { %>
+                  <% address.forEach((ele) => { %>
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="selectedAddress" value="<%= ele._id %>" required>
+                      <%= ele.fullname %>, <%= ele.houseName %>, <%= ele.city %>, <%= ele.state %>, <%= ele.pin %>
+                    </label>
+                    <br>
+                  <% }); %>
+                  <a href="/profile">Add address</a>
+                <% }else{ %>
+                  <a href="/profile">Add address</a>
+                  <% } %>
+              </div>
+            <!-- </form> -->
+      </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="row mb-5">
+      <div class="col-md-12">
+        <h2 class="h3 mb-3 text-black">Your Order</h2>
+        <div class="p-3 p-lg-5 border bg-white">
+          <table class="table site-block-order-table mb-5">
+            <thead>
+              <th>Product</th>
+              <th>Total</th>
+            </thead>
+            <tbody>
+            <% if(cartProducts){ %>     
+                  <% cartProducts.forEach((product)=>{ %>
+                  <tr>
+                  <td> <%= product.productId.name %> <strong class="mx-2"></strong> <%= product.productId.count %></td>
+                  <td> <%= product.totalPrice %> </td>
+                  </tr>
+            <% })} %>
+              <tr>
+                <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                <td class="text-black">$<%= total[0].total %></td>
+              </tr>
+              <tr>
+                <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                <strong>$<td id="total" class="text-black font-weight-bold"><%= total[0].total %></td></strong>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="COD" value="cash" checked>
+            <label class="form-check-label" for="cashOnDelivery">
+              Cash on Delivery
+            </label>
+          </div>
+          
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="chequePayment" value="cheque">
+            <label class="form-check-label" for="chequePayment">
+              Cheque Payment
+            </label>
+          </div>
+          
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal">
+            <label class="form-check-label" for="paypal">
+              Paypal
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Place Order</button>
+          </div>
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</form>
+</div>
+
+<script>
+$("#orderForm").submit((e) => {
+      e.preventDefault();
+      let addressId = $("input[name = selectedAddress]:checked").val();
+      let total = document.getElementById("total").innerHTML; // Modified to use jQuery instead of plain JavaScript
+      let payment = $("input[name = paymentMethod]:checked").val();
+      
+      $.ajax({
+        url: "/placeOrder",
+        method: "post",
+        data: { Total: total, addressId: addressId, payment: payment },
+        success: (response) => {
+          if (response.codsuccess == true) {
+            location.href = `/thankyou`;
+          } else if (response.walletFailed == true) {
+            swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Insufficient Balance In Your Wallet",
+              showConfirmButton: false,
+              showCancelButton: false,
+              timer: 1500,
+            });
+          } else {
+            razorPayment(response.order);
+          }
+        },
+      });
+    });
+
+</script>
+
+
+<%- include('../userView/layouts/footer.ejs')%>

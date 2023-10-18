@@ -1,0 +1,33 @@
+<%- include('../userView/layouts/header.ejs')%>
+
+<body>
+
+      <div class="wrapper-login" style="background-image: url('');">
+            <div class="inner-login">
+                  <div class="image-holder">
+                        <img class="img-login" src="/userSide/images/sofa.png" alt="">
+                  </div>
+                  <form action="/clickedLogin" method="post">
+                        <h3 class="texts-login">Login</h3>
+                        <div class="form-wrapper-login">
+                              <input type="email" placeholder="Email" name="loginEmail" class="form-control-login style-login">
+                              <i class="zmdi zmdi-lock"></i>
+                        </div>
+                        <div class="form-wrapper-login">
+                              <input type="password" placeholder="Password" name="loginPassword" class="form-control-login style-login">
+                              <i class="zmdi zmdi-lock"></i>
+                        </div>
+                        <P style="color: red;"><%=locals.error?error:""%></P>
+                        <button type="submit" class="style-login button-login">Login
+                              <i class="zmdi zmdi-arrow-right"></i>
+                        </button>
+                        <br><br>
+                        <p>Create new account? <a href="/signup">signup</a></p>
+                        <br><br>
+                  </form>
+            </div>
+      </div>
+
+</body>
+
+<%- include('../userView/layouts/footer.ejs')%>

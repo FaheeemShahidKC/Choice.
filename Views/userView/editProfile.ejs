@@ -1,0 +1,63 @@
+<%- include('../userView/layouts/header2.ejs') %>
+<div class="page-wrapper" style=" margin: 50px;">
+    <main class="main">
+        <div class="page-content">
+            <div class="dashboard">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="tab-content">
+                                <div class="form-wrapper">
+                                    <h3>Edit Address</h3>
+                                    <% if(userProfile[0]) { %>
+                                    <form action="/profileUpdated?id=<%= userProfile[0]._id %>" method="post">
+                                          
+                                          <div class="form-group">
+                                                <label for="addName">Full Name * </label>
+                                                <input type="text" class="form-control" id="name" value="<%= userProfile[0].name %>" name="addName" required>
+                                          </div>
+
+                                          <div class="form-group">
+                                                <label for="addEmail">Email *</label>
+                                                <input type="email" class="form-control" id="email" value="<%= userProfile[0].email %>" name="addEmail" required>
+                                          </div>
+
+                                          <div class="form-group">
+                                                <label for="addMobile">Mobile Number</label>
+                                                <input type="number" class="form-control" id="mobile" value="<%= userProfile[0].mobile %>" name="addMobile" required>
+                                          </div>
+
+                                          <div class="form-group">
+                                                <label for="addMobile">Current Password</label>
+                                                <p>(Only if you need to change password)</p>
+                                                <input type="password" class="form-control" id="currentPasssword" value="" name="addMobile">
+                                                <a href="/forgetPassword?id=<%= userProfile[0]._id %>" class="icon-edit">forget password?</a>
+                                          </div>
+
+                                          <div class="form-group">
+                                                <label for="addMobile">New Password</label>
+                                                <p>(Only if you need to change password)</p>
+                                                <input type="password" class="form-control" id="newPassword" value="" name="addMobile">
+                                          </div>
+
+                                          <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-primary">
+                                                      SAVE CHANGES <i class="icon-long-arrow-right"></i>
+                                                </button>
+                                                <a href="/profile" class="btn btn-secondary">
+                                                      CANCEL <i class="icon-long-arrow-right"></i>
+                                                </a>
+                                          </div>
+                                    </form>
+                                    <% } %>
+                                </div><!-- .End .tab-pane (Add Address Form) -->
+                            </div>
+                        </div><!-- End .col-md-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .dashboard -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+</div><!-- End .page-wrapper -->
+
+<%- include('../userView/layouts/footer2.ejs') %>
