@@ -46,7 +46,7 @@
                             <li class="nav-item active">
                                 <a class="nav-link" href="index.html">Home</a>
                             </li>
-                            <li><a class="nav-link" href="shop.html">Shop</a></li>
+                            <li><a class="nav-link" href="/shop">Shop</a></li>
                             <li><a class="nav-link" href="services.html">Services</a></li>
                             <li class="dropdown">
                                 <% if(name){ %>
@@ -66,6 +66,7 @@
                                 </div>
                             </li>
                         </ul>
+                        <%if(shop){%>
                         <ul>
                             <li>
                                 <form class="navbar-form navbar-left" role="search" action="/productSearch" method="post">
@@ -81,6 +82,7 @@
                                 </form>                                
                             </li>
                         </ul>
+                        <%}%>
                         <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                             <li><a class="nav-link" href=""><img src="/userSide/images/user.svg"></a></li>
                             <li><a class="nav-link" href="/cart"><img src="/userSide/images/cart.svg"></a></li>

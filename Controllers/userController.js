@@ -5,6 +5,7 @@ dotenv.config()
 const choiceUser = require("../Models/userModel");
 const choiceProduct = require("../Models/productModel");
 const choiceAddress = require("../Models/addressModel");
+const choiceCategory = require('../Models/categoryModel')
 
 //========================== setting as globel variable ==================
 let signupUser  
@@ -85,7 +86,7 @@ const loadHome  = async(req,res)=>{
                         .limit(itemsPerPage);
 
                   if(products){
-                        res.render('home', {products: products, currentPage: parseInt(page), totalPages: Math.ceil(totalCount / itemsPerPage), name: req.session.userName });
+                        res.render('home', {products: products, currentPage: parseInt(page), totalPages: Math.ceil(totalCount / itemsPerPage), name: req.session.userName , shop:null });
                   }else{
                         res.status(500).send("Internal Ser Error");
                   }
@@ -219,9 +220,9 @@ const productSearch = async (req, res) => {
 
             if(products){
                   const userName = req.session.userName
-                  res.render('home', { products: products, name:userName});
+                  res.render('shop', { products: products, name: userName});
             }else{
-                  res.render('home',{searchError : "No related result"})
+                  res.render('shop',{products:null , name: userName})
             }
             
       } catch (error) {
@@ -347,6 +348,78 @@ const passwordChanged = async(req,res)=>{
       }
 }
 
+//============================== Load shop =================================
+const loadShop = async(req,res)=>{
+      try {
+            const page = req.query.page || 1; // Get the requested page from the query string
+            const itemsPerPage = 16; // Number of items to display per page
+            const totalCount = await choiceProduct.countDocuments(); // Get the total count of products
+
+            if(totalCount){
+                  const skip = (page - 1) * itemsPerPage; // Calculate the number of items to skip
+                  const products = await choiceProduct
+                        .find()
+                        .skip(skip)
+                        .limit(itemsPerPage);
+
+                  if(products){
+                        const category = await choiceCategory.find({})
+                        res.render('shop', {products: products,shop:'shop', currentPage: parseInt(page), totalPages: Math.ceil(totalCount / itemsPerPage), name: req.session.userName ,category : category });
+                  }else{
+                        res.status(500).send("Internal Ser Error");
+                  }
+            }else{
+                  res.status(500).send("Internal  Error");
+            }
+      } catch (error) {
+            res.status(500).send("Internal  Error");
+            console.log(error.message);
+      }
+}
+
+const filter = async (req, res) => {
+      try {
+        const cat = req.body.category;
+        const price = req.body.price;
+        const category = await choiceCategory.find({});
+        let filter = {};
+    
+        if (cat === 'all' && price === 'all') {
+          // No specific category or price criteria
+          filter = await choiceProduct.find({});
+        } else if (cat && price === 'Low to High') {
+          // Filter by category and sort by price (Low to High)
+          filter = await choiceProduct.find({ category: cat }).sort({ price: 1 });
+        } else if (cat && price === 'High to Low') {
+          // Filter by category and sort by price (High to Low)
+          filter = await choiceProduct.find({ category: cat }).sort({ price: -1 });
+        }else if(cat && price == 'all'){
+            filter = await choiceProduct.find({ category: cat })
+        }
+    
+        if (filter.length === 0) {
+          // Handle the case when no products match the criteria
+          res.render('shop', {
+            products: null,
+            shop: 'shop',
+            name: req.session.userName,
+            category: category,
+            error: 'No products match your search criteria.',
+          });
+        } else {
+          res.render('shop', {
+            products: filter,
+            shop: 'shop',
+            name: req.session.userName,
+            category: category,
+          });
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    
+
 //=============================== Module exports =====================================
 module.exports =  {
       loadHome,
@@ -365,5 +438,7 @@ module.exports =  {
       forgetPassSendOtp,
       forgetResendOtp,
       forgetOtpVerified,
-      passwordChanged
+      passwordChanged,
+      loadShop,
+      filter
 }

@@ -89,5 +89,9 @@ userRoutes.get('/thankyou',orderController.thankyou)
 userRoutes.get('/orders',orderController.orders)
 userRoutes.get('/viewOrderDetails',orderController.viewOrderDetails)
 
+//=============================== Shop ====================================
+userRoutes.get('/shop',userController.loadShop)
+userRoutes.post('/filter',userController.filter)
+
 //==================== module Exports =========================
 module.exports = userRoutes
