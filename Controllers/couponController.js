@@ -90,54 +90,53 @@ exports.editedCoupon = async (req, res) => {
 
 exports.applyCoupon = async (req, res) => {
       try {
-        const code = req.body.code;
-        req.session.code = code;
-        const amount = Number(req.body.amount);
-        const userExist = await Coupon.findOne({
-          couponCode: code,
-          usedUsers: { $in: [req.session.user_id] },
-        });
-        
-        if (userExist) {
-          res.json({ user: true });
-        } else {
-          const couponData = await Coupon.findOne({ couponCode: code });
-          
-          if (couponData) {
-            if (couponData.usersLimit <= 0) {
-              res.json({ limit: true });
+            const code = req.body.code;
+            req.session.code = code;
+            const amount = parseInt(req.body.amount);
+            const userExist = await choiceCoupon.findOne({
+                  couponCode: code,
+                  usedUsers: { $in: [req.session.user_id] },
+            });
+
+            if (userExist) {
+                  res.json({ user: true });
             } else {
-              if (couponData.status == false) {
-                res.json({ status: true });
-              } else {
-                if (couponData.expiryDate <= new Date()) {
-                  res.json({ date: true });
-                }else if(couponData.activationDate >= new Date()){
-                  res.json({ active : true})
-                }else {
-                  if (couponData.criteriaAmount >= amount) {
-                    res.json({ cartAmount: true });
+                  const couponData = await choiceCoupon.findOne({ couponCode: code });
+
+                  if (couponData) {
+                        if (couponData.usersLimit <= 0) {
+                              res.json({ limit: true });
+                        } else {
+                              if (couponData.status == false) {
+                                    res.json({ status: true });
+                              } else {
+                                    if (couponData.expiryDate <= new Date()) {
+                                          res.json({ date: true });
+                                    } else if (couponData.activationDate >= new Date()) {
+                                          res.json({ active: true })
+                                    } else {
+                                          if (couponData.criteriaAmount >= amount) {
+                                                res.json({ cartAmount: true });
+                                          } else {
+                                                //user limit decreasing
+                                                await choiceCoupon.updateOne({ couponCode: code }, { $inc: { usersLimit: -1 } })
+                                                //user name adding
+                                                await choiceCoupon.updateOne({ couponCode: code }, { $push: { usedUsers: req.session.user_id } })
+
+                                                const disAmount = couponData.discountAmount;
+                                                const disTotal = Math.round(amount - disAmount);
+                                                return res.json({ amountOkey: true, disAmount, disTotal });
+                                                
+
+                                          }
+                                    }
+                              }
+                        }
                   } else {
-                    //user limit decreasing
-                    await Coupon.updateOne({couponCode:code},{$inc:{usersLimit: -1 }})
-                    //user name adding
-                    await Coupon.updateOne({couponCode:code},{$push:{usedUsers:req.session.user_id}})
-                      
-                      const disAmount = couponData.discountAmount;
-                      const disTotal = Math.round(amount - disAmount);
-                      
-                                    
-                      return res.json({ amountOkey: true, disAmount, disTotal });
-                   
+                        res.json({ invalid: true });
                   }
-                }
-              }
             }
-          } else {
-            res.json({ invalid: true });
-          }
-        }
       } catch (error) {
-        console.log(error.message);
+            console.log(error.message);
       }
-    };
+};

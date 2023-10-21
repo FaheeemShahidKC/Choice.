@@ -18,6 +18,8 @@ const userController = require('../Controllers/userController');
 const addressController = require('../Controllers/addressController');
 const cartController = require('../Controllers/cartController')
 const orderController = require('../Controllers/orderController')
+const couponController = require('../Controllers/couponController')
+const wishlistController = require('../Controllers/wishlistController')
 
 //========================= parsing setup ========================
 userRoutes.use(express.json())
@@ -92,6 +94,15 @@ userRoutes.get('/viewOrderDetails',orderController.viewOrderDetails)
 //=============================== Shop ====================================
 userRoutes.get('/shop',userController.loadShop)
 userRoutes.post('/filter',userController.filter)
+
+//=========================== Apply coupon ===========================
+userRoutes.post('/applyCoupon',couponController.applyCoupon)
+
+//=============================== wishlist =============================
+userRoutes.get('/wishlist',wishlistController.loadWishlist)
+userRoutes.post('/addToWishlist',wishlistController.addToWishlist)
+userRoutes.post('/removeWish',wishlistController.removeWishItem)
+userRoutes.post('/verify-payment',orderController.verifyPayment)
 
 //==================== module Exports =========================
 module.exports = userRoutes
