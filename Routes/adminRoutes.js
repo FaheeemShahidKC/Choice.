@@ -7,6 +7,7 @@ const adminController = require('../Controllers/adminController')
 const productController = require('../Controllers/productController')
 const categoryController = require('../Controllers/categoryController')
 const orderController = require('../Controllers/orderController')
+const couponController = require('../Controllers/couponController')
 
 //========================== Multer setup =========================
 const multer = require('../MiddleWares/multer')
@@ -55,6 +56,14 @@ adminRoutes.get('/orderManagment',orderController.loadOrderManagment)
 adminRoutes.get('/orderDetails',orderController.orderDetails)
 adminRoutes.get('/delivered',orderController.delivered)
 adminRoutes.get('/cancelled',orderController.cancelled)
+
+//============================= coupon managment ===============================
+adminRoutes.get('/couponManagment',couponController.couponManagment)
+adminRoutes.get('/addCoupon',couponController.addCoupon)
+adminRoutes.post('/addedCoupon',couponController.addedCoupon)
+adminRoutes.get('/block-coupons',couponController.blockingCoupon)
+adminRoutes.get('/edit-coupon-page',couponController.editCoupon)
+adminRoutes.post('/editedCoupon',couponController.editedCoupon)
 
 // =========================== Logout ========================
 adminRoutes.get('/logout',adminController.logout)

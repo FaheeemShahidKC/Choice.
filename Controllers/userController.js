@@ -6,6 +6,7 @@ const choiceUser = require("../Models/userModel");
 const choiceProduct = require("../Models/productModel");
 const choiceAddress = require("../Models/addressModel");
 const choiceCategory = require('../Models/categoryModel')
+const choiceCoupons = require('../Models/coopenModel')
 
 //========================== setting as globel variable ==================
 let signupUser  
@@ -261,16 +262,17 @@ const loadProfile = async (req, res) => {
             if(user){
                   const Details = await choiceUser.find({ _id : user });
                   const address = await choiceAddress.find({ users: user })
+                  const coupons = await choiceCoupons.find({})
                   if(address.length > 0){
                         const addressData = address[0].address
                         if (Details && Details.length > 0) {
-                              res.render('profile', { name: req.session.userName, Details: Details, address: addressData});
+                              res.render('profile', { name: req.session.userName, Details: Details, address: addressData , coupons:coupons});
                         } else {
                               console.log("User not found in the database.");
                               res.status(404).send("User not found");
                         }
                   }else{
-                        res.render('profile',{name: req.session.userName, Details: Details, address : null})
+                        res.render('profile',{name: req.session.userName, Details: Details, address : null , coupons:coupons})
                   }
             }else{
                   console.log("No user");

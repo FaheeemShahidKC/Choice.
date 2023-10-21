@@ -1,0 +1,73 @@
+<%- include('../adminView/layout/adminHeader.ejs')%>
+<%- include('../adminView/layout/adminSidebar.ejs')%>
+
+<div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row ">
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Category Management</h4>
+                <a href="/admin/addCoupon"><button type="button" class="btn btn-outline-primary btn-fw">Add Coupon</button></a>
+                <br><br><br>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th> No. </th>
+                        <th> Coupon Code </th>
+                        <th> Discount price </th>
+                        <th> Criteria Amount </th>
+                        <th> Activation Date </th>
+                        <th> Expiry Date </th>
+                        <th> Users Limit </th>
+                        <th> Used Users </th>
+                        <th> Action </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if(coupons.length > 0){ %>
+                        <% coupons.forEach((coupons)=> { %>
+                    <tr>
+                        <td><%= coupons.couponName %></td>
+                        <td><%= coupons.couponCode %></td>
+                        <td><%= coupons.discountAmount %></td>
+                        <td><%= coupons.criteriaAmount %></td>
+                        <td><%= coupons.activationDate.toLocaleDateString('en-US', { year:
+                            'numeric', month: 'short', day: '2-digit'
+                            }).replace(/\//g, '-') %></td>
+                            <td><%= coupons.expiryDate.toLocaleDateString('en-US', { year:
+                                'numeric', month: 'short', day: '2-digit'
+                                }).replace(/\//g, '-') %></td>
+                                
+                        <td><%= coupons.usersLimit %></td>
+                        <td><%= coupons.usedUsers.length %></td>
+                        <td><a href="/admin/edit-coupon-page?id=<%= coupons._id %>" class="badge badge-info">Update</a></td>
+                        <% if(coupons.status == true ){ %>
+                            <td><a href="/admin/block-coupons?id=<%= coupons._id %>" class="badge badge-danger" onclick="return confirm('Are you sure you? Do you want to Block ?')">Block</a></td>
+                        <%}else if(coupons.status == false ){%>
+                            <td><a href="/admin/block-coupons?id=<%= coupons._id %>" class="badge badge-success" onclick="return confirm('Are you sure you? Do you want to Unblock ?')">Unblock</a></td>
+                            <% } %>
+                    </tr>
+                    <% }) %>
+                    <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <!-- partial:partials/_footer.html -->
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<%- include('../adminView/layout/adminFooter.ejs')%>
