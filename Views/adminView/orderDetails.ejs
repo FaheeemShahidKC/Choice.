@@ -56,10 +56,7 @@
                             <th>Category</th>
                             <th>Quantity</th>
                             <th>Order status</th>
-                            <% if(orders.status == "placed"){ %>
-                            <th>Action</th>
-                            <th>Action</th>
-                            <% } %>
+                            
           
                             
                           </tr>
@@ -82,10 +79,7 @@
                             <td><%= data.count %></td>
                             
                             <td style="color: green;"><%= orders.status %></td>
-                            <% if(orders.status == "placed"){ %>
-                              <td><p><a href="/admin/delivered?id=<%= orders._id %>" class="btn btn-inverse-success ">Deliver</a></p></td>
-                              <td><a href="/admin/cancelled?id=<%= orders._id %>" class="btn btn-inverse-danger ">Cancel</a></td>
-                            <% }%>
+                            
                           </tr>
                           <!-- Button trigger modal -->
                           <!-- Button trigger modal -->

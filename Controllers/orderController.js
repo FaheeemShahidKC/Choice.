@@ -3,7 +3,8 @@ const choiceUser = require('../Models/userModel')
 const choiceorder = require('../Models/orderModel');
 const choiceProduct = require('../Models/productModel');
 const choiceAddress = require('../Models/addressModel')
-const Razorpay = require('razorpay')
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
 
 //==========================RAZORPAY INSTANCE================================
 var instance = new Razorpay({
@@ -64,6 +65,7 @@ exports.placeOrder = async (req, res) => {
 
                                     instance.orders.create(options, function (err, order) {
                                           res.json({ order });
+                                          console.log(order);
                                     });
                               }
                         }
@@ -80,9 +82,7 @@ exports.placeOrder = async (req, res) => {
 exports.verifyPayment = async (req, res) => {
       try {
             const cartData = await choicecart.findOne({ userId: req.session.user_id });
-            console.log("oooooooooo");
             const products = cartData.products;
-            console.log("ooooiiiioooooo");
             const details = req.body;
             const hmac = crypto.createHmac("sha256", process.env.RazorKey);
 
@@ -151,7 +151,7 @@ exports.orders = async (req, res) => {
       }
 }
 
-//========================= view orders ==============================
+//========================= view order details ==============================
 exports.viewOrderDetails = async (req, res) => {
       try {
             const id = req.query.id;
@@ -166,7 +166,11 @@ exports.viewOrderDetails = async (req, res) => {
             },
                   { "address.$": 1 }
             );
-            res.render("orderDetails", { orders: orderedProduct, address: deliveryAddress });
+            const currentDate = new Date();
+            const deliveryDate = orderedProduct.date;
+            const timeDiff = currentDate - deliveryDate;
+            const daysDiff = Math.floor(timeDiff / (24 * 60 * 60 * 1000));
+            res.render("orderDetails", { orders: orderedProduct, address: deliveryAddress, daysDiff: daysDiff });
       } catch (error) {
             console.log(error.message);
       }
@@ -209,9 +213,9 @@ exports.delivered = async (req, res) => {
             const orderId = req.query.id
             const updatedOrder = await choiceorder.updateOne(
                   { _id: orderId },
-                  { $set: { status: 'Delivered' } }
+                  { $set: { status: 'Delivered', deliveryDate: new Date() } }
             );
-            res.redirect('/orderDetails')
+            res.redirect('/admin/orderManagment')
       } catch (error) {
             console.log(error.message);
       }
@@ -224,8 +228,97 @@ exports.cancelled = async (req, res) => {
                   { _id: orderId },
                   { $set: { status: 'Cancelled' } }
             );
-            res.redirect('/orderDetails')
+            res.redirect('/admin/orderManagment')
       } catch (error) {
             console.log(error.message);
+      }
+}
+
+exports.cancelOrder = async (req, res) => {
+      try {
+            const orderId = req.query.id;
+            // Find the order by orderId
+            const order = await choiceorder.findOne({ _id: orderId });
+
+
+            if (!order) {
+                  return res.status(404).send('Order not found');
+            }
+
+            const amount = order.totalAmount;
+            // Create a history object
+            const walletuser = await choiceUser.find({ _id: req.session.user_id })
+            const totalWallet = walletuser[0].wallet + amount
+            const history = {
+                  date: new Date(),
+                  amount: amount,
+                  reason: req.body.cancelReason
+            };
+
+            if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
+                  // Update the user's wallet and wallet history
+                  const user = await choiceUser.updateOne(
+                        { _id: req.session.user_id },
+                        {
+                              $set: { wallet: totalWallet },
+                              $push: { walletHistory: history }
+                        }
+                  );
+            }
+            // Update the order's status to 'Cancelled'
+            const updatedOrder = await choiceorder.updateOne(
+                  { _id: orderId },
+                  { $set: { status: 'Cancelled' } }
+            )
+            // Redirect to the '/orders' route
+            res.redirect('/orders');
+      } catch (error) {
+            // Handle errors, e.g., by sending an error response or logging the error.
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+      }
+};
+
+exports.returnOrder = async (req, res) => {
+      try {
+            const orderId = req.query.id;
+            // Find the order by orderId
+            const order = await choiceorder.findOne({ _id: orderId });
+
+
+            if (!order) {
+                  return res.status(404).send('Order not found');
+            }
+
+            const amount = order.totalAmount;
+            // Create a history object
+            const walletuser = await choiceUser.find({ _id: req.session.user_id })
+            const totalWallet = walletuser[0].wallet + amount
+            const history = {
+                  date: new Date(),
+                  amount: amount,
+                  reason: req.body.returnReason
+            };
+            if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
+            // Update the user's wallet and wallet history
+            const user = await choiceUser.updateOne(
+                  { _id: req.session.user_id },
+                  {
+                        $set: { wallet: totalWallet },
+                        $push: { walletHistory: history }
+                  }
+            );
+            }
+            // Update the order's status to 'Cancelled'
+            const updatedOrder = await choiceorder.updateOne(
+                  { _id: orderId },
+                  { $set: { status: 'Returned' } }
+            )
+            // Redirect to the '/orders' route
+            res.redirect('/orders');
+      } catch (error) {
+            // Handle errors, e.g., by sending an error response or logging the error.
+            console.error(error);
+            res.status(500).send('Internal Server Error');
       }
 }

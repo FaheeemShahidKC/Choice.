@@ -263,10 +263,12 @@ const loadProfile = async (req, res) => {
                   const Details = await choiceUser.find({ _id : user });
                   const address = await choiceAddress.find({ users: user })
                   const coupons = await choiceCoupons.find({})
+                  const wallet = Details[0].wallet
+                  const walletHistory = Details[0].walletHistory
                   if(address.length > 0){
                         const addressData = address[0].address
                         if (Details && Details.length > 0) {
-                              res.render('profile', { name: req.session.userName, Details: Details, address: addressData , coupons:coupons});
+                              res.render('profile', { name: req.session.userName,walletHistory : walletHistory, walletAmount : wallet, Details: Details, address: addressData , coupons:coupons});
                         } else {
                               console.log("User not found in the database.");
                               res.status(404).send("User not found");

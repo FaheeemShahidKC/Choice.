@@ -236,8 +236,7 @@ $("#orderForm").submit((e) => {
     });
 
     function razorPayment(order) {
-    // console.log(process.env.RazorId);
-    var options = {
+      var options = {
       key: "rzp_test_adMDdPBwl0QYni", // Enter the Key ID generated from the Dashboard
       amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: "INR",
@@ -251,7 +250,7 @@ $("#orderForm").submit((e) => {
       prefill: {
         //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
         name: "Choice. Pvt.Ltd", //your customer's name
-        email: "ChoiceDot@example.com",
+        email: "Choice@example.com",
         contact: "910000000369", //Provide the customer's phone number for better conversion rates
       },
       notes: {
@@ -261,7 +260,6 @@ $("#orderForm").submit((e) => {
         color: "#3b5d50",
       },
     };
-
     var rzp1 = new Razorpay(options);
     rzp1.open();
   }
@@ -278,7 +276,7 @@ $("#orderForm").submit((e) => {
       },
       success: (response) => {
         if (response.codsuccess == true) {
-          location.href = `/orderSuccess/${response.orderid}`;
+          location.href = `/thankyou`;
         } else {
           swal.fire({
             positon: "center",

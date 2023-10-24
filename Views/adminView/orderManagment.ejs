@@ -18,7 +18,6 @@
                                                                         <th> Payment </th>
                                                                         <th> Amount </th>
                                                                         <th> Status </th>
-                                                                        <th> Details </th>
                                                                   </tr>
                                                             </thead>
                                                             <tbody>
@@ -32,6 +31,10 @@
                                                                                     <td><%= element.paymentMethod %></td>
                                                                                     <td><%= element.totalAmount %></td>
                                                                                     <td style="color: green;"><%= element.status %></td>
+                                                                                    <% if(element.status == "placed"){ %>
+                                                                                          <td><a href="/admin/delivered?id=<%= element._id %>" ><button class="btn btn-inverse-success ">Deliver</button></a></td>
+                                                                                          <td><a href="/admin/cancelled?id=<%= element._id %>" ><button class="btn btn-inverse-danger ">Cancel</button></a></td>
+                                                                                        <% }%>
                                                                                     <td><a href="/admin/orderDetails?id=<%= element._id %>"><button type="button" class="btn btn-inverse-primary ">Details</button></a></td>
                                                                               </tr>
                                                                         <% count++ %>

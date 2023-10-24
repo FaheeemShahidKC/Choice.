@@ -104,5 +104,8 @@ userRoutes.post('/addToWishlist',wishlistController.addToWishlist)
 userRoutes.post('/removeWish',wishlistController.removeWishItem)
 userRoutes.post('/verify-payment',orderController.verifyPayment)
 
+userRoutes.post('/cancelOrder',orderController.cancelOrder)
+userRoutes.post('/returnOrder',orderController.returnOrder)
+
 //==================== module Exports =========================
 module.exports = userRoutes

@@ -1,294 +1,172 @@
 <%- include('../userView/layouts/header2.ejs') %>
 
-<main class="main">
-      <div
-        class="page-header text-center"
-        style="background-image: url('assets/images/page-header-bg.jpg')"
-      >
-        <div class="container">
-          <h1 class="page-title">Orders<span>Details</span></h1>
-        </div>
-        <!-- End .container -->
+
+  <main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+      <div class="container">
+        <h1 class="page-title">Orders<span>Details</span></h1>
       </div>
-      <!-- End .page-header -->
-      <nav aria-label="breadcrumb" class="breadcrumb-nav">
+    </div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="/orders">Orders</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Details</li>
+        </ol>
+      </div>
+    </nav>
+
+    <div class="page-content">
+      <div class="checkout">
         <div class="container">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="/orders">Orders</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Details</li>
-          </ol>
-        </div>
-        <!-- End .container -->
-      </nav>
-      <!-- End .breadcrumb-nav -->
-    
-      <div class="page-content">
-        <div class="checkout">
-          <div class="container">
-            <!-- End .checkout-discount -->
-            <div>
-              <% if(orders.status == "delivered"){ %>
+          <div>
+            <% if (orders.status=="delivered" ) { %>
               <div class="col-6 col-lg-4 col-xl-2">
                 <div class="btn-wrap">
-                  
                   <a href="/invoice/<%= orders._id %>" class="btn btn-outline-dark btn-round">Download Invoice</a>
-                </div><!-- End .btn-wrap -->
-              </div><!-- End .col-md-4 col-lg-2 -->
+                </div>
+              </div>
               <% } %>
-              
-              <div class="row">
-                <!-- End .col-lg-9 -->
-                <aside class="col-lg-12">
-                  <div class="summary">
-                    <h3 class="summary-title">Your Order</h3>
-                    <!-- End .summary-title -->
-    
-                    <table class="table table-summary">
-                      <thead>
-                        <tr>
-                          <th>Products</th>
-                          <th>Price</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% if( orders.products.length > 0 ){
-                        orders.products.forEach((data)=>{ %>
-    
-                        <tr>
-                          <td>
-                            <h6>
-                              <%= data.productId.name %>&nbsp&nbsp<span
-                                style="
-                                  border-radius: 50%;
-                                  font-weight: 100;
-                                  background-color: #c96;
-                                  padding: 3px 7px;
-                                "
-                                class="badge"
-                                ><%= data.count %></span
-                              >
-                            </h6>
-                          </td>
-                          <td>₹ <%= data.totalPrice %></td>
-                        </tr>
-                        <% }) %> <%}%>
-                        <tr class="summary-subtotal">
-                          <td>Billing Address: &nbsp</td>
-                          <td><%= address.address[0].fullname %>
-                              <br>
-                              <%= address.address[0].mobile %>
-                              <br>
-                              <%= address.address[0].email %>
-                              <br>
-                              <%= address.address[0].houseName %>
-                              <br>
-                              <%= address.address[0].city %>
-                              <br>
-                              <%= address.address[0].state %>
-                              <br>
-                              <%= address.address[0].pin %></td>
-                        </tr>
-                        <tr>
-                          <td>Ordered Date:</td>
-                          <td>
-                            <%= orders.date.toLocaleDateString('en-US', { year:
-                            'numeric', month: 'short', day: '2-digit'
-                            }).replace(/\//g, '-') %>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Order Status:</td>
-                          <td><%= orders.status %></td>
-                        </tr>
-                        <tr>
-                          <td>Payment Method:</td>
-                          <td><%= orders.paymentMethod %></td>
-                        </tr>
-                        <% if(orders.status == "delivered"){ %>
-                        
-                        <tr>
-                          <td>Reurn Policy:</td>
-                          <td>If you've received them in a condition that is physically damaged, has missing parts or accessories <br>
-                              you can return the product within <b style="color: red;"><%= 7-daysDiff %> Days</b>.
-                          </td>
-                        </tr>
-                        <% } %>
-                        
-    
-                        <tr class="summary-total">
-                          <td>Total:</td>
-                          <td><b><%= orders.totalAmount %></b></td>
-                        </tr>
-                        <!-- End .summary-total -->
-                      </tbody>
-                    </table>
-                    <!-- End .table table-summary -->
-                    
-<!--                     
-                    <% if(orders.status == "Delivered" || orders.status == "pending"){ %>
-                    <button
-                      type="button"
-                      class="btn btn-outline-primary-2 btn-order btn-block"
-                      data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    >
-                      <span class="btn-text">Cancel Order</span>
-                      <span class="btn-hover-text"
-                        >Proceed to Cancel the Order</span
-                      >
-                    </button>
-    
-                    <%}else if(orders.status == "Delivered") {%>
-                      <button
-                      type="button"
-                      class="btn btn-outline-primary-2 btn-order btn-block"
-                      data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    >
-                      <span class="btn-text">Return Product</span>
-                      <span class="btn-hover-text"
-                        >Proceed to Return the Product</span
-                      >
-                    </button>
-    
-                      <% } %> -->
-    
-    
-                  </div>
-                  <!-- End .summary -->
-                </aside>
-                <% if(orders.status == "delivered" && daysDiff <= 7) {%>
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header p-5">
-                          <h5  id="exampleModalLabel">Are you sure?</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body p-5">
-                          <form action="/productReturn" method="post">
-                            <input type="hidden" value="<%= orders._id %>" name="orderid">
-                            <input type="hidden" value="<%= orders.totalAmount %>" name="totalPrice">
-      
-                            <div class="mb-3">
-                              <label for="message-text" class="col-form-label">Give reason for order returning:</label>
-                              <textarea name="reason" class="form-control" id="message-text" placeholder="eg: Not in good condition."></textarea>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                              <button type="submit" class="btn btn-primary">Yes</button>
-                            </div>
-                          </form>
-                        </div>
-                        
-                      </div>
+
+                <div class="row">
+                  <aside class="col-lg-12">
+                    <div class="summary">
+                      <h3 class="summary-title">Your Order</h3>
+
+                      <table class="table table-summary">
+                        <thead>
+                          <tr>
+                            <th>Products</th>
+                            <th>Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% if (orders.products.length> 0) {
+                            orders.products.forEach((data) => { %>
+                            <tr>
+                              <td>
+                                <h6>
+                                  <%= data.productId.name %>&nbsp&nbsp<span
+                                      style="border-radius: 50%; font-weight: 100; background-color: #c96; padding: 3px 7px;"
+                                      class="badge">
+                                      <%= data.count %>
+                                    </span>
+                                </h6>
+                              </td>
+                              <td>₹ <%= data.totalPrice %>
+                              </td>
+                            </tr>
+                            <% }) %>
+                              <% } %>
+                                <tr class="summary-subtotal">
+                                  <td>Billing Address: &nbsp</td>
+                                  <td>
+                                    <%= address.address[0].fullname %><br>
+                                      <%= address.address[0].mobile %><br>
+                                        <%= address.address[0].email %><br>
+                                          <%= address.address[0].houseName %><br>
+                                            <%= address.address[0].city %><br>
+                                              <%= address.address[0].state %><br>
+                                                <%= address.address[0].pin %>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Ordered Date:</td>
+                                  <td>
+                                    <%= orders.date.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                                      day: '2-digit' }).replace(/\//g, '-' ) %>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Order Status:</td>
+                                  <td>
+                                    <%= orders.status %>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Payment Method:</td>
+                                  <td>
+                                    <%= orders.paymentMethod %>
+                                  </td>
+                                </tr>
+                                <% if (orders.status=="Delivered" ) { %>
+                                  <tr>
+                                    <td>Return Policy:</td>
+                                    <td>If you've received them in a condition that is physically damaged, has missing
+                                      parts or accessories <br> you can return the product within <b
+                                        style="color: red;">
+                                        <%= 7-daysDiff %> Days
+                                      </b>.</td>
+                                  </tr>
+                                  <% } %>
+                                    <tr class="summary-total">
+                                      <td>Total:</td>
+                                      <td><b>
+                                          <%= orders.totalAmount %>
+                                        </b></td>
+                                    </tr>
+                        </tbody>
+                      </table>
+                      <% if (orders.status=="placed" || orders.status=="pending" ) { %>
+                        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab"
+                          aria-controls="tab-address" aria-selected="false"> <button type="button"
+                            class="btn btn-outline-primary-2 btn-order btn-block">
+                            <span class="btn-text">Cancel Order</span>
+                            <span class="btn-hover-text">Proceed to Cancel the Order</span>
+                          </button></a>
+                        <% } else if (orders.status=="Delivered" && daysDiff <=7) { %>
+                          <a class="nav-link" id="tab-return-link" data-toggle="tab" href="#tab-return" role="tab"
+                          aria-controls="tab-return" aria-selected="false"><button type="button" class="btn btn-outline-primary-2 btn-order btn-block"
+                            data-toggle="modal" data-target="#returnReasonModal">
+                            <span class="btn-text">Return Product</span>
+                            <span class="btn-hover-text">Proceed to Return the Product</span>
+                          </button></a>
+                          <% } %>
+                    </div>
+                  </aside>.
+                  <% if (orders.status=="placed" || orders.status=="pending" ) { %>
+                  <div style="width: 1180px;" class="tab-pane fade" id="tab-address" role="tabpanel"
+                    aria-labelledby="tab-address-link">
+                    <div id="cancel" class="summary">
+                      <form action="/cancelOrder?id=<%=orders._id%>" method="post">
+                        Enter the reason for cancellation <br><br>
+                        <input type="text" style="width: 1075px;" name="cancelReason"><br><br>
+                        <!-- Add a dropdown menu for refund method -->
+                        <label for="refundMethod">Select Refund Method:</label>
+                        <select id="refundMethod" name="refundMethod">
+                          <option value="wallet">Refund to Wallet</option>
+                          <option value="bank">Refund to Bank Account</option>
+                        </select><br><br>
+                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                          <span>Confirm</span>
+                        </button>
+                      </form>
                     </div>
                   </div>
-    
-                  <% }else{ %>
-    
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header p-5">
-                        <h5  id="exampleModalLabel">Are you sure?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body p-5">
-                        <form action="/orderCancel" method="post">
-                          <input type="hidden" value="<%= orders._id %>" name="orderid">
-                          <input type="hidden" value="<%= orders.totalAmount %>" name="totalPrice">
-    
-                          <% if(orders.paymentMethod != "COD" && orders.status != "pending"){ %>
-    
-                          <div class="mb-3 ">
-                            <label for="recipient-name" class="col-form-label">Choose Refund Option:</label>
-                            <select class="form-select form-control" aria-label="Default select example" name="refundOption">
-                              <option value="Wallet" class="form-control" id="recipient-name">Wallet</option>
-                            
-                            
-                          </select>
-                          </div>
-    
-                          <% } %>
-    
-                          <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Give reason for order cancelling:</label>
-                            <textarea name="reason" class="form-control" id="message-text" placeholder="eg: I changed my mind"></textarea>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="submit" class="btn btn-primary">Yes</button>
-                          </div>
+                  <% } else if (orders.status=="Delivered" && daysDiff <=7) { %>
+                    <div style="width: 1180px;" class="tab-pane fade" id="tab-return" role="tabpanel" aria-labelledby="tab-return-link">
+                      <div id="cancel" class="summary">
+                        <form action="/returnOrder?id=<%=orders._id%>" method="post">
+                          Enter the reason for Returning <br><br>
+                          <input type="text" style="width: 1075px;" name="returnReason"><br><br>
+                          <!-- Add a dropdown menu for refund method -->
+                          <label for="refundMethod">Select Refund Method:</label>
+                          <select id="refundMethod" name="refundMethod">
+                            <option value="wallet">Refund to Wallet</option>
+                            <option value="bank">Refund to Bank Account</option>
+                          </select><br><br>
+                          <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                            <span>Confirm</span>
+                          </button>
                         </form>
                       </div>
-                      
-                    </div>
-                  </div>
-                </div>
-                <% } %>
-                
-    
-                <!-- <div class="modal fade" id="exampleModal<%= orders._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
-                  <div class="modal-dialog ">
-                      <form action="/orderCancel" method="post">
-                          <input type="hidden" value="<%= orders._id %>" name="orderid">
-                          <input type="hidden" value="<%= orders.totalAmount %>" name="totalPrice">
-                          
-                          
-                         
-                    <div class="modal-content" >
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Reason for cancel</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                          
-                         <p class="mx-5 mt-2 "> <input type="radio" value=" Mind changed"  name="reason" required> <span class="font-weight-bold">  Mind changed </span></p>
-                         <p class="mx-5"> <input type="radio" value="Unexpected Shipping costs" name="reason" required> <span class="font-weight-bold">  Unexpected Shipping costs </span></p>
-                         <p class="mx-5 mb-2"> <input type="radio" value=" Arriving time is high" name="reason" required><span class="font-weight-bold">  Arriving time is high </span></p>
-                         <p class="mx-5 mb-2"> <input type="radio" value="other" name="reason" required><span class="font-weight-bold">  other  </span></p>
-                         
-                        </div>
-                        <div class="modal-footer" style="border: none;">
-                        <button type="button" class="btn-primary " data-bs-dismiss="modal" style="background-color: rgb(47, 255, 106);width: 5rem;border:none;">No</button>
-                        <button type="submit" class="btn-primary " style=" width: 5rem;border:none;" >Yes</button>
-                      </div>
-                    </div>
-                  </form>
-                  </div>
-                </div> -->
-    
-    
-                
-              </div>
-              <!-- End .row -->
+                    </div>                    
+                  <% } %>
                 </div>
           </div>
-          <!-- End .container -->
         </div>
-        <!-- End .checkout -->
       </div>
-      <!-- End .page-content -->
-    </main>
-    <!-- End .main -->
-    
-    <script>
-      var exampleModal = document.getElementById('exampleModal')
-    exampleModal.addEventListener('show.bs.modal', function (event) {
-      // Button that triggered the modal
-      var button = event.relatedTarget
-      // Extract info from data-bs-* attributes
-      var recipient = button.getAttribute('data-bs-whatever')
-      // If necessary, you could initiate an AJAX request here
-      // and then do the updating in a callback.
-      //
-      // Update the modal's content.
-      var modalTitle = exampleModal.querySelector('.modal-title')
-      var modalBodyInput = exampleModal.querySelector('.modal-body input')
-    
-      modalTitle.textContent = 'New message to ' + recipient
-      modalBodyInput.value = recipient
-    })
-    </script>
+  </main>
 
-<%- include('../userView/layouts/footer2.ejs') %>
+  <%- include('../userView/layouts/footer2.ejs') %>
