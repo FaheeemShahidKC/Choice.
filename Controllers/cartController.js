@@ -80,7 +80,11 @@ exports.loadCart = async (req, res) => {
                           },
                         },
                   ]);
-                  res.render('cart', { name: req.session.userName, cartProducts: cart.products ,total : total })
+                  if(cart){
+                        res.render('cart', { name: req.session.userName, cartProducts: cart.products ,total : total })
+                  }else{
+                        res.render('cart', { name: req.session.userName ,total : total }) 
+                  }
             } else {
                   res.redirect('/login')
             }

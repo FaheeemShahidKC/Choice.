@@ -224,18 +224,20 @@
       </div>
       <!-- End Popular Product -->
 
+
+      <% if (typeof banners !== "undefined" && banners.length > 0) { %>
       <!-- Start Testimonial Slider -->
       <div class="testimonial-section">
             <div class="container">
                   <div class="row">
                         <div class="col-lg-7 mx-auto text-center">
-                              <h2 class="section-title">Testimonials</h2>
+                              <h2 class="section-title" style="color: #3b5d50;">Something for you</h2>
                         </div>
                   </div>
 
-                  <div class="row justify-content-center">
-                        <div class="col-lg-12">
-                              <div class="testimonial-slider-wrap text-center">
+                  <div class="row justify-content-center" style="height: 500px;">
+                        <div class="col-lg-12" style="height: 500px;">
+                              <div class="testimonial-slider-wrap text-center" style="height: 500px;">
 
                                     <div id="testimonial-nav">
                                           <span class="prev" data-controls="prev"><span
@@ -244,107 +246,28 @@
                                                       class="fa fa-chevron-right"></span></span>
                                     </div>
 
-                                    <div class="testimonial-slider">
-
-                                          <div class="item">
-                                                <div class="row justify-content-center">
-                                                      <div class="col-lg-8 mx-auto">
-
-                                                            <div class="testimonial-block text-center">
-                                                                  <blockquote class="mb-5">
-                                                                        <p>&ldquo;Donec facilisis quam ut purus rutrum
-                                                                              lobortis. Donec vitae odio quis nisl
-                                                                              dapibus malesuada. Nullam ac aliquet
-                                                                              velit. Aliquam vulputate velit imperdiet
-                                                                              dolor tempor tristique. Pellentesque
-                                                                              habitant morbi tristique senectus et netus
-                                                                              et malesuada fames ac turpis egestas.
-                                                                              Integer convallis volutpat dui quis
-                                                                              scelerisque.&rdquo;</p>
-                                                                  </blockquote>
-
-                                                                  <div class="author-info">
-                                                                        <div class="author-pic">
-                                                                              <img src="/userSide/images/person-1.png"
-                                                                                    alt="Maria Jones" class="img-fluid">
-                                                                        </div>
-                                                                        <h3 class="font-weight-bold">Maria Jones</h3>
-                                                                        <span class="position d-block mb-3">CEO,
-                                                                              Co-Founder, XYZ Inc.</span>
-                                                                  </div>
-                                                            </div>
-
-                                                      </div>
+                                    
+                                          <div class="testimonial-slider" style="height: 500px;">
+                                            <% banners.forEach((banner) => { %>
+                                                <%if(banner.status){%>
+                                            <div class="item" >
+                                              <div class="row justify-content-center">
+                                                <div class="col-lg-8 mx-auto" style="background-image: url('/banner/<%= banner.image %>'); background-size: cover; height: 500px; width: 890px;">
+                                                  <div class="testimonial-block text-center">
+                                                    <h2 style="color: aliceblue; padding-top: 10px;"><%= banner.title %></h2>
+                                                    <blockquote class="mb-5">
+                                                      <p style="color: black;">&ldquo;<%= banner.description %>&rdquo;</p>
+                                                    </blockquote>
+                                                    <!-- Additional content for each banner -->
+                                                  </div>
                                                 </div>
+                                              </div>
+                                            </div>
+                                            <%}%>
+                                            <% }) %>
                                           </div>
-                                          <!-- END item -->
-
-                                          <div class="item">
-                                                <div class="row justify-content-center">
-                                                      <div class="col-lg-8 mx-auto">
-
-                                                            <div class="testimonial-block text-center">
-                                                                  <blockquote class="mb-5">
-                                                                        <p>&ldquo;Donec facilisis quam ut purus rutrum
-                                                                              lobortis. Donec vitae odio quis nisl
-                                                                              dapibus malesuada. Nullam ac aliquet
-                                                                              velit. Aliquam vulputate velit imperdiet
-                                                                              dolor tempor tristique. Pellentesque
-                                                                              habitant morbi tristique senectus et netus
-                                                                              et malesuada fames ac turpis egestas.
-                                                                              Integer convallis volutpat dui quis
-                                                                              scelerisque.&rdquo;</p>
-                                                                  </blockquote>
-
-                                                                  <div class="author-info">
-                                                                        <div class="author-pic">
-                                                                              <img src="/userSide/images/person-1.png"
-                                                                                    alt="Maria Jones" class="img-fluid">
-                                                                        </div>
-                                                                        <h3 class="font-weight-bold">Maria Jones</h3>
-                                                                        <span class="position d-block mb-3">CEO,
-                                                                              Co-Founder, XYZ Inc.</span>
-                                                                  </div>
-                                                            </div>
-
-                                                      </div>
-                                                </div>
-                                          </div>
-                                          <!-- END item -->
-
-                                          <div class="item">
-                                                <div class="row justify-content-center">
-                                                      <div class="col-lg-8 mx-auto">
-
-                                                            <div class="testimonial-block text-center">
-                                                                  <blockquote class="mb-5">
-                                                                        <p>&ldquo;Donec facilisis quam ut purus rutrum
-                                                                              lobortis. Donec vitae odio quis nisl
-                                                                              dapibus malesuada. Nullam ac aliquet
-                                                                              velit. Aliquam vulputate velit imperdiet
-                                                                              dolor tempor tristique. Pellentesque
-                                                                              habitant morbi tristique senectus et netus
-                                                                              et malesuada fames ac turpis egestas.
-                                                                              Integer convallis volutpat dui quis
-                                                                              scelerisque.&rdquo;</p>
-                                                                  </blockquote>
-
-                                                                  <div class="author-info">
-                                                                        <div class="author-pic">
-                                                                              <img src="/userSide/images/person-1.png"
-                                                                                    alt="Maria Jones" class="img-fluid">
-                                                                        </div>
-                                                                        <h3 class="font-weight-bold">Maria Jones</h3>
-                                                                        <span class="position d-block mb-3">CEO,
-                                                                              Co-Founder, XYZ Inc.</span>
-                                                                  </div>
-                                                            </div>
-
-                                                      </div>
-                                                </div>
-                                          </div>
-                                          <!-- END item -->
-
+                                          
+                                          
                                     </div>
 
                               </div>
@@ -353,6 +276,7 @@
             </div>
       </div>
       <!-- End Testimonial Slider -->
+      <% } %>
 
       <!-- Start Blog Section -->
       <div class="blog-section">

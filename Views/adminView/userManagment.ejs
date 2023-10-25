@@ -34,9 +34,9 @@
                                           <td> <%= user.mobile %> </td>
                                           <td>
                                           <% if(user.is_block){ %>
-                                                <a href="/admin/blockUser?id=<%= user._id %>"><button type="button" class="btn btn-inverse-success ">Unblock</button></a>
+                                                <a href="/admin/blockUser?id=<%= user._id %>"><button type="button" class="btn btn-inverse-success " onclick="return confirm('Are you sure you? Do you want to Block ?')">Unblock</button></a>
                                           <% }else{ %>
-                                                <a href="/admin/blockUser?id=<%= user._id %>"><button type="button" class="btn btn-inverse-danger ">Block</button></a>
+                                                <a href="/admin/blockUser?id=<%= user._id %>"><button type="button" class="btn btn-inverse-danger " onclick="return confirm('Are you sure you? Do you want to UnBlock ?')">Block</button></a>
                                           <% } %>
                                           </td>
                                     </tr>

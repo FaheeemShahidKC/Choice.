@@ -1,0 +1,63 @@
+<%- include('../adminView/layout/adminHeader.ejs')%>
+<%- include('../adminView/layout/adminSidebar.ejs')%>
+
+<div class="main-panel">
+      <div class="content-wrapper">
+        <div class="row ">
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Banner Management</h4>
+                <a href="/admin/addBanner"><button type="button" class="btn btn-outline-primary btn-fw">Add Banner</button></a>
+                <br><br><br>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th> No. </th>
+                        <th> Banner </th>
+                        <!-- <th> Status </th> -->
+                        <th> Action </th>
+                        <th> Action </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if(banners.length > 0){ %>
+                        <% let count = 1%>
+                        <% banners.forEach((banner)=> { %>
+                    <tr>
+                        <td><%= count %></td>
+                        <td>
+                              <img src="/banner/<%= banner.image %>" alt="image" />
+                              <span class="pl-2"><%= banner.title %></span>
+                        </td>
+                        <!-- <td><%= banner.status %></td> -->
+                        <td><a href="/admin/edit-banner-page?id=<%= banner._id %>" class="badge badge-info">Update</a></td>
+                        <% if(banner.status == true ){ %>
+                            <td><a href="/admin/blockBanner?id=<%= banner._id %>" class="badge badge-danger" onclick="return confirm('Are you sure you? Do you want to Block ?')">Block</a></td>
+                        <%}else if(banner.status == false ){%>
+                            <td><a href="/admin/blockBanner?id=<%= banner._id %>" class="badge badge-success" onclick="return confirm('Are you sure you? Do you want to Unblock ?')">Unblock</a></td>
+                            <% } %>
+                    </tr>
+                    <%count ++%>
+                    <% }) %>
+                    <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <!-- partial:partials/_footer.html -->
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<%- include('../adminView/layout/adminFooter.ejs')%>

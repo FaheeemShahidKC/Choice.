@@ -26,6 +26,7 @@ exports.placeOrder = async (req, res) => {
                   const name = userData.name;
                   const uniNum = Math.floor(Math.random() * 900000) + 100000;
                   const status = paymentMethods === "cash" ? "placed" : "pending";
+                  const walletBalance = userData.wallet;
 
                   const order = new choiceorder({
                         deliveryDetails: address,
@@ -57,6 +58,7 @@ exports.placeOrder = async (req, res) => {
                               const orderId = orderData._id;
                               const totalAmount = orderData.totalAmount;
                               if (order.paymentMethod == "Rayzor pay") {
+                                    console.log("pa");
                                     var options = {
                                           amount: totalAmount * 100,
                                           currency: "INR",
@@ -65,8 +67,54 @@ exports.placeOrder = async (req, res) => {
 
                                     instance.orders.create(options, function (err, order) {
                                           res.json({ order });
-                                          console.log(order);
                                     });
+                              } else if (order.paymentMethod == "wallet") {
+                                    console.log("sd");
+                                    if (walletBalance >= total) {
+                                          const result = await choiceUser.findOneAndUpdate(
+                                                { _id: id },
+                                                {
+                                                      $inc: { wallet: -total },
+                                                      $push: {
+                                                            walletHistory: {
+                                                                  date: new Date(),
+                                                                  amount: total,
+                                                                  reason: "Purchaced Amount Debited.",
+                                                            },
+                                                      },
+                                                },
+                                                { new: true }
+                                          );
+                                          await choiceorder.findByIdAndUpdate(
+                                                { _id: orderid },
+                                                { $set: { status: "placed" } }
+                                          );
+                                          if (result) {
+                                                console.log("amount debited from wallet");
+                                              } else {
+                                                console.log("not debited from wallet");
+                                              }
+                                          await choicecart.deleteOne({ userId: req.session.user_id });
+                                          for (let i = 0; i < products.length; i++) {
+                                                const pro = products[i].productId;
+                                                const count = products[i].count;
+                                                await choiceProduct.findOneAndUpdate(
+                                                      { _id: pro },
+                                                      { $inc: { quantity: -count } }
+                                                );
+                                          }
+                                          // if (req.session.code) {
+                                          //       const coupon = await Coupon.findOne({ couponCode: req.session.code });
+                                          //       const disAmount = coupon.discountAmount;
+                                          //       await choiceorder.updateOne({ _id: orderid }, { $set: { discount: disAmount } });
+                                          //       res.json({ codsuccess: true, orderid });
+                                          // }
+                                          console.log("sdaad");
+                                          res.json({ codsuccess: true, orderid });
+                                    } else {
+                                          res.json({ walletFailed: true });
+                                    }
+
                               }
                         }
                   } else {
@@ -252,7 +300,7 @@ exports.cancelOrder = async (req, res) => {
             const history = {
                   date: new Date(),
                   amount: amount,
-                  reason: req.body.cancelReason
+                  reason: "Cancelled the order"
             };
 
             if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
@@ -297,17 +345,17 @@ exports.returnOrder = async (req, res) => {
             const history = {
                   date: new Date(),
                   amount: amount,
-                  reason: req.body.returnReason
+                  reason: "returned product"
             };
             if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
-            // Update the user's wallet and wallet history
-            const user = await choiceUser.updateOne(
-                  { _id: req.session.user_id },
-                  {
-                        $set: { wallet: totalWallet },
-                        $push: { walletHistory: history }
-                  }
-            );
+                  // Update the user's wallet and wallet history
+                  const user = await choiceUser.updateOne(
+                        { _id: req.session.user_id },
+                        {
+                              $set: { wallet: totalWallet },
+                              $push: { walletHistory: history }
+                        }
+                  );
             }
             // Update the order's status to 'Cancelled'
             const updatedOrder = await choiceorder.updateOne(

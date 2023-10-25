@@ -8,6 +8,7 @@ const productController = require('../Controllers/productController')
 const categoryController = require('../Controllers/categoryController')
 const orderController = require('../Controllers/orderController')
 const couponController = require('../Controllers/couponController')
+const bannerController = require('../Controllers/bannerController')
 
 //========================== Multer setup =========================
 const multer = require('../MiddleWares/multer')
@@ -64,6 +65,14 @@ adminRoutes.post('/addedCoupon',couponController.addedCoupon)
 adminRoutes.get('/block-coupons',couponController.blockingCoupon)
 adminRoutes.get('/edit-coupon-page',couponController.editCoupon)
 adminRoutes.post('/editedCoupon',couponController.editedCoupon)
+
+// =========================== Banner managment ===============================
+adminRoutes.get('/bannerManagment',bannerController.loadBannerManagment)
+adminRoutes.post('/addedBanner',multer.bannerUpload.single('image'),bannerController.addedBanner)
+adminRoutes.get('/addBanner',bannerController.addBanner)
+adminRoutes.get('/edit-banner-page',bannerController.editBanner)
+adminRoutes.post('/editedBanner',multer.bannerUpload.single('image'),bannerController.editedBanner)
+adminRoutes.get('/blockBanner',bannerController.blockBanner)
 
 // =========================== Logout ========================
 adminRoutes.get('/logout',adminController.logout)

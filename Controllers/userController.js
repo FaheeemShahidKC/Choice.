@@ -7,6 +7,7 @@ const choiceProduct = require("../Models/productModel");
 const choiceAddress = require("../Models/addressModel");
 const choiceCategory = require('../Models/categoryModel')
 const choiceCoupons = require('../Models/coopenModel')
+const choiceBanner = require ('../Models/bannerModel')
 
 //========================== setting as globel variable ==================
 let signupUser  
@@ -78,7 +79,10 @@ const loadHome  = async(req,res)=>{
             const page = req.query.page || 1; // Get the requested page from the query string
             const itemsPerPage = 10; // Number of items to display per page
             const totalCount = await choiceProduct.countDocuments(); // Get the total count of products
-
+            const bannersData = await choiceBanner.find()
+            const banners = bannersData.filter((banner)=>{
+                  return banner.status == true
+            })
             if(totalCount){
                   const skip = (page - 1) * itemsPerPage; // Calculate the number of items to skip
                   const products = await choiceProduct
@@ -87,7 +91,7 @@ const loadHome  = async(req,res)=>{
                         .limit(itemsPerPage);
 
                   if(products){
-                        res.render('home', {products: products, currentPage: parseInt(page), totalPages: Math.ceil(totalCount / itemsPerPage), name: req.session.userName , shop:null });
+                        res.render('home', {banners : banners , products: products, currentPage: parseInt(page), totalPages: Math.ceil(totalCount / itemsPerPage), name: req.session.userName , shop:null });
                   }else{
                         res.status(500).send("Internal Ser Error");
                   }

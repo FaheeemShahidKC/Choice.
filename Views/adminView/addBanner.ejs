@@ -1,0 +1,63 @@
+<%- include('../adminView/layout/adminHeader.ejs')%>
+      <%- include('../adminView/layout/adminSidebar.ejs')%>
+
+            <div class="main-panel">
+                  <div class="content-wrapper">
+                        <div class="row ">
+                              <div class="col-12 grid-margin">
+                                    <div class="card">
+                                          <div class="col-12 grid-margin stretch-card">
+                                                <div class="card">
+                                                      <div class="card-body">
+                                                            <h4 class="card-title">Add product</h4>
+                                                            <form method="post" action="/admin/addedBanner"
+                                                                  class="forms-sample" enctype="multipart/form-data">
+                                                                  <div style="display: flex;">
+                                                                        <div class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                              <label for="imageInput1" class="image-label ">Banner Image
+                                                                                <div class="rounded-image-preview">
+                                                                                  <img id="imagePreview1"
+                                                                                  src="https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Image-Upload-Icon-Graphics-10388650-1-580x386.jpg"
+                                                                                    alt="Preview" />
+                                                                                </div>
+                                                                                <input name="image" type="file" accept="image/*" id="imageInput1" class="imageInput" >
+                                                                              </label>
+                                                                        </div>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label for="exampleInputName1">Banner
+                                                                              Tittle</label>
+                                                                        <input type="text" name="bannerTitle"
+                                                                              class="form-control" required
+                                                                              id="exampleInputName1" placeholder="Name">
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label
+                                                                              for="exampleTextarea1">Description</label>
+                                                                        <textarea class="form-control" required
+                                                                              name="description" id="exampleTextarea1"
+                                                                              rows="4"></textarea>
+                                                                  </div>
+                                                                  <button type="submit"
+                                                                        class="btn btn-primary mr-2">Submit</button>
+                                                                  <a href="/admin/bannerManagment"><button type="button"
+                                                                              class="btn btn-dark">Cancel</button></a>
+                                                            </form>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
+                  <!-- content-wrapper ends -->
+                  <!-- partial:partials/_footer.html -->
+                  <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+            </div>
+            <!-- container-scroller -->
+
+            <%- include('../adminView/layout/adminFooter.ejs')%>
