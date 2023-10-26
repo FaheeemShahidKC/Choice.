@@ -31,7 +31,7 @@ adminRoutes.set('views','./views/adminView')
 
 // ============================== Admin login ==========================
 adminRoutes.get('/',adminController.loadLogin)
-adminRoutes.post('/clickedLogin',adminController.loadAdmin)
+adminRoutes.post('/clickedLogin',adminController.loadDashboard)
 
 //============================== user managment =======================
 adminRoutes.get('/userManagment',adminController.loadUserManagment)
@@ -77,6 +77,10 @@ adminRoutes.get('/blockBanner',bannerController.blockBanner)
 //============================ sales report =================================
 adminRoutes.get('/salesReport',adminController.salesReport)
 adminRoutes.get('/reportDown/:duration/:format', adminController.downloadReport)
+adminRoutes.get('/saleSortPage/:id', adminController.saleSorting)
+
+//============================== dashboard ===========================
+adminRoutes.get('/dashboard',adminController.loadDashboard)
 
 // =========================== Logout ========================
 adminRoutes.get('/logout',adminController.logout)

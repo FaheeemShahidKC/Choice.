@@ -1,0 +1,304 @@
+<%- include('../adminView/layout/adminHeader.ejs')%>
+      <%- include('../adminView/layout/adminSidebar.ejs')%>
+
+
+            <div class="main-panel" style="color: white;">
+                  <div class="content-wrapper">
+                        <div class="row">
+                              <div class="col-sm-4 grid-margin">
+                                    <div class="card">
+                                          <div class="card-body" style="background-color: black;">
+                                                <h5>Total Revenue</h5>
+                                                <div class="row">
+                                                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                                                  <h2 class="mb-0">₹&nbsp;<%= totalRevenue %>.00</h2>
+                                                                  <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
+                                                            </div>
+                                                            <!-- <h6 class="text-muted font-weight-normal">Active FurniCube users</h6> -->
+                                                      </div>
+                                                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                                            <i
+                                                                  class="icon-lg mdi mdi-account-multiple text-primary ml-auto" ></i>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="col-sm-4 grid-margin">
+                                    <div class="card">
+                                          <div class="card-body" style="background-color: black;">
+                                                <h5>Monthly Revenue</h5>
+                                                <div class="row">
+                                                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                                                  <h2 class="mb-0">₹&nbsp;<%= monRev %>.00</h2>
+                                                                  <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+8.3%</p> -->
+                                                            </div>
+                                                            <!-- <h6 class="text-muted font-weight-normal"> Active orders Since last month</h6> -->
+                                                      </div>
+                                                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                                            <i
+                                                                  class="icon-lg mdi mdi-truck-delivery text-danger ml-auto"></i>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="col-sm-4 grid-margin">
+                                    <div class="card">
+                                          <div class="card-body" style="background-color: black;">
+                                                <h5>Total Sales</h5>
+                                                <div class="row">
+                                                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                                                  <h2 class="mb-0">&nbsp;<%= sales %>
+                                                                  </h2>
+                                                                  <!-- <p class="text-danger ml-2 mb-0 font-weight-medium">-2.1% </p> -->
+                                                            </div>
+                                                            <!-- <h6 class="text-muted font-weight-normal">In stock Products</h6> -->
+                                                      </div>
+                                                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                                            <i class="icon-lg mdi mdi-gift text-success ml-auto"></i>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+
+
+
+                        <div class="row">
+
+                              <div class="col-md-4 grid-margin stretch-card">
+                                    <div class="card">
+                                          <div class="card-body" style="background-color: black;">
+                                                <h4 class="card-title">Transactions</h4>
+                                                <canvas id="transactions" class="transaction-chart"></canvas>
+                                                <div
+                                                      class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                                                      <div class="text-md-center text-xl-left">
+                                                            <h6 class="mb-1">Cash On Delivery</h6>
+                                                      </div>
+                                                      <div
+                                                            class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                                                            <h6 class="font-weight-bold mb-0">
+                                                                  <%= codCount %>
+                                                            </h6>
+                                                      </div>
+                                                </div>
+                                                <div
+                                                      class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                                                      <div class="text-md-center text-xl-left">
+                                                            <h6 class="mb-1">Online Payment</h6>
+                                                      </div>
+                                                      <div
+                                                            class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                                                            <h6 class="font-weight-bold mb-0">
+                                                                  <%=onlinePaymentCount%>
+                                                            </h6>
+                                                      </div>
+                                                </div>
+                                                <div
+                                                      class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+                                                      <div class="text-md-center text-xl-left">
+                                                            <h6 class="mb-1">Wallet</h6>
+                                                      </div>
+                                                      <div
+                                                            class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                                                            <h6 class="font-weight-bold mb-0">
+                                                                  <%=walletCount%>
+                                                            </h6>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+
+
+                              <div class="col-lg-8 grid-margin stretch-card">
+                                    <div class="card">
+                                          <div class="card-body" style="background-color: black;">
+                                                <h4 class="card-title">Monthly Sales Report</h4>
+                                                <canvas id="monthChart" style="height:250px"></canvas>
+                                          </div>
+                                    </div>
+                              </div>
+
+                        </div>
+
+                        <div class="row">
+                              <div class="col-sm-4 grid-margin">
+                                    <div class="card">
+                                          <div class="card-body" style="background-color: black;">
+                                                <h5>Total Customers</h5>
+                                                <div class="row">
+                                                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                                                  <h2 class="mb-0">
+                                                                        <%= users.length-1 %>&nbsp; Users
+                                                                  </h2>
+                                                                  <p class="text-success ml-2 mb-0 font-weight-medium">
+                                                                        </p>
+                                                            </div>
+                                                            <h6 class="text-muted font-weight-normal">Active 
+                                                                  users</h6>
+                                                      </div>
+                                                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                                            <i
+                                                                  class="icon-lg mdi mdi-account-multiple text-primary ml-auto"></i>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="col-sm-4 grid-margin">
+                                    <div class="card">
+                                          <div class="card-body " style="background-color: black;">
+                                                <h5>Total Orders</h5>
+                                                <div class="row">
+                                                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                                                  <h2 class="mb-0">
+                                                                        <%= tot_order.length %>&nbsp;Orders
+                                                                  </h2>
+                                                                  <p class="text-success ml-2 mb-0 font-weight-medium">
+                                                                        </p>
+                                                            </div>
+                                                            <h6 class="text-muted font-weight-normal"> Active orders
+                                                                  Since last month</h6>
+                                                      </div>
+                                                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                                            <i
+                                                                  class="icon-lg mdi mdi-truck-delivery text-danger ml-auto"></i>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                              <div class="col-sm-4 grid-margin">
+                                    <div class="card">
+                                          <div class="card-body" style="background-color: black;">
+                                                <h5>Total Products</h5>
+                                                <div class="row">
+                                                      <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                                            <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                                                  <h2 class="mb-0">
+                                                                        <%= products.length %>&nbsp;Products
+                                                                  </h2>
+                                                                  <p class="text-danger ml-2 mb-0 font-weight-medium">
+                                                                        </p>
+                                                            </div>
+                                                            <h6 class="text-muted font-weight-normal">In stock Products
+                                                            </h6>
+                                                      </div>
+                                                      <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                                            <i class="icon-lg mdi mdi-gift text-success ml-auto"></i>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+
+
+
+                        <input type="text" id="cod" value="<%= codCount %>" hidden>
+                        <input type="text" id="wallet" value="<%= walletCount %>" hidden>
+                        <input type="text" id="online" value="<%= onlinePaymentCount %>" hidden>
+                        <% monthlyOrderCounts.forEach((data)=> { %>
+
+                              <input type="text" id="jan" value="<%= data._id=='01'?data.count:0 %>" hidden>
+                              <input type="text" id="feb" value="<%= data._id=='02'?data.count:0 %>" hidden>
+                              <input type="text" id="mar" value="<%= data._id=='03'?data.count:0 %>" hidden>
+                              <input type="text" id="apr" value="<%= data._id=='04'?data.count:0 %>" hidden>
+                              <input type="text" id="may" value="<%= data._id=='05'?data.count:0 %>" hidden>
+                              <input type="text" id="jun" value="<%= data._id=='06'?data.count:0 %>" hidden>
+                              <input type="text" id="jul" value="<%= data._id=='07'?data.count:0 %>" hidden>
+                              <input type="text" id="aug" value="<%= data._id=='08'?data.count:0 %>" hidden>
+                              <input type="text" id="sep" value="<%= data._id=='09'?data.count:0 %>" hidden>
+                              <input type="text" id="oct" value="<%= data._id=='10'?data.count:0 %>" hidden>
+                              <input type="text" id="nov" value="<%= data._id=='11'?data.count:0 %>" hidden>
+                              <input type="text" id="dec" value="<%= data._id=='12'?data.count:0 %>" hidden>
+
+                              <% }) %>
+
+
+
+                  </div>
+                  <!-- content-wrapper ends -->
+
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+                  <script>
+                        let Online = document.getElementById("online").value;
+                        let Wallet = document.getElementById('wallet').value;
+                        let COD = document.getElementById('cod').value;
+                        console.log(Online);
+
+                        const xTValues = ["Online", "COD", "Wallet"];
+                        const yTValues = [Online, Wallet, COD];
+                        const TbarColors = [
+                              "#E9C56D",
+                              "#2C9C8F",
+                              "#274755"
+                        ];
+
+                        new Chart("transactions", {
+                              type: "doughnut",
+                              data: {
+                                    labels: xTValues,
+                                    datasets: [{
+                                          backgroundColor: TbarColors,
+                                          data: yTValues
+                                    }]
+                              },
+
+                        });
+                  </script>
+
+
+
+                  <script>
+                        window.onload = function () {
+                              let Jan = document.getElementById("jan").value;
+                              let Feb = document.getElementById("feb").value;
+                              let Mar = document.getElementById("mar").value;
+                              let Apr = document.getElementById("apr").value;
+                              let May = document.getElementById("may").value;
+                              let Jun = document.getElementById("jun").value;
+                              let Jul = document.getElementById("jul").value;
+                              let Aug = document.getElementById("aug").value;
+                              let Sep = document.getElementById("sep").value;
+                              let Oct = document.getElementById("oct").value;
+                              let Nov = document.getElementById("nov").value;
+                              let Dec = document.getElementById("dec").value;
+
+                              const xValues = ["Jan", "Feb", "Mar", "Apr", "May", 'Jun', 'Jul', "Aug", "Sep", "Oct", "Nov", "Dec"];
+                              const yValues = [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec];
+                              new Chart("monthChart", {
+                                    type: "bar",
+                                    data: {
+                                          labels: xValues,
+                                          datasets: [{
+                                                backgroundColor: "#fff",
+                                                data: yValues
+                                          }]
+                                    },
+                                    options: {
+                                          legend: { display: false },
+                                          scales: {
+                                                yAxes: [{
+                                                      ticks: {
+                                                            beginAtZero: true
+                                                      }
+                                                }],
+                                          }
+                                    }
+                              });
+
+                        }
+
+                  </script>
+                  <%- include('../adminView/layout/adminFooter.ejs')%>

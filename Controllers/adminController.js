@@ -86,12 +86,9 @@ const logout = async (req, res) => {
 }
 
 //==========================SALES REPORT IN ADMIN SIDE===============================
-
 const salesReport = async (req, res) => {
       try {
             const users = await choiceUser.find({ is_block: 0 });
-
-
             const orderData = await choiceOrder.aggregate([
                   { $unwind: "$products" },
                   { $match: { status: "Delivered" } },
@@ -112,10 +109,7 @@ const salesReport = async (req, res) => {
                         },
                   },
             ]);
-
             console.log(orderData);
-            console.log("====================================");
-            console.log(users);
 
 
             res.render("salesReport", {
@@ -126,6 +120,7 @@ const salesReport = async (req, res) => {
       }
 };
 
+//===================================== Download report ===================================
 const downloadReport = async (req, res) => {
       try {
             const { duration, format } = req.params;
@@ -227,6 +222,135 @@ const downloadReport = async (req, res) => {
       }
 };
 
+//================================= filtering sales page ============================
+const saleSorting = async (req, res) => {
+      try {
+            const duration = parseInt(req.params.id);
+            const currentDate = new Date();
+            const startDate = new Date(currentDate - duration * 24 * 60 * 60 * 1000);
+
+            const orders = await choiceOrder.aggregate([
+                  {
+                        $unwind: "$products",
+                  },
+                  {
+                        $match: {
+                              status: "Delivered",
+                              deliveryDate: { $gte: startDate, $lt: currentDate },
+                        },
+                  },
+                  {
+                        $sort: { deliveryDate: -1 },
+                  },
+                  {
+                        $lookup: {
+                              from: "choiceproducts",
+                              let: { productId: { $toObjectId: "$products.productId" } },
+                              pipeline: [{ $match: { $expr: { $eq: ["$_id", "$$productId"] } } }],
+                              as: "products.productDetails",
+                        },
+                  },
+                  {
+                        $addFields: {
+                              "products.productDetails": {
+                                    $arrayElemAt: ["$products.productDetails", 0],
+                              },
+                        },
+                  },
+            ]);
+
+            res.render('salesReport', { orders });
+      } catch (error) {
+            console.log(error.message);
+            res.status(500).send('Internal Server Error');
+      }
+}
+
+//================================= Dashboard =================================
+const loadDashboard = async (req, res) => {
+      try {
+            const users = await choiceUser.find({ is_block: 0 });
+            const products = await choiceProduct.find({ blocked: 0 });
+            const tot_order = await choiceOrder.find();
+            const sales = await choiceOrder.countDocuments({ status: 'Delivered' })
+            const codCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'cash' });
+            const onlinePaymentCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'Rayzor pay' });
+            const walletCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'wallet' });
+
+            const monthlyOrderCounts = await choiceOrder.aggregate([
+                  {
+                        $match: {
+                              status: 'Delivered',
+                        },
+                  },
+                  {
+                        $group: {
+                              _id: { $dateToString: { format: '%m', date: '$deliveryDate' } },
+                              count: { $sum: 1 },
+                        },
+                  },
+            ]);
+
+
+            const monthRev = await choiceOrder.aggregate([
+                  {
+                        $match: {
+                              status: "Delivered"
+                        }
+                  },
+                  {
+                        $project: {
+                              year: { $year: '$date' },
+                              month: { $month: '$date' },
+                              totalAmount: 1
+                        }
+                  },
+                  {
+                        $group: {
+                              _id: { year: '$year', month: '$month' },
+                              totalRevenue: { $sum: '$totalAmount' }
+                        }
+                  },
+                  {
+                        $sort: {
+                              '_id.year': 1,
+                              '_id.month': 1
+                        }
+                  }
+            ])
+            const monRev = monthRev[0].totalRevenue
+            const totalRev = await choiceOrder.aggregate([
+                  {
+                        $match: {
+                              status: "Delivered"
+                        }
+                  },
+                  {
+                        $group: {
+                              _id: null,
+                              totalRevenue: { $sum: '$totalAmount' }
+                        }
+                  }
+            ])
+            const totalRevenue = totalRev[0].totalRevenue
+
+            res.render('dashboard', {
+                  users,
+                  products,
+                  tot_order,
+                  totalRevenue,
+                  monRev,
+                  sales,
+                  codCount,
+                  walletCount,
+                  onlinePaymentCount,
+                  monthlyOrderCounts
+            })
+      } catch (error) {
+            console.log(error.message);
+      }
+}
+
 module.exports = {
       loadAdmin,
       loadLogin,
@@ -236,5 +360,7 @@ module.exports = {
       load404,
       logout,
       salesReport,
-      downloadReport
+      downloadReport,
+      loadDashboard,
+      saleSorting
 }
