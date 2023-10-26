@@ -74,6 +74,10 @@ adminRoutes.get('/edit-banner-page',bannerController.editBanner)
 adminRoutes.post('/editedBanner',multer.bannerUpload.single('image'),bannerController.editedBanner)
 adminRoutes.get('/blockBanner',bannerController.blockBanner)
 
+//============================ sales report =================================
+adminRoutes.get('/salesReport',adminController.salesReport)
+adminRoutes.get('/reportDown/:duration/:format', adminController.downloadReport)
+
 // =========================== Logout ========================
 adminRoutes.get('/logout',adminController.logout)
 
