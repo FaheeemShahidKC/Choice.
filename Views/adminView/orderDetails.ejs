@@ -47,57 +47,68 @@
                         <br>
                       </ul>
           
-                      <table class="table table-dark">
-                        <thead>
-                          <tr>
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Product Price</th>
-                            <th>Category</th>
-                            <th>Quantity</th>
-                            <th>Order status</th>
+                        <td>
+                        <div class="dropdown">
+                          <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuOutlineButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton5">
+                            <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=1">Cancel</a>
+                            <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=2">Shipped</a>
+                            <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=3">Delivery</a>
+                          </div>
+                        </div>
+                      </td>
+                      <br>
+            
+                        <table class="table table-dark">
+                          <thead>
+                            <tr>
+                              <th>No</th>
+                              <th>Name</th>
+                              <th>Product Price</th>
+                              <th>Category</th>
+                              <th>Quantity</th>
+                              <th>Order status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% if( orders.products.length > 0 ){
+                            orders.products.forEach((data)=>{ %>
+            
+                            <tr>
+                              <td>
+                                <img
+                                  src="/products/images/<%=data.productId.images.image1 %>"
+                                  alt=""
+                                />
+                              </td>
+                              <td><%= data.productId.name %></td>
+                              <td>Rs:<%= data.productId.price %></td>
+                              <td><%= data.productId.category %></td>
+                              
+                              <td><%= data.count %></td>
+                              
+                              <td><%= orders.status %></td>
+                              <!-- <% if(orders.status == "placed"){ %>
+                              <td><p><a href="/admin/delivered?id=<%= orders._id %>" class="badge badge-success">DELIVERY</a></p></td>
+                              <% }else if(orders.status == "delivered") {%>
+                                <td><p><a href="" class="badge badge-success">DELIVERED</a></p></td>
+                                <% } %> -->
+                                
+                            </tr>
+                            <!-- Button trigger modal -->
+                            <!-- Button trigger modal -->
+                            <!-- Button trigger modal -->
+            
+                            <!-- Modal -->
                             
-          
-                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <% if( orders.products.length > 0 ){
-                          orders.products.forEach((data)=>{ %>
-          
-                          <tr>
-                            <td>
-                              <img
-                                src="/products/images/<%=data.productId.images.image1 %>"
-                                alt=""
-                              />
-                            </td>
-                            <td><%= data.productId.name %></td>
-                            <td>Rs:<%= data.productId.price %></td>
-                            <td><%= data.productId.category %></td>
-                            
-                            <td><%= data.count %></td>
-                            
-                            <td style="color: green;"><%= orders.status %></td>
-                            
-                          </tr>
-                          <!-- Button trigger modal -->
-                          <!-- Button trigger modal -->
-                          <!-- Button trigger modal -->
-          
-                          <!-- Modal -->
-                          
-          
-                          <% }) %> <%}%>
-                        </tbody>
+            
+                            <% }) %> <%}%>
+                          </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <script>
-                  console.log(orders.deliveryDetails.fullname);
-            </script>
 
 <%- include('../adminView/layout/adminFooter.ejs')%>

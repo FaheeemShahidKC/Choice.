@@ -56,7 +56,8 @@ adminRoutes.get('/deleteCategory',categoryController.deleteCategory)
 adminRoutes.get('/orderManagment',orderController.loadOrderManagment)
 adminRoutes.get('/orderDetails',orderController.orderDetails)
 adminRoutes.get('/delivered',orderController.delivered)
-adminRoutes.get('/cancelled',orderController.cancelled)
+// adminRoutes.get('/cancelled',orderController.cancelled)
+adminRoutes.get('/statusUpdate',orderController.statusUpdate)
 
 //============================= coupon managment ===============================
 adminRoutes.get('/couponManagment',couponController.couponManagment)

@@ -13,10 +13,10 @@
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
-                                    <a href="/home" class="sf-with-ul">Home</a>
+                                    <a href="/home" >Home</a>
                                 </li>
                                 <li>
-                                    <a href="category.html" class="sf-with-ul">Shop</a>
+                                    <a href="/shop" >Shop</a>
                                 </li>
                             </ul><!-- End .menu -->
                         </nav><!-- End .main-nav -->
@@ -44,8 +44,7 @@
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Products</a></li>
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><%= prodectData.name %></li>
                     </ol>
                 </div><!-- End .container -->
@@ -105,21 +104,21 @@
                                     <div class="product-content">
                                         <p><%= prodectData.description %> </p>
                                     </div><!-- End .product-content -->
-
+<!-- 
                                     <div class="details-filter-row details-row-size">
                                         <label>Color:</label>
 
                                         <div class="product-nav product-nav-thumbs">
                                             <a href="#" class="active">
-                                                <img src="/products/crop/<%= prodectData.images.image1 %>" alt="product desc">
+                                                <img src="/products/crop/<%= prodectData.images.image2 %>" alt="product desc">
                                             </a>
                                             <a href="#">
                                                 <img src="/products/crop/<%= prodectData.images.image4 %>" alt="product desc">
                                             </a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .details-filter-row -->
+                                        </div>
+                                    </div> -->
 
-                                    <div class="details-filter-row details-row-size">
+                                    <!-- <div class="details-filter-row details-row-size">
                                         <label for="size">Size:</label>
                                         <div class="select-custom">
                                             <select name="size" id="size" class="form-control">
@@ -129,24 +128,24 @@
                                                 <option value="l">Large</option>
                                                 <option value="xl">Extra Large</option>
                                             </select>
-                                        </div><!-- End .select-custom -->
+                                        </div>
 
                                         <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
-                                    </div><!-- End .details-filter-row -->
+                                    </div> -->
 
-                                    <div class="details-filter-row details-row-size">
+                                    <!-- <div class="details-filter-row details-row-size">
                                         <label for="qty">Qty:</label>
                                         <div class="product-details-quantity">
                                             <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                        </div><!-- End .product-details-quantity -->
-                                    </div><!-- End .details-filter-row -->
+                                        </div>
+                                    </div> -->
 
                                     <div class="product-details-action">
                                         <a onclick="addToCart('<%= prodectData._id %>')" class="btn-product btn-cart"><span>add to cart</span></a>
 
                                         <div class="details-action-wrapper">
                                             <a onclick="addToWishlist('<%= prodectData._id %>')" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
+                                            <!-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a> -->
                                         </div><!-- End .details-action-wrapper -->
                                     </div><!-- End .product-details-action -->
 
@@ -156,13 +155,13 @@
                                             <a href="#"><%= prodectData.category %></a>
                                         </div><!-- End .product-cat -->
 
-                                        <div class="social-icons social-icons-sm">
+                                        <!-- <div class="social-icons social-icons-sm">
                                             <span class="social-label">Share:</span>
                                             <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
                                             <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
                                             <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
                                             <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
-                                        </div>
+                                        </div> -->
                                     </div><!-- End .product-details-footer -->
                                 </div><!-- End .product-details -->
                             </div><!-- End .col-md-6 -->
@@ -244,6 +243,12 @@
                     icon: 'warning',
                     title: 'Item Already in Cart',
                     text: 'This item is already in your cart.',
+                    });
+                }else if(response.quantity){
+                    Swal.fire({
+                    icon: 'warning',
+                    title: 'Lack of stock',
+                    text: 'This item is out of stock.',
                     });
                 }
                 },

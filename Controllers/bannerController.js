@@ -6,6 +6,7 @@ exports.loadBannerManagment = async (req, res) => {
             res.render('bannerManagment', { banners: banners })
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -24,8 +25,8 @@ exports.addedBanner = async (req, res) => {
                   res.status(500).send("Failed to save banner data.");
             }
       } catch (error) {
-            console.error(error); // Log the error for debugging
-            res.status(500).send("Internal Server Error");
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -34,6 +35,7 @@ exports.addBanner = async (req, res) => {
             res.render('addBanner')
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -44,6 +46,7 @@ exports.editBanner = async (req, res) => {
             console.log(banner[0]._id);
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -86,8 +89,8 @@ exports.editedBanner = async (req, res) => {
 
             return res.redirect("/admin/bannerManagment");
       } catch (error) {
-            console.error(error);
-            return res.status(500).send("Internal Server Error");
+            console.log(error.message);
+            res.render('404')
       }
 };
 
@@ -103,6 +106,7 @@ exports.blockBanner = async(req,res)=>{
                   res.status(500).send("Internal Server Error"); 
             }
       } catch (error) {
-            res.status(500).send("Internal Server Error"); 
+            console.log(error.message);
+            res.render('404')
       }
 }

@@ -55,14 +55,14 @@ userRoutes.get('/productDetails',userController.loadProduct)
 userRoutes.get('/logout',userController.logout)
 
 //============================ user profile ========================
-userRoutes.get('/profile',userController.loadProfile)
-userRoutes.get('/addAddress',userController.loadAddAddress)
-userRoutes.post('/addedAddress',addressController.addedAddress)
-userRoutes.get('/editAddress',addressController.editAddress)
-userRoutes.get('/removeAddress',addressController.removeAddress)
-userRoutes.post('/update',addressController.updateAddress)
-userRoutes.get('/editProfile',addressController.editProfile)
-userRoutes.post('/profileUpdated',addressController.editedUser)
+userRoutes.get('/profile',auth.isLogin,userController.loadProfile)
+userRoutes.get('/addAddress',auth.isLogin,userController.loadAddAddress)
+userRoutes.post('/addedAddress',auth.isLogin,addressController.addedAddress)
+userRoutes.get('/editAddress',auth.isLogin,addressController.editAddress)
+userRoutes.get('/removeAddress',auth.isLogin,addressController.removeAddress)
+userRoutes.post('/update',auth.isLogin,addressController.updateAddress)
+userRoutes.get('/editProfile',auth.isLogin,addressController.editProfile)
+userRoutes.post('/profileUpdated',auth.isLogin,addressController.editedUser)
 
 //========================= Forget Password =============================
 userRoutes.get('/forgetPassword',userController.forgetPassSendOtp)
@@ -75,34 +75,36 @@ userRoutes.get('/cart',cartController.loadCart)
 userRoutes.post('/addToCart',cartController.addToCart)
 
 //============================ Remove from cart =========================
-userRoutes.post('/removeCartItem',cartController.removeFromCart)
+userRoutes.post('/removeCartItem',auth.isLogin,cartController.removeFromCart)
 
 //=========================== Quantity updation =========================
-userRoutes.post('/cartQuantityUpdation',cartController.cartQuantityUpdation)
+userRoutes.post('/cartQuantityUpdation',auth.isLogin,cartController.cartQuantityUpdation)
 
 //=============================== checkout ===========================
-userRoutes.get('/checkout',cartController.loadcheckout)
+userRoutes.get('/checkout',auth.isLogin,cartController.loadcheckout)
 
 //================================ thankyou ===============================
-userRoutes.post('/placeOrder',orderController.placeOrder)
-userRoutes.get('/thankyou',orderController.thankyou)
+userRoutes.post('/placeOrder',auth.isLogin,orderController.placeOrder)
+userRoutes.get('/thankyou',auth.isLogin,orderController.thankyou)
 
 //================================= Orders ===============================
-userRoutes.get('/orders',orderController.orders)
-userRoutes.get('/viewOrderDetails',orderController.viewOrderDetails)
+userRoutes.get('/orders',auth.isLogin,orderController.orders)
+userRoutes.get('/viewOrderDetails',auth.isLogin,orderController.viewOrderDetails)
 
 //=============================== Shop ====================================
 userRoutes.get('/shop',userController.loadShop)
 userRoutes.post('/filter',userController.filter)
 
 //=========================== Apply coupon ===========================
-userRoutes.post('/applyCoupon',couponController.applyCoupon)
+userRoutes.post('/applyCoupon',auth.isLogin,couponController.applyCoupon)
 
 //=============================== wishlist =============================
 userRoutes.get('/wishlist',wishlistController.loadWishlist)
 userRoutes.post('/addToWishlist',wishlistController.addToWishlist)
 userRoutes.post('/removeWish',wishlistController.removeWishItem)
-userRoutes.post('/verify-payment',orderController.verifyPayment)
+
+//============================= payment ===========================
+userRoutes.post('/verify-payment',auth.isLogin,orderController.verifyPayment)
 
 userRoutes.post('/cancelOrder',orderController.cancelOrder)
 userRoutes.post('/returnOrder',orderController.returnOrder)

@@ -91,9 +91,9 @@ exports.placeOrder = async (req, res) => {
                                           );
                                           if (result) {
                                                 console.log("amount debited from wallet");
-                                              } else {
+                                          } else {
                                                 console.log("not debited from wallet");
-                                              }
+                                          }
                                           await choicecart.deleteOne({ userId: req.session.user_id });
                                           for (let i = 0; i < products.length; i++) {
                                                 const pro = products[i].productId;
@@ -124,6 +124,7 @@ exports.placeOrder = async (req, res) => {
 
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -177,6 +178,7 @@ exports.verifyPayment = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 };
 
@@ -186,16 +188,18 @@ exports.thankyou = (req, res) => {
             res.render('thankyouu', { name: req.session.userName })
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
 //========================= view orders ==============================
 exports.orders = async (req, res) => {
       try {
-            const order = await choiceorder.find({ userId: req.session.user_id })
+            const order = await choiceorder.find({ userId: req.session.user_id }).sort({ date: -1 });
             res.render('orders', { orders: order })
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -221,6 +225,7 @@ exports.viewOrderDetails = async (req, res) => {
             res.render("orderDetails", { orders: orderedProduct, address: deliveryAddress, daysDiff: daysDiff });
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -229,10 +234,11 @@ exports.viewOrderDetails = async (req, res) => {
 //========================= load Order =============================
 exports.loadOrderManagment = async (req, res) => {
       try {
-            const order = await choiceorder.find()
+            const order = await choiceorder.find().sort({ date: -1 });
             res.render('orderManagment', { orderData: order })
       } catch (error) {
             console.log(error.message);
+            res.render('404');
       }
 }
 
@@ -252,7 +258,8 @@ exports.orderDetails = async (req, res) => {
             );
             res.render("orderDetails", { orders: orderedProduct, address: deliveryAddress });
       } catch (error) {
-            console.log(error);
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -266,6 +273,7 @@ exports.delivered = async (req, res) => {
             res.redirect('/admin/orderManagment')
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -279,6 +287,7 @@ exports.cancelled = async (req, res) => {
             res.redirect('/admin/orderManagment')
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -321,9 +330,8 @@ exports.cancelOrder = async (req, res) => {
             // Redirect to the '/orders' route
             res.redirect('/orders');
       } catch (error) {
-            // Handle errors, e.g., by sending an error response or logging the error.
-            console.error(error);
-            res.status(500).send('Internal Server Error');
+            console.log(error.message);
+            res.render('404')
       }
 };
 
@@ -365,8 +373,66 @@ exports.returnOrder = async (req, res) => {
             // Redirect to the '/orders' route
             res.redirect('/orders');
       } catch (error) {
-            // Handle errors, e.g., by sending an error response or logging the error.
-            console.error(error);
-            res.status(500).send('Internal Server Error');
+            console.log(error.message);
+            res.render('404')
       }
 }
+
+//====================================DELIVER THE PRODUCT ADMIN SIDE===================================
+exports.statusUpdate = async (req, res) => {
+      try {
+            const orderId = req.query.id;
+            const orderData = await choiceorder.findOne({ _id: orderId })
+            const userId = orderData.userId
+            console.log(orderData);
+            const statusLevel = req.query.status;
+            const amount = orderData.totalAmount;
+            const products = orderData.products;
+
+
+            if (statusLevel === '1') {
+                  await choiceorder.updateOne(
+                        { _id: orderId },
+                        { $set: { status: "cancelled", statusLevel: 1 } });
+
+                  for (let i = 0; i < products.length; i++) {
+                        let pro = products[i].productId;
+                        let count = products[i].count;
+                        await choiceProduct.findOneAndUpdate(
+                              { _id: pro },
+                              { $inc: { quantity: count } }
+                        );
+                  }
+                  if (orderData.paymentMethod == 'Rayzor pay' || orderData.paymentMethod == 'wallet') {
+                        await choiceUser.findOneAndUpdate(
+                              { _id: userId },
+                              {
+                                    $inc: { wallet: amount },
+                                    $push: {
+                                          walletHistory: {
+                                                date: new Date(),
+                                                amount: amount,
+                                                reason: "Cancelled Product Amount Credited",
+                                          },
+                                    },
+                              },
+                              { new: true }
+                        );
+                  }
+            } else if (statusLevel === '2') {
+                  await choiceorder.updateOne(
+                        { _id: orderId },
+                        { $set: { status: "shipped", statusLevel: 2 } }
+                  )
+            } else if (statusLevel === '3') {
+                  await choiceorder.updateOne(
+                        { _id: orderId },
+                        { $set: { status: "Delivered", deliveryDate: new Date(), statusLevel: 3 } }
+                  );
+            }
+            res.redirect("/admin/orderManagment");
+
+      } catch (error) {
+            console.log(error.message);
+      }
+};

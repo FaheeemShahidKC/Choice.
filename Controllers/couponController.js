@@ -5,6 +5,7 @@ exports.addCoupon = async (req, res) => {
             res.render('addCoupon')
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -14,6 +15,7 @@ exports.couponManagment = async (req, res) => {
             res.render('couponManagment', { coupons: coupons })
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -38,6 +40,7 @@ exports.addedCoupon = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -51,6 +54,7 @@ exports.blockingCoupon = async (req, res) => {
             res.redirect("/admin/couponManagment");
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 };
 
@@ -60,6 +64,7 @@ exports.editCoupon = async (req, res) => {
             res.render('editCoupon', { coupons: coupons })
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -83,6 +88,7 @@ exports.editedCoupon = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 };
 
@@ -138,5 +144,6 @@ exports.applyCoupon = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 };

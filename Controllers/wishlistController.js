@@ -17,6 +17,7 @@ exports.loadWishlist = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -59,6 +60,7 @@ exports.addToWishlist = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -78,5 +80,6 @@ exports.removeWishItem = async (req, res) => {
 
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }

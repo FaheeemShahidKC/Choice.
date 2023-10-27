@@ -14,7 +14,8 @@ const loadLogin = async (req, res) => {
       try {
             res.render('login')
       } catch (error) {
-            res.status(500).send("Internal Server Error");
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -29,7 +30,7 @@ const loadUserManagment = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
-            res.status(500).send("Internal Server Error");
+            res.render('404')
       }
 }
 
@@ -45,7 +46,8 @@ const loadAdmin = async (req, res) => {
                   res.render('login', { error: "Invalid email or password!!" });
             }
       } catch (error) {
-            res.status(500).send("Internal Server Error");
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -62,18 +64,10 @@ const blockingUser = async (req, res) => {
                   res.status(500).send("Internal Server Error");
             }
       } catch (error) {
-            res.status(500).send("Internal Server Error");
+            console.log(error.message);
+            res.render('404')
       }
 };
-
-
-const load404 = async (req, res) => {
-      try {
-            res.render('404')
-      } catch (error) {
-            res.status(500).send("Internal Server Error");
-      }
-}
 
 //=========================== logout ======================================
 const logout = async (req, res) => {
@@ -82,6 +76,7 @@ const logout = async (req, res) => {
             res.redirect('/admin')
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -109,14 +104,12 @@ const salesReport = async (req, res) => {
                         },
                   },
             ]);
-            console.log(orderData);
-
-
             res.render("salesReport", {
                   orders: orderData, users,
             });
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 };
 
@@ -218,7 +211,7 @@ const downloadReport = async (req, res) => {
             }
       } catch (error) {
             console.log(error.message);
-            res.status(500).send('Internal Server Error');
+            res.render('404')
       }
 };
 
@@ -262,7 +255,7 @@ const saleSorting = async (req, res) => {
             res.render('salesReport', { orders });
       } catch (error) {
             console.log(error.message);
-            res.status(500).send('Internal Server Error');
+            res.render('404')
       }
 }
 
@@ -348,6 +341,7 @@ const loadDashboard = async (req, res) => {
             })
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -357,7 +351,6 @@ module.exports = {
       blockingUser,
       loadUserManagment,
       loadUserManagment,
-      load404,
       logout,
       salesReport,
       downloadReport,

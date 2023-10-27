@@ -21,18 +21,11 @@
 <div class="untree_co-section">
 <form id="orderForm">
 <div class="container">
-<div class="row mb-5">
-  <div class="col-md-12">
-    <div class="border p-4 rounded" role="alert">
-      Returning customer? <a href="#">Click here</a> to login
-    </div>
-  </div>
-</div>
 <div class="row">
   <div class="col-md-6 mb-5 mb-md-0">
       <div class="p-3 p-lg-5 border bg-white" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
             <!-- <form id="billing-address-form"> -->
-              <h3>Select Billing Address</h3>
+              <h3>Select Billing Address</h3><br>
               <div class="form-check">
                 <% if (address) { %>
                   <% address.forEach((ele) => { %>
@@ -40,7 +33,7 @@
                       <input type="radio" class="form-check-input" name="selectedAddress" value="<%= ele._id %>" required>
                       <%= ele.fullname %>, <%= ele.houseName %>, <%= ele.city %>, <%= ele.state %>, <%= ele.pin %>
                     </label>
-                    <br>
+                    <br><br>
                   <% }); %>
                   <a href="/profile">Add address</a>
                 <% }else{ %>

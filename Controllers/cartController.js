@@ -10,51 +10,58 @@ exports.addToCart = async (req, res) => {
             const productId = req.body.id
             const user = await choiceUser.findOne({ _id: userId })
             const product = await choiceProduct.findOne({ _id: productId })
-            const cart = await choicecart.findOne({ userId: userId })
-            const price = product.price
-            if (userId === undefined) {
-                  res.json({ login: true })
+            console.log(product);
+            if (product.quantity < 1) {
+                  res.json({ quantity: true })
             } else {
-                  if (!cart) {
-                        const cart = new choicecart({
-                              userId: userId,
-                              userName: user.name,
-                              products: [{
-                                    productId: productId,
-                                    count: 1,
-                                    productPrice: price,
-                                    totalPrice: price
-                              }]
-
-                        })
-                        const cartAdded = await cart.save()
+                  const cart = await choicecart.findOne({ userId: userId })
+                  console.log(cart);
+                  const price = product.price
+                  if (userId === undefined) {
+                        res.json({ login: true })
                   } else {
+                        if (!cart) {
+                              const cart = new choicecart({
+                                    userId: userId,
+                                    userName: user.name,
+                                    products: [{
+                                          productId: productId,
+                                          count: 1,
+                                          productPrice: price,
+                                          totalPrice: price
+                                    }]
 
-                        const existingProduct = await cart.products.find(
-                              (product) => product.productId.toString() === productId.toString()
-                        );
-
-                        if (existingProduct) {
-                              res.json({ exist: true })
+                              })
+                              const cartAdded = await cart.save()
                         } else {
-                              const newProduct = {
-                                    productId: productId,
-                                    count: 1,
-                                    productPrice: price,
-                                    totalPrice: price
-                              }
 
-                              const updatedCart = await choicecart.findOneAndUpdate(
-                                    { userId: userId },
-                                    { $push: { products: newProduct } },
-                                    { new: true }
+                              const existingProduct = await cart.products.find(
+                                    (product) => product.productId.toString() === productId.toString()
                               );
 
-                              res.json({ success: true })
+                              if (existingProduct) {
+                                    res.json({ exist: true })
+                              } else {
+                                    const newProduct = {
+                                          productId: productId,
+                                          count: 1,
+                                          productPrice: price,
+                                          totalPrice: price
+                                    }
 
+                                    const updatedCart = await choicecart.findOneAndUpdate(
+                                          { userId: userId },
+                                          { $push: { products: newProduct } },
+                                          { new: true }
+                                    );
+
+                                    res.json({ success: true })
+
+                              }
                         }
                   }
             }
+
       } catch (error) {
             console.log(error.message);
       }
@@ -70,26 +77,27 @@ exports.loadCart = async (req, res) => {
                         { $match: { userId: req.session.user_id } },
                         { $unwind: "$products" },
                         {
-                          $group: {
-                            _id: null,
-                            total: {
-                              $sum: {
-                                $multiply: ["$products.productPrice", "$products.count"],
+                              $group: {
+                                    _id: null,
+                                    total: {
+                                          $sum: {
+                                                $multiply: ["$products.productPrice", "$products.count"],
+                                          },
+                                    },
                               },
-                            },
-                          },
                         },
                   ]);
-                  if(cart){
-                        res.render('cart', { name: req.session.userName, cartProducts: cart.products ,total : total })
-                  }else{
-                        res.render('cart', { name: req.session.userName ,total : total }) 
+                  if (cart) {
+                        res.render('cart', { name: req.session.userName, cartProducts: cart.products, total: total })
+                  } else {
+                        res.render('cart', { name: req.session.userName, total: total })
                   }
             } else {
                   res.redirect('/login')
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -110,7 +118,7 @@ exports.removeFromCart = async (req, res) => {
 
       } catch (error) {
             console.log(error.message);
-            res.status(500).json({ error: 'An error occurred while removing the product from the cart' });
+            res.render('404')
       }
 };
 
@@ -122,7 +130,7 @@ exports.cartQuantityUpdation = async (req, res) => {
             let count = req.body.count;
             count = parseInt(count);
             const productDetails = await choiceProduct.find(
-                  { _id : proId}
+                  { _id: proId }
             )
             const cart = await choicecart.findOne(
                   { userId: user, "products.productId": proId },
@@ -131,74 +139,82 @@ exports.cartQuantityUpdation = async (req, res) => {
             const stock = productDetails[0].quantity
             const countOfItem = cart.products[0].count + count
 
-            if(countOfItem <= 0 || countOfItem > stock){
-                  if(countOfItem <= 0){
-                        res.json({ success: true});
-                  }else{
-                        res.json({ check: true});
+            if (countOfItem <= 0 || countOfItem > stock) {
+                  if (countOfItem <= 0) {
+                        res.json({ success: true });
+                  } else {
+                        res.json({ check: true });
                   }
-                  
-            }else{
+
+            } else {
                   await choicecart.updateOne(
                         { userId: user, "products.productId": proId },
                         {
-                          $inc: { "products.$.count": count }
+                              $inc: { "products.$.count": count }
                         }
                   );
                   const userCart = await choicecart.findOne(
                         { userId: user, "products.productId": proId },
                         { "products.$": 1 }
                   );
-      
+
                   const totalPrice = (userCart.products[0].count) * (userCart.products[0].productPrice)
-                  
+
                   await choicecart.updateOne(
                         { userId: user, "products.productId": proId },
                         {
-                          $set: { "products.$.totalPrice": totalPrice }
+                              $set: { "products.$.totalPrice": totalPrice }
                         }
-                  );          
-                  
-                  
+                  );
+
+
                   res.json({ success: true });
             }
       } catch (error) {
-            error.message
+            console.log(error.message);
+            res.render('404')
       }
 };
 
 //=================================== load checkout ================================
-exports.loadcheckout = async(req,res)=>{
+exports.loadcheckout = async (req, res) => {
       try {
             const userId = req.session.user_id
             if (userId) {
                   const cart = await choicecart.findOne({ userId: userId }).populate('products.productId')
+                  // console.log(cart.products);
+                  // cart.products.forEach((ele)=>{
+                  //       if(ele.productId.quantity < 1){
+                  //             flag = 1
+                  //       }
+                  // })
                   const total = await choicecart.aggregate([
                         { $match: { userId: req.session.user_id } },
                         { $unwind: "$products" },
                         {
-                          $group: {
-                            _id: null,
-                            total: {
-                              $sum: {
-                                $multiply: ["$products.productPrice", "$products.count"],
+                              $group: {
+                                    _id: null,
+                                    total: {
+                                          $sum: {
+                                                $multiply: ["$products.productPrice", "$products.count"],
+                                          },
+                                    },
                               },
-                            },
-                          },
                         },
                   ]);
                   const address = await choiceAddress.find({ users: userId })
-                  if(address.length > 0){
+                  if (address.length > 0) {
                         const addressData = address[0].address
-                        res.render('checkout', { name: req.session.userName, cartProducts: cart.products ,total : total ,address: addressData})
-                  }else{
-                        res.render('checkout', { name: req.session.userName, cartProducts: cart.products ,total : total ,address: null})
+                        res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: addressData })
+                  } else {
+                        res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: null })
                   }
-                  
+
             } else {
                   res.redirect('/login')
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }

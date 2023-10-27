@@ -13,6 +13,7 @@ const loadProductManagment = async(req,res)=>{
             }
       } catch (error) {
             console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -26,7 +27,8 @@ const addProduct = async(req,res)=>{
                   res.status(500).send("Internal Server Error");     
             }
       } catch (error) {
-            res.status(500).send("Internal Server Error");     
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -66,7 +68,8 @@ const addedProduct = async (req, res) => {
                   res.status(500).send("Internal Server Error");
             }
       } catch (error) {
-            res.status(500).send("Internal Server Error"); 
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -76,7 +79,8 @@ const deleteProduct = async(req,res)=>{
             await choiceProduct.deleteOne({ _id: productId});
             res.redirect('/admin/productManagmen')
       } catch (error) {
-            res.status(500).send("Internal Server Error"); 
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -91,7 +95,8 @@ const editProduct = async (req, res) => {
                   res.status(500).send("Internal Server Error"); 
             }
       } catch (error) {
-            res.status(500).send("Internal Server Error"); 
+            console.log(error.message);
+            res.render('404')
       }
 }
 
@@ -152,7 +157,8 @@ const prodectEdited = async (req, res) => {
             }
             
       } catch (error) {
-            res.status(500).send("Internal Server Error"); 
+            console.log(error.message);
+            res.render('404')
       }
 };
   
