@@ -21,117 +21,147 @@
       <div class="checkout">
         <div class="container">
           <div>
-            <% if (orders.status=="delivered" ) { %>
+            <!-- <% if (orders.status=="delivered" ) { %>
               <div class="col-6 col-lg-4 col-xl-2">
                 <div class="btn-wrap">
                   <a href="/invoice/<%= orders._id %>" class="btn btn-outline-dark btn-round">Download Invoice</a>
                 </div>
               </div>
-              <% } %>
+              <% } %> -->
 
-                <div class="row">
-                  <aside class="col-lg-12">
-                    <div class="summary">
-                      <h3 class="summary-title">Your Order</h3>
+            <div class="row">
+              <aside class="col-lg-12">
+                <div class="summary">
+                  <h3 class="summary-title">Your Order</h3>
 
-                      <table class="table table-summary">
-                        <thead>
-                          <tr>
-                            <th>Products</th>
-                            <th>Price</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <% if (orders.products.length> 0) {
-                            orders.products.forEach((data) => { %>
-                            <tr>
+                  <table class="table table-summary">
+                    <thead>
+                      <tr>
+                        <th>Products</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if (orders.products.length> 0) {
+                        orders.products.forEach((data) => { %>
+                        <tr>
+                          <td>
+                            <h6>
+                              <%= data.productId.name %>&nbsp&nbsp<span
+                                  style="border-radius: 50%; font-weight: 100; background-color: #c96; padding: 3px 7px;"
+                                  class="badge">
+                                  <%= data.count %>
+                                </span>
+                            </h6>
+                          </td>
+                          <td>₹ <%= data.totalPrice %>
+                          </td>
+                        </tr>
+                        <% }) %>
+                          <% } %>
+                            <tr class="summary-subtotal">
+                              <td>Billing Address: &nbsp</td>
                               <td>
-                                <h6>
-                                  <%= data.productId.name %>&nbsp&nbsp<span
-                                      style="border-radius: 50%; font-weight: 100; background-color: #c96; padding: 3px 7px;"
-                                      class="badge">
-                                      <%= data.count %>
-                                    </span>
-                                </h6>
-                              </td>
-                              <td>₹ <%= data.totalPrice %>
+                                <%= address.address[0].fullname %><br>
+                                  <%= address.address[0].mobile %><br>
+                                    <%= address.address[0].email %><br>
+                                      <%= address.address[0].houseName %><br>
+                                        <%= address.address[0].city %><br>
+                                          <%= address.address[0].state %><br>
+                                            <%= address.address[0].pin %>
                               </td>
                             </tr>
-                            <% }) %>
+                            <tr>
+                              <td>Ordered Date:</td>
+                              <td>
+                                <%= orders.date.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
+                                  day: '2-digit' }).replace(/\//g, '-' ) %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Order Status:</td>
+                              <td>
+                                <%= orders.status %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Payment Method:</td>
+                              <td>
+                                <%= orders.paymentMethod %>
+                              </td>
+                            </tr>
+                            <% if (orders.status=="Delivered" ) { %>
+                              <tr>
+                                <td>Return Policy:</td>
+                                <td>If you've received them in a condition that is physically damaged, has missing
+                                  parts or accessories <br> you can return the product within <b style="color: red;">
+                                    <%= 7-daysDiff %> Days
+                                  </b>.</td>
+                              </tr>
                               <% } %>
-                                <tr class="summary-subtotal">
-                                  <td>Billing Address: &nbsp</td>
-                                  <td>
-                                    <%= address.address[0].fullname %><br>
-                                      <%= address.address[0].mobile %><br>
-                                        <%= address.address[0].email %><br>
-                                          <%= address.address[0].houseName %><br>
-                                            <%= address.address[0].city %><br>
-                                              <%= address.address[0].state %><br>
-                                                <%= address.address[0].pin %>
-                                  </td>
+                                <tr class="summary-total">
+                                  <td>Total:</td>
+                                  <td><b>
+                                      <%= orders.totalAmount %>
+                                    </b></td>
                                 </tr>
-                                <tr>
-                                  <td>Ordered Date:</td>
-                                  <td>
-                                    <%= orders.date.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' ,
-                                      day: '2-digit' }).replace(/\//g, '-' ) %>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Order Status:</td>
-                                  <td>
-                                    <%= orders.status %>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Payment Method:</td>
-                                  <td>
-                                    <%= orders.paymentMethod %>
-                                  </td>
-                                </tr>
-                                <% if (orders.status=="Delivered" ) { %>
-                                  <tr>
-                                    <td>Return Policy:</td>
-                                    <td>If you've received them in a condition that is physically damaged, has missing
-                                      parts or accessories <br> you can return the product within <b
-                                        style="color: red;">
-                                        <%= 7-daysDiff %> Days
-                                      </b>.</td>
-                                  </tr>
-                                  <% } %>
-                                    <tr class="summary-total">
-                                      <td>Total:</td>
-                                      <td><b>
-                                          <%= orders.totalAmount %>
-                                        </b></td>
-                                    </tr>
-                        </tbody>
-                      </table>
-                      <% if (orders.status=="placed" || orders.status=="pending" ) { %>
-                        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab"
-                          aria-controls="tab-address" aria-selected="false"> <button type="button"
-                            class="btn btn-outline-primary-2 btn-order btn-block">
-                            <span class="btn-text">Cancel Order</span>
-                            <span class="btn-hover-text">Proceed to Cancel the Order</span>
-                          </button></a>
-                        <% } else if (orders.status=="Delivered" && daysDiff <=7) { %>
-                          <a class="nav-link" id="tab-return-link" data-toggle="tab" href="#tab-return" role="tab"
-                          aria-controls="tab-return" aria-selected="false"><button type="button" class="btn btn-outline-primary-2 btn-order btn-block"
-                            data-toggle="modal" data-target="#returnReasonModal">
-                            <span class="btn-text">Return Product</span>
-                            <span class="btn-hover-text">Proceed to Return the Product</span>
-                          </button></a>
-                          <% } %>
-                    </div>
-                  </aside>.
+                    </tbody>
+                  </table>
                   <% if (orders.status=="placed" || orders.status=="pending" ) { %>
-                  <div style="width: 1180px;" class="tab-pane fade" id="tab-address" role="tabpanel"
-                    aria-labelledby="tab-address-link">
+                    <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab"
+                      aria-controls="tab-address" aria-selected="false"> <button type="button"
+                        class="btn btn-outline-primary-2 btn-order btn-block">
+                        <span class="btn-text">Cancel Order</span>
+                        <span class="btn-hover-text">Proceed to Cancel the Order</span>
+                      </button></a>
+                    <% } else if (orders.status=="Delivered" && daysDiff <=7) { %>
+                      <a class="nav-link" id="tab-return-link" data-toggle="tab" href="#tab-return" role="tab"
+                        aria-controls="tab-return" aria-selected="false"><button type="button"
+                          class="btn btn-outline-primary-2 btn-order btn-block" data-toggle="modal"
+                          data-target="#returnReasonModal">
+                          <span class="btn-text">Return Product</span>
+                          <span class="btn-hover-text">Proceed to Return the Product</span>
+                        </button></a>
+                      <% } %>
+                        <% if (orders.status=="Delivered" ) { %>
+                          <a class="nav-link" id="tab-review-link" data-toggle="tab" href="#tab-review" role="tab"
+                            aria-controls="tab-review" aria-selected="false">
+                            <button type="button" class="btn btn-outline-primary-2 btn-order btn-block">
+                              <span class="btn-text">Write a Review</span>
+                              <span class="btn-hover-text">Share your experience</span>
+                            </button>
+                          </a>
+                          <% } %>
+                </div>
+              </aside>.
+              <% if (orders.status=="placed" || orders.status=="pending" ) { %>
+                <div style="width: 1180px;" class="tab-pane fade" id="tab-address" role="tabpanel"
+                  aria-labelledby="tab-address-link">
+                  <div id="cancel" class="summary">
+                    <form action="/cancelOrder?id=<%=orders._id%>" method="post">
+                      Enter the reason for cancellation <br><br>
+                      <input type="text" style="width: 1075px;" name="cancelReason"><br><br>
+                      <%if((orders.status=='placed' || orders.status=="pending" ) && orders.paymentMethod !='cash' ){%>
+                        <!-- Add a dropdown menu for refund method -->
+                        <label for="refundMethod">Select Refund Method:</label>
+                        <select id="refundMethod" name="refundMethod">
+                          <option value="wallet">Refund to Wallet</option>
+                          <option value="bank">Refund to Bank Account</option>
+                        </select><br><br>
+                        <%}%>
+                          <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                            <span>Confirm</span>
+                          </button>
+                    </form>
+                  </div>
+                </div>
+                <% } else if (orders.status=="Delivered" && daysDiff <=7) { %>
+                  <div style="width: 1180px;" class="tab-pane fade" id="tab-return" role="tabpanel"
+                    aria-labelledby="tab-return-link">
                     <div id="cancel" class="summary">
-                      <form action="/cancelOrder?id=<%=orders._id%>" method="post">
-                        Enter the reason for cancellation <br><br>
-                        <input type="text" style="width: 1075px;" name="cancelReason"><br><br>
+                      <form action="/returnOrder?id=<%=orders._id%>" method="post">
+                        Enter the reason for Returning <br><br>
+                        <input type="text" style="width: 1075px;" name="returnReason"><br><br>
                         <!-- Add a dropdown menu for refund method -->
                         <label for="refundMethod">Select Refund Method:</label>
                         <select id="refundMethod" name="refundMethod">
@@ -144,29 +174,82 @@
                       </form>
                     </div>
                   </div>
-                  <% } else if (orders.status=="Delivered" && daysDiff <=7) { %>
-                    <div style="width: 1180px;" class="tab-pane fade" id="tab-return" role="tabpanel" aria-labelledby="tab-return-link">
-                      <div id="cancel" class="summary">
-                        <form action="/returnOrder?id=<%=orders._id%>" method="post">
-                          Enter the reason for Returning <br><br>
-                          <input type="text" style="width: 1075px;" name="returnReason"><br><br>
-                          <!-- Add a dropdown menu for refund method -->
-                          <label for="refundMethod">Select Refund Method:</label>
-                          <select id="refundMethod" name="refundMethod">
-                            <option value="wallet">Refund to Wallet</option>
-                            <option value="bank">Refund to Bank Account</option>
-                          </select><br><br>
-                          <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
-                            <span>Confirm</span>
-                          </button>
-                        </form>
-                      </div>
-                    </div>                    
                   <% } %>
-                </div>
+                    <% if (orders.status=="Delivered" ) { %>
+                      <div class="tab-pane fade" id="tab-review" role="tabpanel" aria-labelledby="tab-review-link">
+                        <div class="summary">
+                          <form action="/submitReview" method="post">
+                            <h3 class="summary-title">Write a Review</h3>
+                            <label id="review-Lb" for="rating">Product:</label>
+                            <select id="product" name="Rproduct" class="form-control review-Select">
+                              <% orders.products.forEach(function(product,index) { %>
+                                <option value="<%= product.productId._id %>">
+                                  <%= product.productId.name %>
+                                </option>
+                                <% }); %>
+                            </select>
+                            <label for="rating">Rating:</label>
+                            <select id="rating" name="rating">
+                              <option value="5">5 Stars</option>
+                              <option value="4">4 Stars</option>
+                              <option value="3">3 Stars</option>
+                              <option value="2">2 Stars</option>
+                              <option value="1">1 Star</option>
+                            </select><br><br>
+                            <label for="comment">Comment:</label>
+                            <textarea id="comment" name="comment" rows="4" style="width: 1075px;"></textarea><br><br>
+                            <button type="submit"
+                              class="btn btn-outline-primary-2 btn-order btn-block">
+                              <span>Submit Review</span>
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                      <% } %>
+
+            </div>
           </div>
         </div>
       </div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // function showReviewForm() {
+    //   document.getElementById("review-form").style.display = "block";
+    // }
+
+
+    function submitReview() {
+
+      const productId = document.getElementById("product").value;
+      const rating = document.getElementById("rating").value;
+      const comment = document.getElementById("comment").value;
+
+      console.log(rating, comment, productId);
+
+      $.ajax({
+        method: "POST",
+        url: "/submitReview",
+        data: {
+          rating: rating,
+          comment: comment,
+          _id: productId
+        },
+        // success: function (response) {
+
+        //   if (response.added) {
+        //     document.getElementById("review-form").style.display = "none";
+        //   }
+
+        // },
+        error: function (error) {
+          console.log("jjjjjjjjjjjjj");
+          console.error("Failed to submit the review:", error);
+
+        },
+      });
+    }
+
+  </script>
 
   <%- include('../userView/layouts/footer2.ejs') %>

@@ -259,91 +259,108 @@ const saleSorting = async (req, res) => {
       }
 }
 
-//================================= Dashboard =================================
 const loadDashboard = async (req, res) => {
       try {
             const users = await choiceUser.find({ is_block: 0 });
             const products = await choiceProduct.find({ blocked: 0 });
             const tot_order = await choiceOrder.find();
-            const sales = await choiceOrder.countDocuments({ status: 'Delivered' })
-            const codCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'cash' });
-            const onlinePaymentCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'Rayzor pay' });
-            const walletCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'wallet' });
+            const sales = await choiceOrder.countDocuments({ status: 'Delivered' });
 
-            const monthlyOrderCounts = await choiceOrder.aggregate([
-                  {
-                        $match: {
-                              status: 'Delivered',
+            if (sales) {
+                  
+                  const codCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'cash' });
+                  const onlinePaymentCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'Rayzor pay' });
+                  const walletCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'wallet' });
+
+                  const monthlyOrderCounts = await choiceOrder.aggregate([
+                        {
+                              $match: {
+                                    status: 'Delivered',
+                              },
                         },
-                  },
-                  {
-                        $group: {
-                              _id: { $dateToString: { format: '%m', date: '$deliveryDate' } },
-                              count: { $sum: 1 },
+                        {
+                              $group: {
+                                    _id: { $dateToString: { format: '%m', date: '$deliveryDate' } },
+                                    count: { $sum: 1 },
+                              },
                         },
-                  },
-            ]);
+                  ]);
 
+                  const monthRev = await choiceOrder.aggregate([
+                        {
+                              $match: {
+                                    status: "Delivered"
+                              }
+                        },
+                        {
+                              $project: {
+                                    year: { $year: '$date' },
+                                    month: { $month: '$date' },
+                                    totalAmount: 1
+                              }
+                        },
+                        {
+                              $group: {
+                                    _id: { year: '$year', month: '$month' },
+                                    totalRevenue: { $sum: '$totalAmount' }
+                              }
+                        },
+                        {
+                              $sort: {
+                                    '_id.year': 1,
+                                    '_id.month': 1
+                              }
+                        }
+                  ])
+                  const monRev = monthRev[0].totalRevenue
+                  const totalRev = await choiceOrder.aggregate([
+                        {
+                              $match: {
+                                    status: "Delivered"
+                              }
+                        },
+                        {
+                              $group: {
+                                    _id: null,
+                                    totalRevenue: { $sum: '$totalAmount' }
+                              }
+                        }
+                  ])
+                  const totalRevenue = totalRev[0].totalRevenue
 
-            const monthRev = await choiceOrder.aggregate([
-                  {
-                        $match: {
-                              status: "Delivered"
-                        }
-                  },
-                  {
-                        $project: {
-                              year: { $year: '$date' },
-                              month: { $month: '$date' },
-                              totalAmount: 1
-                        }
-                  },
-                  {
-                        $group: {
-                              _id: { year: '$year', month: '$month' },
-                              totalRevenue: { $sum: '$totalAmount' }
-                        }
-                  },
-                  {
-                        $sort: {
-                              '_id.year': 1,
-                              '_id.month': 1
-                        }
-                  }
-            ])
-            const monRev = monthRev[0].totalRevenue
-            const totalRev = await choiceOrder.aggregate([
-                  {
-                        $match: {
-                              status: "Delivered"
-                        }
-                  },
-                  {
-                        $group: {
-                              _id: null,
-                              totalRevenue: { $sum: '$totalAmount' }
-                        }
-                  }
-            ])
-            const totalRevenue = totalRev[0].totalRevenue
-
-            res.render('dashboard', {
-                  users,
-                  products,
-                  tot_order,
-                  totalRevenue,
-                  monRev,
-                  sales,
-                  codCount,
-                  walletCount,
-                  onlinePaymentCount,
-                  monthlyOrderCounts
-            })
+                  res.render('dashboard', {
+                        users,
+                        products,
+                        tot_order,
+                        totalRevenue,
+                        monRev,
+                        sales,
+                        codCount,
+                        walletCount,
+                        onlinePaymentCount,
+                        monthlyOrderCounts
+                  });
+            } else {
+                  // If there is no data, set all values to 0
+                  res.render('dashboard', {
+                        users,
+                        products,
+                        tot_order: [],
+                        totalRevenue: 0,
+                        monRev: 0,
+                        sales: 0,
+                        codCount: 0,
+                        walletCount: 0,
+                        onlinePaymentCount: 0,
+                        monthlyOrderCounts: []
+                  });
+            }
       } catch (error) {
             console.log(error.message);
-            res.render('404')
+            res.render('404');
       }
 }
+
 
 module.exports = {
       loadAdmin,

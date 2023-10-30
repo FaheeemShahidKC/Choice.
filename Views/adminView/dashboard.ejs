@@ -12,7 +12,7 @@
                                                 <div class="row">
                                                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                                                             <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                                                  <h2 class="mb-0">₹&nbsp;<%= totalRevenue %>.00</h2>
+                                                                  <h2 class="mb-0">₹&nbsp;<%=totalRevenue?totalRevenue:'' %>.00</h2>
                                                                   <!-- <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p> -->
                                                             </div>
                                                             <!-- <h6 class="text-muted font-weight-normal">Active FurniCube users</h6> -->
@@ -69,6 +69,7 @@
 
 
 
+                        <% if(tot_order != 0){ %>
                         <div class="row">
 
                               <div class="col-md-4 grid-margin stretch-card">
@@ -127,6 +128,7 @@
                               </div>
 
                         </div>
+                        <% }%>
 
                         <div class="row">
                               <div class="col-sm-4 grid-margin">
@@ -235,9 +237,8 @@
                         let Online = document.getElementById("online").value;
                         let Wallet = document.getElementById('wallet').value;
                         let COD = document.getElementById('cod').value;
-                        console.log(Online);
 
-                        const xTValues = ["Online", "COD", "Wallet"];
+                        const xTValues = ["Online", "Wallet", "COD"];
                         const yTValues = [Online, Wallet, COD];
                         const TbarColors = [
                               "#E9C56D",
@@ -257,8 +258,6 @@
 
                         });
                   </script>
-
-
 
                   <script>
                         window.onload = function () {

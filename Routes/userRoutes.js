@@ -20,6 +20,7 @@ const cartController = require('../Controllers/cartController')
 const orderController = require('../Controllers/orderController')
 const couponController = require('../Controllers/couponController')
 const wishlistController = require('../Controllers/wishlistController')
+const reviewController = require('../Controllers/reviewController')
 
 //========================= parsing setup ========================
 userRoutes.use(express.json())
@@ -108,6 +109,9 @@ userRoutes.post('/verify-payment',auth.isLogin,orderController.verifyPayment)
 
 userRoutes.post('/cancelOrder',orderController.cancelOrder)
 userRoutes.post('/returnOrder',orderController.returnOrder)
+
+//============================ review ==========================
+userRoutes.post('/submitReview',reviewController.submitReview)
 
 //==================== module Exports =========================
 module.exports = userRoutes

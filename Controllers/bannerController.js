@@ -16,6 +16,7 @@ exports.addedBanner = async (req, res) => {
                   title: req.body.bannerTitle,
                   description: req.body.description,
                   image: req.file.filename,
+                  linkUrl: req.body.url,
                   status: true
             });
             let result = await banner.save();
@@ -74,6 +75,7 @@ exports.editedBanner = async (req, res) => {
                   title: req.body.bannerTitle,
                   description: req.body.description,
                   image: image,
+                  linkUrl: req.body.url
             };
 
             // Update the existing banner in the database

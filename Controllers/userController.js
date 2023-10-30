@@ -8,6 +8,7 @@ const choiceAddress = require("../Models/addressModel");
 const choiceCategory = require('../Models/categoryModel')
 const choiceCoupons = require('../Models/coopenModel')
 const choiceBanner = require('../Models/bannerModel')
+const choiceReview = require('../Models/reviewModel')
 
 //========================== setting as globel variable ==================
 let signupUser
@@ -164,7 +165,6 @@ const loadOtp = async (req, res) => {
                                     res.render('signup', { error: "check your password!!", name: req.session.userName })
                               }
                         } else {
-
                               res.render('signup', { error: "Email is not valid!!", name: req.session.userName })
                         }
                   }
@@ -181,6 +181,7 @@ const OtpClickedLoadHome = async (req, res) => {
                   if (req.body.verifyOtp == otp) {
                         await choiceUser.insertMany([signupUser])
                         req.session.userName = signupUser.name
+                        // req.session.user_id = signupUser
                         res.redirect('/')
                   } else {
                         res.render('otp', { error: "invalid OTP!!" })
@@ -239,8 +240,19 @@ const loadProduct = async (req, res) => {
       try {
             const prodectId = req.query.id
             const proData = await choiceProduct.findById(prodectId)
+            const reviewData = await choiceReview.findOne({ productId: prodectId }).populate('review.user').populate('review.replay.user')
+            const reviews = reviewData ? reviewData.review : []
+            // Step 1: Extract the ratings using map
+            const ratings = reviews.map((review) => review.rating);
+
+            // Step 2: Calculate the sum of all ratings using reduce
+            const sumOfRatings = ratings.reduce((total, rating) => total + rating, 0);
+
+            // Step 3: Calculate the average
+            const averageRating = sumOfRatings / ratings.length;
+            console.log(reviews);
             if (proData) {
-                  res.render('productDetails', { prodectData: proData })
+                  res.render('productDetails', { prodectData: proData, reviews: reviews, averageRating: averageRating })
             } else {
                   res.status(500).send("Internal Server Error");
             }
