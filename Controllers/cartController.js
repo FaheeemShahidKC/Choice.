@@ -182,34 +182,37 @@ exports.loadcheckout = async (req, res) => {
             const userId = req.session.user_id
             if (userId) {
                   const cart = await choicecart.findOne({ userId: userId }).populate('products.productId')
-                  // console.log(cart.products);
-                  // cart.products.forEach((ele)=>{
-                  //       if(ele.productId.quantity < 1){
-                  //             flag = 1
-                  //       }
-                  // })
-                  const total = await choicecart.aggregate([
-                        { $match: { userId: req.session.user_id } },
-                        { $unwind: "$products" },
-                        {
-                              $group: {
-                                    _id: null,
-                                    total: {
-                                          $sum: {
-                                                $multiply: ["$products.productPrice", "$products.count"],
+                  let flag = false
+                  cart.products.forEach((ele) => {
+                        if (ele.productId.quantity < 1) {
+                              flag = true
+                        }
+                  })
+                  if (flag) {
+                        res.redirect('/cart')
+                  } else {
+                        const total = await choicecart.aggregate([
+                              { $match: { userId: req.session.user_id } },
+                              { $unwind: "$products" },
+                              {
+                                    $group: {
+                                          _id: null,
+                                          total: {
+                                                $sum: {
+                                                      $multiply: ["$products.productPrice", "$products.count"],
+                                                },
                                           },
                                     },
                               },
-                        },
-                  ]);
-                  const address = await choiceAddress.find({ users: userId })
-                  if (address.length > 0) {
-                        const addressData = address[0].address
-                        res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: addressData })
-                  } else {
-                        res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: null })
+                        ]);
+                        const address = await choiceAddress.find({ users: userId })
+                        if (address.length > 0) {
+                              const addressData = address[0].address
+                              res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: addressData })
+                        } else {
+                              res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: null })
+                        }
                   }
-
             } else {
                   res.redirect('/login')
             }

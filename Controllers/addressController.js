@@ -94,6 +94,19 @@ const updateAddress = async (req, res) => {
       }
 };
 
+async (req, res) => {
+      try {
+        const id = req.body.id;
+        await Address.updateOne(
+          { user: req.session.user_id },
+          { $pull: { address: { _id: id } } }
+        );
+        res.json({ remove: true });
+      } catch (error) {
+        console.log(error.message);
+        res.status(404).render("404");
+      }
+    }
 //============================= Remove address ==================================
 const removeAddress = async (req, res) => {
       try {
@@ -103,15 +116,11 @@ const removeAddress = async (req, res) => {
                   return res.status(400).send('Address ID is missing');
             }
 
-            const result = await choiceAddress.deleteOne(
-                  { users: req.session.user_id, "address._id": addressId }
+            const result = await choiceAddress.updateOne(
+              { users: req.session.user_id },
+              { $pull: { address: { _id: addressId } } }
             );
-            if (result.deletedCount === 1) {
-                  // Address was successfully deleted
-                  res.redirect('/profile');
-            } else {
-                  res.status(404).send('Address not found'); // Address not found
-            }
+            res.redirect('/profile');
       } catch (error) {
             res.render('404')
             console.log(error.message);

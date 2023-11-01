@@ -1,210 +1,225 @@
 <%- include('../userView/layouts/header.ejs')%>
 
-<!-- Start Hero Section -->
-<div class="hero">
-      <div class="container">
-            <div class="row justify-content-between">
-                  <div class="col-lg-5">
-                        <div class="intro-excerpt">
-                              <h1>Checkout</h1>
-                        </div>
-                  </div>
-                  <div class="col-lg-7">
-                        
-                  </div>
-            </div>
+  <!-- Start Hero Section -->
+  <div class="hero">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-lg-5">
+          <div class="intro-excerpt">
+            <h1>Checkout</h1>
+          </div>
+        </div>
+        <div class="col-lg-7">
+
+        </div>
       </div>
-</div>
-<!-- End Hero Section -->
+    </div>
+  </div>
+  <!-- End Hero Section -->
 
 
-<div class="untree_co-section">
-<form id="orderForm">
-<div class="container">
-<div class="row">
-  <div class="col-md-6 mb-5 mb-md-0">
-      <div class="p-3 p-lg-5 border bg-white" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
-            <!-- <form id="billing-address-form"> -->
+  <div class="untree_co-section">
+    <form id="orderForm">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0">
+            <div class="p-3 p-lg-5 border bg-white" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+              <!-- <form id="billing-address-form"> -->
               <h3>Select Billing Address</h3><br>
               <div class="form-check">
                 <% if (address) { %>
-                  <% address.forEach((ele) => { %>
+                  <% address.forEach((ele)=> { %>
                     <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="selectedAddress" value="<%= ele._id %>" required>
+                      <input type="radio" class="form-check-input" name="selectedAddress" value="<%= ele._id %>"
+                        required>
                       <%= ele.fullname %>, <%= ele.houseName %>, <%= ele.city %>, <%= ele.state %>, <%= ele.pin %>
                     </label>
                     <br><br>
-                  <% }); %>
-                  <a href="/profile">Add address</a>
-                <% }else{ %>
-                  <a href="/profile">Add address</a>
-                  <% } %>
+                    <% }); %>
+                      <a href="/profile">Add address</a>
+                      <% }else{ %>
+                        <a href="/profile">Add address</a>
+                        <% } %>
               </div>
-            <!-- </form> -->
-      </div>
-      <div class="col-md-6">
-        <div class="row mb-5">
-          <!-- <div class="col-md-6 mb-3 mb-md-0">
+              <!-- </form> -->
+            </div>
+            <div class="col-md-6">
+              <div class="row mb-5">
+                <!-- <div class="col-md-6 mb-3 mb-md-0">
             <button class="btn btn-black btn-sm btn-block">Update Cart</button>
           </div>
           <div class="col-md-6">
             <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
           </div> -->
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <label class="text-black h4" for="coupon">Coupon</label>
-            <p>Enter your coupon code if you have one. <span><a href="/profile">Coupons</a></span></p>
-          </div>
-          <div class="col-md-8 mb-3 mb-md-0">
-            <input style="width: 400px;" type="text" class="form-control py-3" id="couponCode" placeholder="Coupon Code">
-          </div>
-          
-          <div class="col-md-4">
-            <a onclick="applycoupon($('#couponCode').val())"  style="width: 200px; margin-left: 10px; padding-left: 50px;" class="btn btn-black">Apply Coupon</a>
-          </div>
-        </div>
-      </div>
-  </div>
-  <div class="col-md-6">
-    <div class="row mb-5">
-      <div class="col-md-12">
-        <h2 class="h3 mb-3 text-black">Your Order</h2>
-        <div class="p-3 p-lg-5 border bg-white">
-          <table class="table site-block-order-table mb-5">
-            <thead>
-              <th>Product</th>
-              <th>Total</th>
-            </thead>
-            <tbody>
-            <% if(cartProducts){ %>     
-                  <% cartProducts.forEach((product)=>{ %>
-                  <tr>
-                  <td> <%= product.productId.name %> <strong class="mx-2"></strong> <%= product.productId.count %></td>
-                  <td> <%= product.totalPrice %> </td>
-                  </tr>
-            <% })} %>
-              <tr>
-                <td class="text-black font-weight-bold"><strong>Subtotal</strong></td>
-                <td id="subTotal" class="text-black"><%= total[0].total %></td>
-              </tr>
-              <tr>
-                <td class="text-black font-weight-bold"><strong>Discount Amount</strong></td>
-                <td id="disAmount" class="text-black ">0</td>
-              </tr>
-              <tr>
-                <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                <strong><td id="disTotal" class="text-black font-weight-bold"><%= total[0].total %></td></strong>
-              </tr>
-            </tbody>
-          </table>
-          
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="COD" value="cash" checked>
-            <label class="form-check-label" for="cashOnDelivery">
-              Cash on Delivery
-            </label>
-          </div>
-          
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="chequePayment" value="wallet">
-            <label class="form-check-label" for="wallet">
-              Wallet payment
-            </label>
-          </div>
-          
-          <div class="form-check mb-3">
-            <input class="form-check-input" type="radio" name="paymentMethod" id="Rayzor pay" value="Rayzor pay">
-            <label class="form-check-label" for="Rayzor pay">
-              Rayzor pay
-            </label>
-          </div>
-          
-          <div class="form-group">
-            <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Place Order</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</form>
-</div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="text-black h4" for="coupon">Coupon</label>
+                  <p>Enter your coupon code if you have one. <span><a href="/profile">Coupons</a></span></p>
+                </div>
+                <div class="col-md-8 mb-3 mb-md-0">
+                  <input style="width: 400px;" type="text" class="form-control py-3" id="couponCode"
+                    placeholder="Coupon Code">
+                </div>
 
-<script>
-function applycoupon(code) {
-    const amount = document.getElementById('subTotal').innerHTML;
-    $.ajax({
-      url: "/applyCoupon",
-      data: {
-        code: code,
-        amount: amount
-      },
-      method: "post",
-      success: (response) => {
-        if (response.user) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops !!',
-            text: 'This coupon already used!'
-          })
-        } else if (response.limit) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops !!',
-            text: 'coupon limit exceeded!'
-          })
-        } else if (response.status) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops !!',
-            text: 'Coupon limit exceeded!'
-          })
-        } else if (response.cartAmount) {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Oops !!',
-            text: 'You cant use the coupon...Buy more'
-          })
-        } else if (response.date) {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Oops !!',
-            text: 'Coupon expired!!!'
-          })
-        } else if (response.amountOkey) {
-          document.getElementById('disAmount').innerHTML = response.disAmount
-          document.getElementById('disTotal').innerHTML = response.disTotal
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Discount redeemed',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        } else if (response.invalid) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops !!!',
-            text: 'Invalid Coupon!!!'
-          })
-        }else if (response.active) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops !!',
-            text: 'This Coupon is not active yet.'
-          })
+                <div class="col-md-4">
+                  <a onclick="applycoupon($('#couponCode').val())"
+                    style="width: 200px; margin-left: 10px; padding-left: 50px;" class="btn btn-black">Apply Coupon</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Your Order</h2>
+                <div class="p-3 p-lg-5 border bg-white">
+                  <table class="table site-block-order-table mb-5">
+                    <thead>
+                      <th>Product</th>
+                      <th>Total</th>
+                    </thead>
+                    <tbody>
+                      <% if(cartProducts){ %>
+                        <% cartProducts.forEach((product)=>{ %>
+                          <tr>
+                            <td>
+                              <%= product.productId.name %> <strong class="mx-2"></strong>
+                                <%= product.productId.count %>
+                            </td>
+                            <td>
+                              <%= product.totalPrice %>
+                            </td>
+                          </tr>
+                          <% })} %>
+                            <tr>
+                              <td class="text-black font-weight-bold"><strong>Subtotal</strong></td>
+                              <td id="subTotal" class="text-black">
+                                <%= total[0].total %>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="text-black font-weight-bold"><strong>Discount Amount</strong></td>
+                              <td id="disAmount" class="text-black ">0</td>
+                            </tr>
+                            <tr>
+                              <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                              <strong>
+                                <td id="disTotal" class="text-black font-weight-bold">
+                                  <%= total[0].total %>
+                                </td>
+                              </strong>
+                            </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="COD" value="cash" checked>
+                    <label class="form-check-label" for="cashOnDelivery">
+                      Cash on Delivery
+                    </label>
+                  </div>
+
+                  <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="chequePayment" value="wallet">
+                    <label class="form-check-label" for="wallet">
+                      Wallet payment
+                    </label>
+                  </div>
+
+                  <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="Rayzor pay"
+                      value="Rayzor pay">
+                    <label class="form-check-label" for="Rayzor pay">
+                      Rayzor pay
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Place Order</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function applycoupon(code) {
+      const amount = document.getElementById('subTotal').innerHTML;
+      $.ajax({
+        url: "/applyCoupon",
+        data: {
+          code: code,
+          amount: amount
+        },
+        method: "post",
+        success: (response) => {
+          if (response.user) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops !!',
+              text: 'This coupon already used!'
+            })
+          } else if (response.limit) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops !!',
+              text: 'coupon limit exceeded!'
+            })
+          } else if (response.status) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops !!',
+              text: 'Coupon limit exceeded!'
+            })
+          } else if (response.cartAmount) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Oops !!',
+              text: 'You cant use the coupon...Buy more'
+            })
+          } else if (response.date) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Oops !!',
+              text: 'Coupon expired!!!'
+            })
+          } else if (response.amountOkey) {
+            document.getElementById('disAmount').innerHTML = response.disAmount
+            document.getElementById('disTotal').innerHTML = response.disTotal
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Discount redeemed',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } else if (response.invalid) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops !!!',
+              text: 'Invalid Coupon!!!'
+            })
+          } else if (response.active) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops !!',
+              text: 'This Coupon is not active yet.'
+            })
+          }
         }
-      }
-    })
-  }
-$("#orderForm").submit((e) => {
+      })
+    }
+    $("#orderForm").submit((e) => {
       e.preventDefault();
       let addressId = $("input[name = selectedAddress]:checked").val();
       let total = document.getElementById("disTotal").innerHTML; // Modified to use jQuery instead of plain JavaScript
       let payment = $("input[name = paymentMethod]:checked").val();
-      
+
       $.ajax({
         url: "/placeOrder",
         method: "post",
@@ -212,6 +227,18 @@ $("#orderForm").submit((e) => {
         success: (response) => {
           if (response.codsuccess == true) {
             location.href = `/thankyou`;
+          } else if (response.inventry == true) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Insufficient Balance In Stock",
+              showConfirmButton: true,
+              showCancelButton: false,
+              timer: 1500,
+            }).then(() => {
+              window.location.href = '/cart';
+            });
+
           } else if (response.walletFailed == true) {
             swal.fire({
               position: "center",
@@ -230,60 +257,60 @@ $("#orderForm").submit((e) => {
 
     function razorPayment(order) {
       var options = {
-      key: "rzp_test_adMDdPBwl0QYni", // Enter the Key ID generated from the Dashboard
-      amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      currency: "INR",
-      name: "Choice. Pvt.Ltd", //your business name
-      description: "Test Transaction",
-      image: "",
-      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      handler: function (response) {
-        verifyPayment(response, order);
-      },
-      prefill: {
-        //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-        name: "Choice. Pvt.Ltd", //your customer's name
-        email: "Choice@example.com",
-        contact: "910000000369", //Provide the customer's phone number for better conversion rates
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#3b5d50",
-      },
-    };
-    var rzp1 = new Razorpay(options);
-    rzp1.open();
-  }
+        key: "rzp_test_adMDdPBwl0QYni", // Enter the Key ID generated from the Dashboard
+        amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "Choice. Pvt.Ltd", //your business name
+        description: "Test Transaction",
+        image: "",
+        order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        handler: function (response) {
+          verifyPayment(response, order);
+        },
+        prefill: {
+          //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+          name: "Choice. Pvt.Ltd", //your customer's name
+          email: "Choice@example.com",
+          contact: "910000000369", //Provide the customer's phone number for better conversion rates
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3b5d50",
+        },
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.open();
+    }
 
-  function verifyPayment(payment, order) {
-    const amount2 = document.getElementById("disTotal").innerHTML;
-    $.ajax({
-      url: "/verify-payment",
-      method: "post",
-      data: {
-        payment: payment,
-        amount2: amount2,
-        order: order,
-      },
-      success: (response) => {
-        if (response.codsuccess == true) {
-          location.href = `/thankyou`;
-        } else {
-          swal.fire({
-            positon: "center",
-            icon: "error",
-            title: "Payment failed",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      },
-    });
-  }
+    function verifyPayment(payment, order) {
+      const amount2 = document.getElementById("disTotal").innerHTML;
+      $.ajax({
+        url: "/verify-payment",
+        method: "post",
+        data: {
+          payment: payment,
+          amount2: amount2,
+          order: order,
+        },
+        success: (response) => {
+          if (response.codsuccess == true) {
+            location.href = `/thankyou`;
+          } else {
+            swal.fire({
+              positon: "center",
+              icon: "error",
+              title: "Payment failed",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        },
+      });
+    }
 
-</script>
+  </script>
 
 
-<%- include('../userView/layouts/footer.ejs')%>
+  <%- include('../userView/layouts/footer.ejs')%>

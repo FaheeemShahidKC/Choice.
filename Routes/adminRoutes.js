@@ -44,6 +44,7 @@ adminRoutes.post('/addedProduct',multer.productImagesUpload,productController.ad
 adminRoutes.get('/deleteProduct',productController.deleteProduct)
 adminRoutes.get('/editProduct',productController.editProduct)
 adminRoutes.post('/prodectEdited',multer.productImagesUpload,productController.prodectEdited)
+// adminRoutes.post('/delete-photo/:productId',productController.deletePhoto)
 
 //============================== Category managment =======================
 adminRoutes.get('/categoryManagment',categoryController.loadCategory)

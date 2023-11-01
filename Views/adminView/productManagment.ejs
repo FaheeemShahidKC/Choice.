@@ -38,7 +38,7 @@
                                             <td> <%= element.quantity %> </td>
                                             <td> <%= element.price %> </td>
                                             <td><a href="/admin/editProduct?id=<%= element._id %>"><button type="button" class="btn btn-inverse-info ">Edit</button></a></td>
-                                            <td><a href="/admin/deleteProduct?id=<%= element._id %>"><button type="button" class="btn btn-inverse-danger ">Delete</button></a></td>
+                                            <td><a href="/admin/deleteProduct?id=<%= element._id %>"><button type="button" class="btn btn-inverse-danger " onclick="return confirm('Are you sure you? Do you want to Delete ?')">Delete</button></a></td>
                                       </tr>
 
                                 <% count++ %>

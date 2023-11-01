@@ -25,6 +25,28 @@ function validateEmail(email) {
       }
 }
 
+// =========================== mobile validation ================================
+function validateMobileNumber(mobileNumber) {
+      const cleanNumber = mobileNumber.replace(/\D/g, '');
+
+      if (cleanNumber.length === 10) {
+            return true;
+      } else {
+            return false;
+      }
+}
+
+//================================ name validation ================================
+function validateName(name) {
+      const trimmedName = name.trim();
+      if (/^[A-Za-z\s]{2,}$/i.test(trimmedName)) {
+            return true; // Valid name
+      } else {
+            return false; // Invalid name
+      }
+}
+
+
 //========================== bcrypting password ============================
 const bcrypt = require('bcrypt')
 async function securePassword(password) {
@@ -111,7 +133,6 @@ const loadLogin = async (req, res) => {
 
 const loginClickedLoadHome = async (req, res) => {
       const userData = await choiceUser.findOne({ email: req.body.loginEmail });
-
       if (userData) {
             if (await bcrypt.compare(req.body.loginPassword, userData.password)) {
                   if (userData.is_block === false) {
@@ -141,34 +162,45 @@ const loadSignup = async (req, res) => {
 //==================================== otp page =======================================
 const loadOtp = async (req, res) => {
       try {
-            choiceUser.findOne({ email: req.body.signupEmail }).then(async (email) => {
-                  if (email) {
-                        res.render('signup', { error: "Email already exist!!", name: req.session.userName })
-                  } else {
-                        if (req.body.signupEmail && validateEmail(req.body.signupEmail)) {
-                              if (req.body.signupPassword && req.body.signupConfirmPassword && req.body.signupPassword == req.body.signupConfirmPassword) {
-                                    bcryptedPassword = await securePassword(req.body.signupPassword)
-                                    signupUser = {
-                                          name: req.body.signupName,
-                                          mobile: req.body.signupMobileNumber,
-                                          email: req.body.signupEmail,
-                                          password: bcryptedPassword,
-                                          is_block: false
-                                    }
-                                    //generate a random 6-digit OTP
-                                    otp = Math.floor(100000 + Math.random() * 900000)
-                                    toString(otp)
-
-                                    sendMail(req.body.signupName, req.body.signupEmail, otp)
-                                    res.render('otp', { name: req.session.userName })
-                              } else {
-                                    res.render('signup', { error: "check your password!!", name: req.session.userName })
-                              }
+            if (req.body.signupEmail && req.body.signupName && req.body.signupMobileNumber && req.body.signupPassword && req.body.signupConfirmPassword) {
+                  choiceUser.findOne({ email: req.body.signupEmail }).then(async (email) => {
+                        if (email) {
+                              res.render('signup', { error: "Email already exist!!", name: req.session.userName })
                         } else {
-                              res.render('signup', { error: "Email is not valid!!", name: req.session.userName })
+                              if (req.body.signupEmail && validateEmail(req.body.signupEmail)) {
+                                    if (req.body.signupPassword && req.body.signupConfirmPassword && req.body.signupPassword == req.body.signupConfirmPassword) {
+                                          bcryptedPassword = await securePassword(req.body.signupPassword)
+                                          if (validateMobileNumber(req.body.signupMobileNumber)) {
+                                                if (validateName(req.body.signupName)) {
+                                                      signupUser = {
+                                                            name: req.body.signupName,
+                                                            mobile: req.body.signupMobileNumber,
+                                                            email: req.body.signupEmail,
+                                                            password: bcryptedPassword,
+                                                            is_block: false
+                                                      }
+                                                      //generate a random 6-digit OTP
+                                                      otp = Math.floor(100000 + Math.random() * 900000)
+                                                      toString(otp)
+                                                      sendMail(req.body.signupName, req.body.signupEmail, otp)
+                                                      res.render('otp', { name: req.session.userName })
+                                                } else {
+                                                      res.render('signup', { error: "Enter the valid name!!", name: req.session.userName })
+                                                }
+                                          } else {
+                                                res.render('signup', { error: "Enter valid mobile number!!", name: req.session.userName })
+                                          }
+                                    } else {
+                                          res.render('signup', { error: "check your password!!", name: req.session.userName })
+                                    }
+                              } else {
+                                    res.render('signup', { error: "Email is not valid!!", name: req.session.userName })
+                              }
                         }
-                  }
-            })
+                  })
+            } else {
+                  res.render('signup', { error: "Please enter the full data!!", name: req.session.userName })
+            }
       } catch (error) {
             console.log(error.message);
             res.render('404')
@@ -186,6 +218,8 @@ const OtpClickedLoadHome = async (req, res) => {
                   } else {
                         res.render('otp', { error: "invalid OTP!!" })
                   }
+            } else {
+                  res.render('otp', { error: "invalid OTP!!" })
             }
       } catch (error) {
             console.log(error.message);
@@ -242,15 +276,12 @@ const loadProduct = async (req, res) => {
             const proData = await choiceProduct.findById(prodectId)
             const reviewData = await choiceReview.findOne({ productId: prodectId }).populate('review.user').populate('review.replay.user')
             const reviews = reviewData ? reviewData.review : []
-            // Step 1: Extract the ratings using map
+
+            //average rating
             const ratings = reviews.map((review) => review.rating);
-
-            // Step 2: Calculate the sum of all ratings using reduce
             const sumOfRatings = ratings.reduce((total, rating) => total + rating, 0);
-
-            // Step 3: Calculate the average
             const averageRating = sumOfRatings / ratings.length;
-            console.log(reviews);
+
             if (proData) {
                   res.render('productDetails', { prodectData: proData, reviews: reviews, averageRating: averageRating })
             } else {

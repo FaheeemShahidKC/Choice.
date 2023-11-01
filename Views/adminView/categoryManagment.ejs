@@ -32,13 +32,13 @@
                                       </td>
                                       <td>
                                       <% if(!element.is_block){ %>
-                                            <a href="/admin/blockCategory?id=<%= element._id %>"><button type="button" class="btn btn-inverse-danger ">Block</button></a>
+                                            <a href="/admin/blockCategory?id=<%= element._id %>"><button type="button" class="btn btn-inverse-danger "  onclick="return confirm('Are you sure you? Do you want to Block ?')">Block</button></a>
                                       <% }else{ %>
-                                            <a href="/admin/blockCategory?id=<%= element._id %>"><button type="button" class="btn btn-inverse-success ">UnBlock</button></a>
+                                            <a href="/admin/blockCategory?id=<%= element._id %>"><button type="button" class="btn btn-inverse-success " onclick="return confirm('Are you sure you? Do you want to UnBlock ?')">UnBlock</button></a>
                                       <% } %>
                                       </td>
                                       <td>
-                                            <a href="/admin/deleteCategory?id=<%= element._id %>"><button type="button" class="btn btn-inverse-danger ">Delete</button></a>
+                                            <a href="/admin/deleteCategory?id=<%= element._id %>"><button type="button" class="btn btn-inverse-danger " onclick="return confirm('Are you sure you? Do you want to Delete ?')">Delete</button></a>
                                       </td>
                                 </tr>
                                 <% count++ %>

@@ -19,7 +19,7 @@
     <!-- End Hero Section -->
 
 
-    <%if(typeof product != 'undefined' || products.length>0 ){%>
+    <%if(typeof products != 'undefined' && products.length > 0 ){%>
       <div class="untree_co-section before-footer-section">
         <div class="container">
           <div class="row mb-5">
@@ -84,6 +84,7 @@
         </div>
         <%}%>
         <script>
+          console.log(products);
             function deleteFromWish(proId) {
             console.log(proId);
             swal

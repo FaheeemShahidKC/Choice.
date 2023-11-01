@@ -4,13 +4,14 @@ exports.loadWishlist = async (req, res) => {
       try {
             if (req.session.user_id) {
                   const wish = await choiceWishlist.findOne({ user: req.session.user_id })
+                  console.log(wish);
                   if (wish) {
                         wishCount = wish.products.length
                         const wishlist = await choiceWishlist.findOne({ user: req.session.user_id }).populate("products.productId")
-                        const products = wishlist.products;
-                        res.render('wishlist', { name: req.session.userName, products: products })
+                        const wishproducts = wishlist.products;
+                        res.render('wishlist', { name: req.session.userName, products: wishproducts })
                   } else {
-                        res.render('wishlist', { name: req.session.userName, products: null })
+                        res.render('wishlist', { name: req.session.userName })
                   }
             } else {
                   res.redirect('/login')

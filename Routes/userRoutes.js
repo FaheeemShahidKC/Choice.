@@ -32,7 +32,7 @@ userRoutes.set('views','./views/userView')
 
 //=============================== Route setup =====================
 // ================================== Home ========================
-userRoutes.get('/',auth.isLogout,userController.loadHome)
+userRoutes.get('/',userController.loadHome)
 userRoutes.get('/home',auth.isLogin,userController.loadHome)
 
 //============================= login ============================
@@ -43,7 +43,7 @@ userRoutes.post('/clickedLogin',auth.isLogout,userController.loginClickedLoadHom
 userRoutes.get('/signup',auth.isLogout,userController.loadSignup)
 
 //============================= OTP ================================
-userRoutes.post('/clickedSignup',userController.loadOtp)
+userRoutes.post('/clickedSignup',auth.isLogout,userController.loadOtp)
 userRoutes.post('/verify',userController.OtpClickedLoadHome)
 userRoutes.get('/resendOtp',userController.resendOtp)
 userRoutes.get('/otpPage',userController.otpPage)
