@@ -18,6 +18,9 @@
                                                                   id="exampleInputName1"
                                                                   placeholder="Category">
                                                       </div>
+                                                      <%if(typeof error != "undefined"){%>
+                                                      <p style="color: red;"><%=error%></p>
+                                                      <%}%>
                                                       <button type="submit"class="btn btn-primary mr-2">Submit</button>
                                                 </form>
                                           </div>

@@ -16,42 +16,66 @@
                                                             <input type="text" name="couponName"
                                                                   class="form-control"
                                                                   id="exampleInputName1">
+                                                                  <%if(couponName){%>
+                                                                        <p style="color: red;">Must need coupon name.</p>
+                                                                        <%}%>
+
                                                       </div>
                                                       <div class="form-group">
                                                             <label>Coupon code</label>
                                                             <input type="text" name="couponCode"
                                                                   class="form-control"
                                                                   id="exampleInputName1">
+                                                                  <%if(couponAlready){%>
+                                                                        <p style="color: red;">Coupon code must be unique.</p>
+                                                                        <%}else if(couponCode){%>
+                                                                              <p style="color: red;">Must need coupon Code.</p>
+                                                                              <%}%>
                                                       </div>
                                                       <div class="form-group">
                                                             <label>Discount amount</label>
                                                             <input type="number" name="discountAmount"
                                                                   class="form-control"
                                                                   id="exampleInputName1">
+                                                                  <%if(discountAmount){%>
+                                                                        <p style="color: red;">must need positive discount amount.</p>
+                                                                        <%}%>
                                                       </div>
                                                       <div class="form-group">
                                                             <label>Activation date</label>
                                                             <input type="date" name="activationDate"
                                                                   class="form-control"
                                                                   id="exampleInputName1">
+                                                                  <%if(activationDate){%>
+                                                                        <p style="color: red;">Check your activation date.</p>
+                                                                        <%}%>
                                                       </div>
                                                       <div class="form-group">
                                                             <label>Expiry date</label>
                                                             <input type="date" name="expiryDate"
                                                                   class="form-control"
                                                                   id="exampleInputName1">
+                                                                  <%if(expiryDate){%>
+                                                                        <p style="color: red;">Check your Expiry date.</p>
+                                                                        <%}%>
                                                       </div>
                                                       <div class="form-group">
                                                             <label>Criteria amount</label>
                                                             <input type="number" name="criteriaAmount"
                                                                   class="form-control"
                                                                   id="exampleInputName1">
+                                                                  <%if(criteriaAmount){%>
+                                                                        <p style="color: red;">must need positive criteria amount.</p>
+                                                                        <%}%>
                                                       </div>
                                                       <div class="form-group">
                                                             <label>Users limit</label>
                                                             <input type="number" name="usersLimit"
                                                                   class="form-control"
                                                                   id="exampleInputName1">
+                                                                  <%if(usersLimit){%>
+                                                                        <p style="color: red;">must need positive users limit.</p>
+                                                                        <%}%>
                                                       </div>
                                                       <button type="submit"class="btn btn-primary mr-2">Submit</button>
                                                 </form>
@@ -61,13 +85,6 @@
                         </div>
                   </div>
             </div>
-            <% if(typeof message !== 'undefined'){ %>
-                  <span
-                    id="er2"
-                    style="color: rgb(241, 7, 7); text-align: center"
-                    ><%= message %></span
-                  >
-                  <% } %>
       </div>
       <!-- content-wrapper ends -->
       <!-- partial:partials/_footer.html -->

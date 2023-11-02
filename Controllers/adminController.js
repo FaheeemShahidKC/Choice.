@@ -39,9 +39,7 @@ const loadAdmin = async (req, res) => {
       try {
             const thisData = await choiceAdmin.findOne({ email: req.body.adminEmail });
             if (thisData && await bcrypt.compare(req.body.adminPassword, thisData.password)) {
-                  const users = await choiceUser.find();
-                  req.session.admin_id = thisData._id;
-                  res.render('userManagment', { userData: users });
+                  res.redirect('/admin/dashboard')
             } else {
                   res.render('login', { error: "Invalid email or password!!" });
             }
@@ -267,7 +265,6 @@ const loadDashboard = async (req, res) => {
             const sales = await choiceOrder.countDocuments({ status: 'Delivered' });
 
             if (sales) {
-                  
                   const codCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'cash' });
                   const onlinePaymentCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'Rayzor pay' });
                   const walletCount = await choiceOrder.countDocuments({ status: 'Delivered', paymentMethod: 'wallet' });

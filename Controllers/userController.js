@@ -256,14 +256,12 @@ const productSearch = async (req, res) => {
                         { name: { $regex: req.body.search, $options: 'i' } }
                   ]
             });
-
-            if (products) {
-                  const userName = req.session.userName
+            const userName = req.session.userName
+            if (products.length > 0 ) {
                   res.render('shop', { products: products, name: userName, search: "dd", shop: 'a' });
             } else {
-                  res.render('shop', { name: userName, search: "dd", error: "No products related to your search" })
+                  res.render('shop', { name: userName, products: null, shop: 'a', search: "dd", error: "No products related to your search" })
             }
-
       } catch (error) {
             console.log(error.message);
             res.render('404')

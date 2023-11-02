@@ -228,19 +228,19 @@
                                           <span class="next" data-controls="next"><span
                                                       class="fa fa-chevron-right"></span></span>
                                     </div>
-
-                                    
                                           <div class="testimonial-slider" style="height: 500px;">
                                             <% banners.forEach((banner) => { %>
                                                 <%if(banner.status){%>
                                             <div class="item" >
                                               <div class="row justify-content-center">
-                                                <a href="<%= banner.linkUrl %>"><div class="col-lg-8 mx-auto" style="background-image: url('/banner/<%= banner.image %>'); background-size: cover; height: 500px; width: 890px;"></a>
-                                                  <div class="testimonial-block text-center">
+                                                <div class="col-lg-8 mx-auto" style="background-image: url('/banner/<%= banner.image %>'); background-size: cover; height: 500px; width: 890px;">
+                                                      <a style="text-decoration: none; font-size: smaller; color: #0a3e74; padding-left: 800px;" href="<%=banner.linkUrl%>">Click me</a>
+                                                      <div class="testimonial-block text-center">
                                                     <h2 style="color: aliceblue; padding-top: 10px;"><%= banner.title %></h2>
                                                     <blockquote class="mb-5">
                                                       <p style="color: black;">&ldquo;<%= banner.description %>&rdquo;</p>
                                                     </blockquote>
+                                                    
                                                     <!-- Additional content for each banner -->
                                                   </div>
                                                 </div>

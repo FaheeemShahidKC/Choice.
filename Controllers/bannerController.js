@@ -2,6 +2,10 @@ const choiceBanner = require('../Models/bannerModel')
 
 exports.loadBannerManagment = async (req, res) => {
       try {
+            req.session.bannerDescription = false
+            req.session.bannerTitle = false
+            req.session.bannerImage = false
+            req.session.bannerUrl = false
             const banners = await choiceBanner.find()
             res.render('bannerManagment', { banners: banners })
       } catch (error) {
@@ -12,19 +16,34 @@ exports.loadBannerManagment = async (req, res) => {
 
 exports.addedBanner = async (req, res) => {
       try {
-            let banner = new choiceBanner({
-                  title: req.body.bannerTitle,
-                  description: req.body.description,
-                  image: req.file.filename,
-                  linkUrl: req.body.url,
-                  status: true
-            });
-            let result = await banner.save();
-            if (result) {
-                  res.redirect("/admin/bannerManagment");
-            } else {
-                  res.status(500).send("Failed to save banner data.");
+            if(req.body.bannerTitle.trim() === ""){
+                  req.session.bannerTitle = true
+                  res.redirect('/admin/addBanner')
+            }else if(req.body.description.trim() === ""){
+                  req.session.bannerDescription = true
+                  res.redirect('/admin/addBanner')
+            }else if(!req.file){
+                  req.session.bannerImage = true
+                  res.redirect('/admin/addBanner')
+            }else if(req.body.url.trim() === ""){
+                  req.session.bannerUrl = true
+                  res.redirect('/admin/addBanner')
+            }else{
+                  let banner = new choiceBanner({
+                        title: req.body.bannerTitle,
+                        description: req.body.description,
+                        image: req.file.filename,
+                        linkUrl: req.body.url,
+                        status: true
+                  });
+                  let result = await banner.save();
+                  if (result) {
+                        res.redirect("/admin/bannerManagment");
+                  } else {
+                        res.status(500).send("Failed to save banner data.");
+                  }
             }
+            
       } catch (error) {
             console.log(error.message);
             res.render('404')
@@ -33,7 +52,11 @@ exports.addedBanner = async (req, res) => {
 
 exports.addBanner = async (req, res) => {
       try {
-            res.render('addBanner')
+            let bannerDescription = req.session.bannerDescription
+            let bannerTitle = req.session.bannerTitle
+            let bannerImage = req.session.bannerImage
+            let bannerUrl = req.session.bannerUrl
+            res.render('addBanner', {bannerUrl,bannerImage,bannerTitle,bannerDescription})
       } catch (error) {
             console.log(error.message);
             res.render('404')
@@ -44,7 +67,6 @@ exports.editBanner = async (req, res) => {
       try {
             const banner = await choiceBanner.find({ _id: req.query.id })
             res.render('editBanner', { banner: banner })
-            console.log(banner[0]._id);
       } catch (error) {
             console.log(error.message);
             res.render('404')
@@ -55,7 +77,6 @@ exports.editedBanner = async (req, res) => {
       try {
             const bannerId = req.query.id; // Assuming you pass the bannerId as a parameter in the URL
             const currentBanner = await choiceBanner.find({ _id: bannerId });
-            console.log(currentBanner[0].image);
 
             let image;
             if (!req.file || !req.file.filename) {

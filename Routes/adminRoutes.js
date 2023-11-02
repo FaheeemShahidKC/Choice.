@@ -31,7 +31,7 @@ adminRoutes.set('views','./views/adminView')
 
 // ============================== Admin login ==========================
 adminRoutes.get('/',adminController.loadLogin)
-adminRoutes.post('/clickedLogin',adminController.loadDashboard)
+adminRoutes.post('/clickedLogin',adminController.loadAdmin)
 
 //============================== user managment =======================
 adminRoutes.get('/userManagment',adminController.loadUserManagment)

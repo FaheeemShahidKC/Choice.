@@ -8,6 +8,15 @@ const fs = require('fs')
 const loadProductManagment = async (req, res) => {
       try {
             const proData = await choiceProduct.find()
+            req.session.productName = false
+            req.session.category = false
+            req.session.quantity = false
+            req.session.price = false
+            req.session.image1 = false
+            req.session.image2 = false
+            req.session.image3 = false
+            req.session.image4 = false
+            req.session.description = false
             if (proData) {
                   res.render('productManagment', { productData: proData })
             } else {
@@ -23,10 +32,19 @@ const loadProductManagment = async (req, res) => {
 const addProduct = async (req, res) => {
       try {
             const catdata = await choiceCategory.find({})
-            if (catdata) {
-                  res.render('addProduct', { categoryData: catdata })
+            let productName = req.session.productName
+            let category = req.session.category
+            let quantity = req.session.quantity
+            let price = req.session.price
+            let image1 = req.session.image1
+            let image2 = req.session.image2
+            let image3 = req.session.image3
+            let image4 = req.session.image4
+            let description = req.session.description
+            if (catdata.length > 0) {
+                  res.render('addProduct', { categoryData: catdata , productName,category,quantity,price,image1,image2,image3,image4,description })
             } else {
-                  res.status(500).send("Internal Server Error");
+                  res.render('addProduct')
             }
       } catch (error) {
             console.log(error.message);
@@ -39,35 +57,64 @@ const addedProduct = async (req, res) => {
             let details = req.body;
             const files = await req.files;
 
-            const img = [
-                  files.image1[0].filename,
-                  files.image2[0].filename,
-                  files.image3[0].filename,
-                  files.image4[0].filename,
-            ];
-            for (let i = 0; i < img.length; i++) {
-                  await Sharp("Public/products/images/" + img[i])
-                        .resize(500, 500)
-                        .toFile("Public/products/crop/" + img[i]);
-            }
-            let product = new choiceProduct({
-                  name: details.productName,
-                  category: details.category,
-                  quantity: details.quantity,
-                  price: details.price,
-                  description: details.description,
-                  blocked: 0,
-                  "images.image1": files.image1[0].filename,
-                  "images.image2": files.image2[0].filename,
-                  "images.image3": files.image3[0].filename,
-                  "images.image4": files.image4[0].filename,
-            });
-
-            let result = await product.save();
-            if (result) {
-                  res.redirect("/admin/productManagmen");
-            } else {
-                  res.status(500).send("Internal Server Error");
+            if(details.productName.trim() === ""){
+                  req.session.productName = true
+                  res.redirect('/admin/addProduct')
+            }else if(details.category.trim() === ""){
+                  req.session.category = true
+                  res.redirect('/admin/addProduct')
+            }else if(details.quantity < 1){
+                  req.session.quantity = true
+                  res.redirect('/admin/addProduct')
+            }else if(details.price < 1){
+                  req.session.price = true
+                  res.redirect('/admin/addProduct')
+            }else if(!files.image1){
+                  req.session.image1 = true
+                  res.redirect('/admin/addProduct')
+            }else if(!files.image2){
+                  req.session.image2 = true
+                  res.redirect('/admin/addProduct')
+            }else if(!files.image3){
+                  req.session.image3 = true
+                  res.redirect('/admin/addProduct')
+            }else if(!files.image4){
+                  req.session.image4 = true
+                  res.redirect('/admin/addProduct')
+            }else if(details.description.trim() === ""){
+                  req.session.description = true
+                  res.redirect('/admin/addProduct')
+            }else{
+                  const img = [
+                        files.image1[0].filename,
+                        files.image2[0].filename,
+                        files.image3[0].filename,
+                        files.image4[0].filename,
+                  ];
+                  for (let i = 0; i < img.length; i++) {
+                        await Sharp("Public/products/images/" + img[i])
+                              .resize(500, 500)
+                              .toFile("Public/products/crop/" + img[i]);
+                  }
+                  let product = new choiceProduct({
+                        name: details.productName,
+                        category: details.category,
+                        quantity: details.quantity,
+                        price: details.price,
+                        description: details.description,
+                        blocked: 0,
+                        "images.image1": files.image1[0].filename,
+                        "images.image2": files.image2[0].filename,
+                        "images.image3": files.image3[0].filename,
+                        "images.image4": files.image4[0].filename,
+                  });
+      
+                  let result = await product.save();
+                  if (result) {
+                        res.redirect("/admin/productManagmen");
+                  } else {
+                        res.status(500).send("Internal Server Error");
+                  }
             }
       } catch (error) {
             console.log(error.message);

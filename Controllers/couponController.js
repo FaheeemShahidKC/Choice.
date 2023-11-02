@@ -2,7 +2,15 @@ const choiceCoupon = require('../Models/coopenModel')
 
 exports.addCoupon = async (req, res) => {
       try {
-            res.render('addCoupon')
+            let couponAlready = req.session.couponAlready
+            let couponName = req.session.couponName
+            let criteriaAmount = req.session.criteriaAmount
+            let activationDate = req.session.activationDate
+            let expiryDate = req.session.expiryDate
+            let discountAmount = req.session.discountAmount
+            let usersLimit = req.session.usersLimit
+            let couponCode = req.session.couponCode
+            res.render('addCoupon', { couponAlready,couponCode,activationDate,couponName,criteriaAmount,expiryDate,discountAmount,usersLimit })
       } catch (error) {
             console.log(error.message);
             res.render('404')
@@ -12,6 +20,14 @@ exports.addCoupon = async (req, res) => {
 exports.couponManagment = async (req, res) => {
       try {
             const coupons = await choiceCoupon.find()
+            req.session.couponAlready = false
+            req.session.couponCode = false
+            req.session.couponName = false
+            req.session.criteriaAmount = false
+            req.session.activationDate = false
+            req.session.expiryDate = false
+            req.session.discountAmount = false
+            req.session.usersLimit = false
             res.render('couponManagment', { coupons: coupons })
       } catch (error) {
             console.log(error.message);
@@ -22,9 +38,33 @@ exports.couponManagment = async (req, res) => {
 exports.addedCoupon = async (req, res) => {
       try {
             const already = await choiceCoupon.findOne({ couponCode: req.body.couponCode });
+            const TodayDate = new Date()
+            const Today = TodayDate.toISOString().split('T')[0];
 
-            if (already) {
-                  res.render("addCoupon", { message: "Given Coupon Already Exist !" });
+            if (req.body.couponName.trim() === "") {
+                  req.session.couponName = true;
+                  res.redirect('/admin/addCoupon')
+            }else if (req.body.couponCode.trim() === "") {
+                  req.session.couponCode = true;
+                  res.redirect('/admin/addCoupon')
+            }else if (already) {
+                  req.session.couponAlready = true;
+                  res.redirect('/admin/addCoupon')
+            }else if (req.body.discountAmount <= 0) {
+                  req.session.discountAmount = true;
+                  res.redirect('/admin/addCoupon')
+            } else if (req.body.activationDate < Today) {
+                  req.session.activationDate = true;
+                  res.redirect('/admin/addCoupon')
+            }else if (req.body.expiryDate < req.body.activationDate) {
+                  req.session.expiryDate = true;
+                  res.redirect('/admin/addCoupon')
+            }else if (req.body.criteriaAmount <= 0) {
+                  req.session.criteriaAmount = true;
+                  res.redirect('/admin/addCoupon')
+            }else if (req.body.usersLimit <= 0) {
+                  req.session.usersLimit = true;
+                  res.redirect('/admin/addCoupon')
             } else {
                   const data = new choiceCoupon({
                         couponName: req.body.couponName,
@@ -132,7 +172,7 @@ exports.applyCoupon = async (req, res) => {
                                                 const disAmount = couponData.discountAmount;
                                                 const disTotal = Math.round(amount - disAmount);
                                                 return res.json({ amountOkey: true, disAmount, disTotal });
-                                                
+
 
                                           }
                                     }

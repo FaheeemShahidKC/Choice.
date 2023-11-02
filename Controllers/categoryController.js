@@ -31,7 +31,7 @@ const addedCategory = async (req, res) => {
             });
 
             if (cat.length > 0) {
-                  res.render('addCategory');
+                  res.render('addCategory',{error : "Category already added!"});
             } else {
                   const categoryData = {
                         categoryName: req.body.category,
