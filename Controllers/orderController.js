@@ -96,12 +96,7 @@ exports.placeOrder = async (req, res) => {
                                                 await choiceorder.findByIdAndUpdate(
                                                       { _id: orderid },
                                                       { $set: { status: "placed" } }
-                                                );
-                                                if (result) {
-                                                      console.log("amount debited from wallet");
-                                                } else {
-                                                      console.log("not debited from wallet");
-                                                }
+                                                )
                                                 await choicecart.deleteOne({ userId: req.session.user_id });
                                                 for (let i = 0; i < products.length; i++) {
                                                       const pro = products[i].productId;
@@ -111,13 +106,6 @@ exports.placeOrder = async (req, res) => {
                                                             { $inc: { quantity: -count } }
                                                       );
                                                 }
-                                                // if (req.session.code) {
-                                                //       const coupon = await Coupon.findOne({ couponCode: req.session.code });
-                                                //       const disAmount = coupon.discountAmount;
-                                                //       await choiceorder.updateOne({ _id: orderid }, { $set: { discount: disAmount } });
-                                                //       res.json({ codsuccess: true, orderid });
-                                                // }
-                                                console.log("sdaad");
                                                 res.json({ codsuccess: true, orderid });
                                           } else {
                                                 res.json({ walletFailed: true });
@@ -446,7 +434,6 @@ exports.statusUpdate = async (req, res) => {
             const orderId = req.query.id;
             const orderData = await choiceorder.findOne({ _id: orderId })
             const userId = orderData.userId
-            console.log(orderData);
             const statusLevel = req.query.status;
             const amount = orderData.totalAmount;
             const products = orderData.products;

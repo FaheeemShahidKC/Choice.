@@ -4,7 +4,6 @@ exports.loadWishlist = async (req, res) => {
       try {
             if (req.session.user_id) {
                   const wish = await choiceWishlist.findOne({ user: req.session.user_id })
-                  console.log(wish);
                   if (wish) {
                         wishCount = wish.products.length
                         const wishlist = await choiceWishlist.findOne({ user: req.session.user_id }).populate("products.productId")

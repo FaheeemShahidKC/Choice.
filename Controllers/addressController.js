@@ -5,7 +5,6 @@ const choiceUser = require('../Models/userModel');
 const addedAddress = async (req, res) => {
       try {
             const address = await choiceAddress.find({ users: req.session.user_id })
-            console.log(address);
             if (address.length > 0) {
                   const updated = await choiceAddress.updateOne(
                         { users: req.session.user_id },
@@ -39,7 +38,6 @@ const addedAddress = async (req, res) => {
                         ],
                   });
                   await data.save();
-                  console.log(data);
             }
             res.redirect('/profile')
       } catch (error) {
@@ -142,9 +140,7 @@ const editProfile = async (req, res) => {
 const editedUser = async (req, res) => {
       try {
             const userr = req.query.id;
-            console.log(userr);
             const findUser = await choiceUser.find({ _id: userr });
-            console.log(findUser);
 
             // Convert req.body.addMobile to a number
             const mobile = parseInt(req.body.addMobile);

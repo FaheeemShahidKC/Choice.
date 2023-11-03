@@ -5,9 +5,9 @@ const isLogin = async (req, res, next) => {
 
         if (req.session.user_id) {
             const blockedUser = await choiceUser.findOne({ _id: req.session.user_id });
-            if(blockedUser.is_block == 0){
+            if (blockedUser.is_block == 0) {
                 next()
-            }else{
+            } else {
                 req.session.user_id = false;
                 req.session.name = false;
                 res.redirect('/')

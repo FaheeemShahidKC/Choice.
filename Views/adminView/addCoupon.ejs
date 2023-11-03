@@ -1,99 +1,109 @@
 <%- include('../adminView/layout/adminHeader.ejs')%>
-<%- include('../adminView/layout/adminSidebar.ejs')%>
+      <%- include('../adminView/layout/adminSidebar.ejs')%>
 
-<div class="main-panel">
-      <div class="content-wrapper">
-            <div class="row ">
-                  <div class="col-12 grid-margin">
-                        <div class="card">
-                              <div class="col-12 grid-margin stretch-card">
+            <div class="main-panel">
+                  <div class="content-wrapper">
+                        <div class="row ">
+                              <div class="col-12 grid-margin">
                                     <div class="card">
-                                          <div class="card-body">
-                                                <h4 class="card-title">Add Coupon</h4>
-                                                <form method="post" action="/admin/addedCoupon" class="forms-sample">
-                                                      <div class="form-group">
-                                                            <label>Coupon name</label>
-                                                            <input type="text" name="couponName"
-                                                                  class="form-control"
-                                                                  id="exampleInputName1">
-                                                                  <%if(couponName){%>
-                                                                        <p style="color: red;">Must need coupon name.</p>
-                                                                        <%}%>
-
-                                                      </div>
-                                                      <div class="form-group">
-                                                            <label>Coupon code</label>
-                                                            <input type="text" name="couponCode"
-                                                                  class="form-control"
-                                                                  id="exampleInputName1">
-                                                                  <%if(couponAlready){%>
-                                                                        <p style="color: red;">Coupon code must be unique.</p>
-                                                                        <%}else if(couponCode){%>
-                                                                              <p style="color: red;">Must need coupon Code.</p>
+                                          <div class="col-12 grid-margin stretch-card">
+                                                <div class="card">
+                                                      <div class="card-body">
+                                                            <h4 class="card-title">Add Coupon</h4>
+                                                            <form method="post" action="/admin/addedCoupon"
+                                                                  class="forms-sample">
+                                                                  <div class="form-group">
+                                                                        <label>Coupon name</label>
+                                                                        <input type="text" name="couponName"
+                                                                              class="form-control"
+                                                                              id="exampleInputName1">
+                                                                        <%if(couponName){%>
+                                                                              <p style="color: red;">Must need coupon
+                                                                                    name.</p>
                                                                               <%}%>
+
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label>Coupon code</label>
+                                                                        <input type="text" name="couponCode"
+                                                                              class="form-control"
+                                                                              id="exampleInputName1">
+                                                                        <%if(couponAlready){%>
+                                                                              <p style="color: red;">Coupon code must be
+                                                                                    unique.</p>
+                                                                              <%}else if(couponCode){%>
+                                                                                    <p style="color: red;">Must need
+                                                                                          coupon Code.</p>
+                                                                                    <%}%>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label>Discount amount</label>
+                                                                        <input type="number" name="discountAmount"
+                                                                              class="form-control"
+                                                                              id="exampleInputName1">
+                                                                        <%if(discountAmount){%>
+                                                                              <p style="color: red;">must need positive
+                                                                                    discount amount.</p>
+                                                                              <%}%>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label>Activation date</label>
+                                                                        <input type="date" name="activationDate"
+                                                                              class="form-control"
+                                                                              id="exampleInputName1">
+                                                                        <%if(activationDate){%>
+                                                                              <p style="color: red;">Check your
+                                                                                    activation date.</p>
+                                                                              <%}%>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label>Expiry date</label>
+                                                                        <input type="date" name="expiryDate"
+                                                                              class="form-control"
+                                                                              id="exampleInputName1">
+                                                                        <%if(expiryDate){%>
+                                                                              <p style="color: red;">Check your Expiry
+                                                                                    date.</p>
+                                                                              <%}%>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label>Criteria amount</label>
+                                                                        <input type="number" name="criteriaAmount"
+                                                                              class="form-control"
+                                                                              id="exampleInputName1">
+                                                                        <%if(criteriaAmount){%>
+                                                                              <p style="color: red;">must need positive
+                                                                                    criteria amount.</p>
+                                                                              <%}%>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label>Users limit</label>
+                                                                        <input type="number" name="usersLimit"
+                                                                              class="form-control"
+                                                                              id="exampleInputName1">
+                                                                        <%if(usersLimit){%>
+                                                                              <p style="color: red;">must need positive
+                                                                                    users limit.</p>
+                                                                              <%}%>
+                                                                  </div>
+                                                                  <button type="submit"
+                                                                        class="btn btn-primary mr-2">Submit</button>
+                                                            </form>
                                                       </div>
-                                                      <div class="form-group">
-                                                            <label>Discount amount</label>
-                                                            <input type="number" name="discountAmount"
-                                                                  class="form-control"
-                                                                  id="exampleInputName1">
-                                                                  <%if(discountAmount){%>
-                                                                        <p style="color: red;">must need positive discount amount.</p>
-                                                                        <%}%>
-                                                      </div>
-                                                      <div class="form-group">
-                                                            <label>Activation date</label>
-                                                            <input type="date" name="activationDate"
-                                                                  class="form-control"
-                                                                  id="exampleInputName1">
-                                                                  <%if(activationDate){%>
-                                                                        <p style="color: red;">Check your activation date.</p>
-                                                                        <%}%>
-                                                      </div>
-                                                      <div class="form-group">
-                                                            <label>Expiry date</label>
-                                                            <input type="date" name="expiryDate"
-                                                                  class="form-control"
-                                                                  id="exampleInputName1">
-                                                                  <%if(expiryDate){%>
-                                                                        <p style="color: red;">Check your Expiry date.</p>
-                                                                        <%}%>
-                                                      </div>
-                                                      <div class="form-group">
-                                                            <label>Criteria amount</label>
-                                                            <input type="number" name="criteriaAmount"
-                                                                  class="form-control"
-                                                                  id="exampleInputName1">
-                                                                  <%if(criteriaAmount){%>
-                                                                        <p style="color: red;">must need positive criteria amount.</p>
-                                                                        <%}%>
-                                                      </div>
-                                                      <div class="form-group">
-                                                            <label>Users limit</label>
-                                                            <input type="number" name="usersLimit"
-                                                                  class="form-control"
-                                                                  id="exampleInputName1">
-                                                                  <%if(usersLimit){%>
-                                                                        <p style="color: red;">must need positive users limit.</p>
-                                                                        <%}%>
-                                                      </div>
-                                                      <button type="submit"class="btn btn-primary mr-2">Submit</button>
-                                                </form>
+                                                </div>
                                           </div>
                                     </div>
                               </div>
                         </div>
                   </div>
+                  <!-- content-wrapper ends -->
+                  <!-- partial:partials/_footer.html -->
+                  <!-- partial -->
             </div>
-      </div>
-      <!-- content-wrapper ends -->
-      <!-- partial:partials/_footer.html -->
-      <!-- partial -->
-</div>
-<!-- main-panel ends -->
-</div>
-<!-- page-body-wrapper ends -->
-</div>
-<!-- container-scroller -->
+            <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+            </div>
+            <!-- container-scroller -->
 
-<%- include('../adminView/layout/adminFooter.ejs')%>
+            <%- include('../adminView/layout/adminFooter.ejs')%>

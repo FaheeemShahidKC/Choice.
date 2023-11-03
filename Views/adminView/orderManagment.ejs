@@ -23,18 +23,35 @@
                                                             <tbody>
                                                                   <% if(orderData){ %>
                                                                         <% count=1 %>
-                                                                        <% orderData.forEach((element)=>{ %>
-                                                                              <tr>
-                                                                                    <td><%= count %></td>
-                                                                                    <td><%= element.uniqueId %></td>
-                                                                                    <td><%= element.date %></td>
-                                                                                    <td><%= element.paymentMethod %></td>
-                                                                                    <td><%= element.totalAmount %></td>
-                                                                                    <td style="color: green;"><%= element.status %></td>
-                                                                                    <td><a href="/admin/orderDetails?id=<%= element._id %>"><button type="button" class="btn btn-inverse-primary" >Details</button></a></td>
-                                                                              </tr>
-                                                                        <% count++ %>
-                                                                  <%})}%>
+                                                                              <% orderData.forEach((element)=>{ %>
+                                                                                    <tr>
+                                                                                          <td>
+                                                                                                <%= count %>
+                                                                                          </td>
+                                                                                          <td>
+                                                                                                <%= element.uniqueId %>
+                                                                                          </td>
+                                                                                          <td>
+                                                                                                <%= element.date %>
+                                                                                          </td>
+                                                                                          <td>
+                                                                                                <%= element.paymentMethod
+                                                                                                      %>
+                                                                                          </td>
+                                                                                          <td>
+                                                                                                <%= element.totalAmount
+                                                                                                      %>
+                                                                                          </td>
+                                                                                          <td style="color: green;">
+                                                                                                <%= element.status %>
+                                                                                          </td>
+                                                                                          <td><a href="/admin/orderDetails?id=<%= element._id %>"><button
+                                                                                                            type="button"
+                                                                                                            class="btn btn-inverse-primary">Details</button></a>
+                                                                                          </td>
+                                                                                    </tr>
+                                                                                    <% count++ %>
+                                                                                          <%})}%>
                                                             </tbody>
                                                       </table>
                                                 </div>

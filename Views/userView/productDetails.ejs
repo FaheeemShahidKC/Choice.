@@ -28,18 +28,6 @@
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
-
-                        <!-- <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                                <i class="icon-random"></i>
-                            </a>
-                        </div>
-
-                        <div class="dropdown cart-dropdown">
-                            <a href="/cart" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="icon-shopping-cart"></i>
-                            </a>
-                        </div> -->
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-middle -->
@@ -121,10 +109,6 @@
                                                 </div>
                                             </div>
                                             <%}%>
-
-
-                                                <!-- <a class="ratings-text" href="#product-review-link" id="review-link">( <%= reviews.length%>
-                                            Reviews)</a> -->
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
@@ -136,42 +120,6 @@
                                             <%= prodectData.description %>
                                         </p>
                                     </div><!-- End .product-content -->
-                                    <!-- 
-                                    <div class="details-filter-row details-row-size">
-                                        <label>Color:</label>
-
-                                        <div class="product-nav product-nav-thumbs">
-                                            <a href="#" class="active">
-                                                <img src="/products/crop/<%= prodectData.images.image2 %>" alt="product desc">
-                                            </a>
-                                            <a href="#">
-                                                <img src="/products/crop/<%= prodectData.images.image4 %>" alt="product desc">
-                                            </a>
-                                        </div>
-                                    </div> -->
-
-                                    <!-- <div class="details-filter-row details-row-size">
-                                        <label for="size">Size:</label>
-                                        <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="#" selected="selected">Select a size</option>
-                                                <option value="s">Small</option>
-                                                <option value="m">Medium</option>
-                                                <option value="l">Large</option>
-                                                <option value="xl">Extra Large</option>
-                                            </select>
-                                        </div>
-
-                                        <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
-                                    </div> -->
-
-                                    <!-- <div class="details-filter-row details-row-size">
-                                        <label for="qty">Qty:</label>
-                                        <div class="product-details-quantity">
-                                            <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                        </div>
-                                    </div> -->
-
                                     <div class="product-details-action">
                                         <a onclick="addToCart('<%= prodectData._id %>')"
                                             class="btn-product btn-cart"><span>add to cart</span></a>
@@ -180,7 +128,6 @@
                                             <a onclick="addToWishlist('<%= prodectData._id %>')"
                                                 class="btn-product btn-wishlist" title="Wishlist"><span>Add to
                                                     Wishlist</span></a>
-                                            <!-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a> -->
                                         </div><!-- End .details-action-wrapper -->
                                     </div><!-- End .product-details-action -->
 
@@ -191,14 +138,6 @@
                                                 <%= prodectData.category %>
                                             </a>
                                         </div><!-- End .product-cat -->
-
-                                        <!-- <div class="social-icons social-icons-sm">
-                                            <span class="social-label">Share:</span>
-                                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
-                                        </div> -->
                                     </div><!-- End .product-details-footer -->
                                 </div><!-- End .product-details -->
                             </div><!-- End .col-md-6 -->
@@ -273,10 +212,6 @@
                                 <!-- Review -->
                                 <% reviews.forEach(function(review) { %>
                                     <div class="flex-w flex-t p-b-68" style="padding-left: 60px;">
-                                        <!-- <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                    <img src="images/user/orginal/<%= review.user.image %>" alt="AVATAR">
-                                </div> -->
-
                                         <div class="size-207"
                                             style="background-color: rgb(240, 240, 240); padding-left: 10px;">
                                             <div class="flex-w flex-sb-m p-b-17">
@@ -292,88 +227,10 @@
                                                 <%= review.comment %>
                                             </p>
                                             <input id="tyrating" value="<%= review.rating %>" hidden>
-                                            <!-- <div class="like-button">
-                                                <button id="pd-like-btn"  onclick="addLike('<%= review._id %>','<%= prodectData._id %>')" >
-                                                    <i class="far fa-thumbs-up"></i> 
-                                                </button>
-                                                <span class="likes-count"><%= review.likes.length %> Likes</span>
-                                            </div>
-                                            <button class="reply-button" onclick="showReplyForm('<%= review._id %>')">Reply</button>
-                                            <div id="reply-form-<%= review._id %>" style="display: none;">
-                                                <form class="reply-form" onsubmit="submitReply('<%= review._id %>','<%= prodectData._id %>'); return false;">
-                                                    <div class="form-group">
-                                                        <label for="reply-text-<%= review._id %>">Your Reply:</label>
-                                                        <textarea id="reply-text-<%= review._id %>" class="form-control" rows="3"></textarea>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </form>
-                                            </div> -->
-
-                                            <!-- <div class="replies">
-                                                <% review.replay.forEach(function(reply) { %>
-                                                    <div class="reply flex-w flex-t p-b-68">
-                                                        <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                                            <img src="images/user/orginal/<%= reply.user.image %>"
-                                                                alt="AVATAR">
-                                                        </div>
-                                                        <p class="stext-102 cl6"><strong>
-                                                                <%= reply.user.name %>:
-                                                            </strong>
-                                                            <%= reply.comment %>
-                                                        </p>
-                                                    </div>
-                                                    <% }); %>
-                                            </div> -->
                                         </div>
                                         <br><br>
                                     </div>
                                     <% }); %>
-                                        <!-- Add review -->
-                                        <!-- <form class="w-full">
-                                <h5 class="mtext-108 cl2 p-b-7">
-                                    Add a review
-                                </h5>
-
-                                <p class="stext-102 cl6">
-                                    Your email address will not be published. Required fields are marked *
-                                </p>
-
-                                <div class="flex-w flex-m p-t-50 p-b-23">
-                                    <span class="stext-102 cl3 m-r-16">
-                                        Your Rating
-                                    </span>
-
-                                    <span class="wrap-rating fs-18 cl11 pointer">
-                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                        <input class="dis-none" type="number" name="rating">
-                                    </span>
-                                </div>
-
-                                <div class="row p-b-25">
-                                    <div class="col-12 p-b-5">
-                                        <label class="stext-102 cl3" for="review">Your review</label>
-                                        <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
-                                    </div>
-
-                                    <div class="col-sm-6 p-b-5">
-                                        <label class="stext-102 cl3" for="name">Name</label>
-                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
-                                    </div>
-
-                                    <div class="col-sm-6 p-b-5">
-                                        <label class="stext-102 cl3" for="email">Email</label>
-                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
-                                    </div>
-                                </div>
-
-                                <button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                    Submit
-                                </button>
-                            </form> -->
                             </div>
                         </div>
                     </div>

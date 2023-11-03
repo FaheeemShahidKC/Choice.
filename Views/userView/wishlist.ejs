@@ -19,7 +19,7 @@
     <!-- End Hero Section -->
 
 
-    <%if(typeof products != 'undefined' && products.length > 0 ){%>
+    <%if(typeof products !='undefined' && products.length> 0 ){%>
       <div class="untree_co-section before-footer-section">
         <div class="container">
           <div class="row mb-5">
@@ -83,44 +83,44 @@
           </div>
         </div>
         <%}%>
-        <script>
-          console.log(products);
+          <script>
+            console.log(products);
             function deleteFromWish(proId) {
-            console.log(proId);
-            swal
-              .fire({
-                title: "Are You Sure?",
-                Text: " You wont be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "cancel",
-              })
-              .then((result) => {
-                if (result.isConfirmed) {
-                  $.ajax({
-                    url: "/removeWish",
-                    data: {
-                      product: proId,
-                    },
-                    method: "post",
-                    success: (response) => {
-                      if ((response.remove)) {
-                        location.reload();
-                        swal.fire({
-                          title: "Deleted!",
-                          text: "Your item has been deleted.",
-                          icon: "Success",
-                          timer: 1500,
-                          showConfirmButton: false,
-                        });
-                      }
-                    },
-                  });
-                }
-              });
-          }
-        </script>
+              console.log(proId);
+              swal
+                .fire({
+                  title: "Are You Sure?",
+                  Text: " You wont be able to revert this!",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, delete it!",
+                  cancelButtonText: "cancel",
+                })
+                .then((result) => {
+                  if (result.isConfirmed) {
+                    $.ajax({
+                      url: "/removeWish",
+                      data: {
+                        product: proId,
+                      },
+                      method: "post",
+                      success: (response) => {
+                        if ((response.remove)) {
+                          location.reload();
+                          swal.fire({
+                            title: "Deleted!",
+                            text: "Your item has been deleted.",
+                            icon: "Success",
+                            timer: 1500,
+                            showConfirmButton: false,
+                          });
+                        }
+                      },
+                    });
+                  }
+                });
+            }
+          </script>
           <%- include('../userView/layouts/footer.ejs')%>

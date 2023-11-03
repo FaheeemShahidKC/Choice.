@@ -1,408 +1,257 @@
 <%- include('../userView/layouts/header2.ejs')%>
 
-    <div class="page-wrapper">
-        <header class="header">
-            <div class="header-middle sticky-header">
-                <div class="container">
-
-
-
-
-
-
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
-
-                        <a href="/home" class="logo" style="font-size: 35px">
-                            Choice.
-                        </a>
-
-                        <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="/home">Home</a>
-                                </li>
-                                <li>
-                                    <a href="/shop">Shop</a>
-                                </li>
-                            </ul><!-- End .menu -->
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-left -->
-
-
-
-
-
-
-                    <!-- <div class="header-right"> -->
-                        <!-- <div class="header-search">
-                            <a href="#" class="search-toggle" role="button" title="Search"><i
-                                    class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper">
-                                    <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search in..."
-                                        required>
-                                </div>
-                            </form>
-                        </div> -->
-                        <!-- <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-display="static"
-                                title="Compare Products" aria-label="Compare Products">
-                                <i class="icon-random"></i>
-                            </a>
-                        </div> -->
-
-                        <!-- <div class="dropdown cart-dropdown">
-                            <a href="/cart" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="icon-shopping-cart"></i>
-                            </a>
-                        </div> -->
-                    <!-- </div> -->
-
-
-
-
-
-
-                </div><!-- End .container -->
-            </div><!-- End .header-middle -->
-        </header><!-- End .header -->
-
-
-
-
-        <main class="main">
-            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
-                <div class="container">
-                    <h1 class="page-title">
-                        <%= name?name:'' %>
-                    </h1>
-                </div><!-- End .container -->
-            </div><!-- End .page-header -->
-            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
-                <div class="container">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
-
-            <div class="page-content">
-                <div class="dashboard">
-                    <div class="container">
-                        <div class="row">
-
-
-
-
-                            <aside class="col-md-4 col-lg-3">
-                                <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab"
-                                            href="#tab-dashboard" role="tab" aria-controls="tab-dashboard"
-                                            aria-selected="true">Profile</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders"
-                                            role="tab" aria-controls="tab-orders" aria-selected="false">Coupons</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="tab-downloads-link" data-toggle="tab"
-                                            href="#tab-downloads" role="tab" aria-controls="tab-downloads"
-                                            aria-selected="false">wallet</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address"
-                                            role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
-                                    </li>
-                                    <!-- <li class="nav-item">
-                                        <a class="nav-link" id="tab-coupons-link" data-toggle="tab" href="#tab-coupons"
-                                            role="tab" aria-controls="tab-coupons" aria-selected="false">Coupons
-                                            Details</a>
-                                    </li> -->
-                                    <!-- <li class="nav-item">
-                                        <a class="nav-link" href="#">Sign Out</a>
-                                    </li> -->
-                                </ul>
-                            </aside><!-- End .col-lg-3 -->
-
-
-
-
-
-
-
-                            <div class="col-md-8 col-lg-9">
-                                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel"
-                                        aria-labelledby="tab-dashboard-link">
-                                        <p>Hello <span class="font-weight-normal text-dark">
-                                                <%= Details[0].name%>
-                                                    <br>
-                                                    From your account dashboard you can view your <a href="#tab-orders"
-                                                        class="tab-trigger-link link-underline">recent orders</a>,
-                                                    manage your <a href="#tab-address" class="tab-trigger-link">shipping
-                                                        and billing addresses</a>, and <a href="#tab-account"
-                                                        class="tab-trigger-link">edit your password and account
-                                                        details</a>.</p>
-                                    </div><!-- .End .tab-pane -->
-                                    <div class="col-lg-6">
-                                        <div class="card card-dashboard">
-                                            <div class="card-body">
-                                                <h3 class="card-title">Your profile</h3><!-- End .card-title -->
-                                                <p>
-                                                    <%= Details[0].name%><br>
-                                                        <%= Details[0].email%><br>
-                                                            <%= Details[0].mobile%><br>
-                                                                <a href="/editProfile?id=<%= Details[0]._id%>">Edit <i
-                                                                        class="icon-edit"></i></a>
-                                                </p>
-                                            </div><!-- End .card-body -->
-                                        </div><!-- End .card-dashboard -->
-                                    </div><!-- End .col-lg-6 -->
-
-
-
-
-                                    <div class="tab-pane fade" id="tab-orders" role="tabpanel"
-                                        aria-labelledby="tab-orders-link">
-                                        <div class="row">
-                                            <%if(typeof coupons !=='undefined' || coupons.length > 0 ){ %>
-                                                <% coupons.forEach((ele)=>{%>
-                                                  <%if(ele.status == true){%>
-                                                    <div class="col-lg-6">
-                                                        <div class="card card-dashboard">
-                                                            <div class="card-body">
-                                                                <h3 class="card-title">
-                                                                    <%= ele.couponName %>
-                                                                </h3>
-                                                                <p>Coupon code : <span style="color: blueviolet;">
-                                                                        <%= ele.couponCode %>
-                                                                    </span></p>
-                                                                <p>If you pruchase greater than ₹<%= ele.criteriaAmount
-                                                                        %> you will get ₹<%= ele.discountAmount %>
-                                                                            discount</p>
-                                                                <!-- End .card-title -->
-
-                                                                <!-- <p><br>
-                                                            <%= ele.fullname %><br>
-                                                            <%= ele.mobile %><br>
-                                                            <%= ele.email %><br>
-                                                            <%= ele.houseName %><br>
-                                                            <%= ele.city %> , <%= ele.state %><br>
-                                                            <%= ele.pin %><br>
-                                                            <a href="/editAddress?id=<%= ele._id %>">Edit <i class="icon-edit"></i></a>
-                                                            <br>
-                                                            <a href="/removeAddress?id=<%= ele._id %>">Remove</a>
-                                                        </p> -->
-                                                            </div><!-- End .card-body -->
-                                                        </div><!-- End .card-dashboard -->
-                                                    </div><!-- End .col-lg-6 -->
-                                                    <%}%>
-                                                    <% }) }else{ %>
-                                                        <p>No Coupons Found</p>
-                                                        <%}%>
-                                        </div><!-- End .row -->
-                                        <a href="/shop" class="btn btn-outline-primary-2"><span>GO SHOP</span><i
-                                                class="icon-long-arrow-right"></i></a>
-                                    </div><!-- .End .tab-pane -->
-
-
-                                    <!-- <div class="tab-pane fade" id="tab-downloads" role="tabpanel"
-                                        aria-labelledby="tab-downloads-link">
-                                        
-                                        <p>No downloads available yet.</p>
-                                        <a href="category.html" class="btn btn-outline-primary-2"><span>GO SHOP</span><i
-                                                class="icon-long-arrow-right"></i></a>
-                                    </div> -->
-
-                                    <div
-                class="tab-pane fade"
-                id="tab-downloads"
-                role="tabpanel"
-                aria-labelledby="tab-downloads-link"
-              >
-                <div class="row">
-                  <% if(typeof walletAmount != "undefined" ){%>
-                  <div class="col-lg-6">
-                    <div class="card card-dashboard">
-                      <div class="card-body">
-                        <h1 class="card-title">Wallet Amount</h1>
-                        <!-- End .card-title -->
-                        <br />
-
-                        <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                          <div
-                            class="d-flex d-sm-block d-md-flex align-items-center"
-                          >
-                            <h2 class="mb-0">₹ &nbsp <%= walletAmount %></h2>
-                          </div>
-
-                          <br />
-                        </div>
-                        <div
-                          class="col-4 col-sm-12 col-xl-4 text-center text-xl-right"
-                        >
-                          <i
-                            class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End .card-body -->
-                  </div>
-                  <!-- End .card-dashboard -->
-                  <% if(walletHistory.length > 0) { %>
-
-                  <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <br />
-                        <h4 class="card-title">Transaction History</h4>
-
-                        <% walletHistory.forEach((walletHistory)=> { %>
-                        <div
-                          class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3"
-                          style="justify-content: space-between"
-                        >
-                          <div class="text-md-center text-xl-left">
-                            <!-- <h6 class="mb-1">Cancel Refund</h6> -->
-                            <p class="text-muted mb-0">
-                              <%= walletHistory.date.toLocaleDateString('en-US',
-                              { year: 'numeric', month: 'short', day: '2-digit'
-                              }).replace(/\//g, '-') %>
-                            </p>
-                          </div>
-                          <div
-                            class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0"
-                          >
-                            <h6 class="font-weight-bold mb-0">
-                              ₹&nbsp<%= walletHistory.amount %>
-                            </h6>
-                            <p><%= walletHistory.reason %></p>
-                          </div>
-                        </div>
-                        <% }) %>
-                      </div>
-                    </div>
-                  </div>
-                  <% } %>
-
-                  <!-- <div class="col-lg-6">
-                  <div class="card card-dashboard">
-                    <div class="card-body">
-                      <h1 class="card-title">Wallet Amount</h1>
-                      <br>
-  
-                      
-                        <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                          <div class="d-flex d-sm-block d-md-flex align-items-center">
-                            <h2 class="mb-0">$45850</h2>
-                            
-                          </div>
-                          <h6 class="text-muted font-weight-normal"> 9.61% Since last month</h6>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-middle sticky-header">
+        <div class="container">
+          <div class="header-left">
+            <button class="mobile-menu-toggler">
+              <span class="sr-only">Toggle mobile menu</span>
+              <i class="icon-bars"></i>
+            </button>
+            <a href="/home" class="logo" style="font-size: 35px">
+              Choice.
+            </a>
+            <nav class="main-nav">
+              <ul class="menu sf-arrows">
+                <li class="megamenu-container active">
+                  <a href="/home">Home</a>
+                </li>
+                <li>
+                  <a href="/shop">Shop</a>
+                </li>
+              </ul><!-- End .menu -->
+            </nav><!-- End .main-nav -->
+          </div><!-- End .header-left -->
+        </div><!-- End .container -->
+      </div><!-- End .header-middle -->
+    </header><!-- End .header -->
+    <main class="main">
+      <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+          <h1 class="page-title">
+            <%= name?name:'' %>
+          </h1>
+        </div><!-- End .container -->
+      </div><!-- End .page-header -->
+      <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Account</li>
+          </ol>
+        </div><!-- End .container -->
+      </nav><!-- End .breadcrumb-nav -->
+      <div class="page-content">
+        <div class="dashboard">
+          <div class="container">
+            <div class="row">
+              <aside class="col-md-4 col-lg-3">
+                <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard"
+                      role="tab" aria-controls="tab-dashboard" aria-selected="true">Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab"
+                      aria-controls="tab-orders" aria-selected="false">Coupons</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab"
+                      aria-controls="tab-downloads" aria-selected="false">wallet</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab"
+                      aria-controls="tab-address" aria-selected="false">Adresses</a>
+                  </li>
+                </ul>
+              </aside><!-- End .col-lg-3 -->
+              <div class="col-md-8 col-lg-9">
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel"
+                    aria-labelledby="tab-dashboard-link">
+                    <p>Hello <span class="font-weight-normal text-dark">
+                        <%= Details[0].name%>
                           <br>
-                        </div>
-                        <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-                          <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
-                        </div>
-                      </div>
-                    
-                    </div>
-                  </div> -->
-
-                  <%}else{%>
+                          From your account dashboard you can view your <a href="#tab-orders"
+                            class="tab-trigger-link link-underline">recent orders</a>,
+                          manage your <a href="#tab-address" class="tab-trigger-link">shipping
+                            and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your
+                            password and account
+                            details</a>.</p>
+                  </div><!-- .End .tab-pane -->
                   <div class="col-lg-6">
                     <div class="card card-dashboard">
                       <div class="card-body">
-                        <h1 class="card-title">Wallet is empty.</h1>
-                        <!-- End .card-title -->
-                        <br />
-
-                        <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                          <div
-                            class="d-flex d-sm-block d-md-flex align-items-center"
-                          >
-                            <h2 class="mb-0">₹ &nbsp 0.00</h2>
-                          </div>
-                        </div>
-                        <div
-                          class="col-4 col-sm-12 col-xl-4 text-center text-xl-right"
-                        >
-                          <i
-                            class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"
-                          ></i>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End .card-body -->
-                  </div>
-                  <!-- End .card-dashboard -->
-
-                  <%}%>
-                </div>
-                <!-- End row -->
-              </div>
-
-
-
-                                    <div class="tab-pane fade" id="tab-address" role="tabpanel"
-                                        aria-labelledby="tab-address-link">
-                                        <p>The following addresses will be used on the checkout page by default.</p>
-
-                                        <% if (address){ %>
-                                            <div class="row">
-                                                <% address.forEach((ele)=>{%>
-                                                    <div class="col-lg-6">
-                                                        <div class="card card-dashboard">
-                                                            <div class="card-body">
-                                                                <h3 class="card-title">Billing Address</h3>
-                                                                <!-- End .card-title -->
-
-                                                                <p><br>
-                                                                    <%= ele.fullname %><br>
-                                                                        <%= ele.mobile %><br>
-                                                                            <%= ele.email %><br>
-                                                                                <%= ele.houseName %><br>
-                                                                                    <%= ele.city %> , <%= ele.state %>
-                                                                                            <br>
-                                                                                            <%= ele.pin %><br>
-                                                                                                <a
-                                                                                                    href="/editAddress?id=<%= ele._id %>">Edit
-                                                                                                    <i
-                                                                                                        class="icon-edit"></i></a>
-                                                                                                <br>
-                                                                                                <a
-                                                                                                    href="/removeAddress?id=<%= ele._id %>">Remove</a>
-                                                                </p>
-                                                            </div><!-- End .card-body -->
-                                                        </div><!-- End .card-dashboard -->
-                                                    </div><!-- End .col-lg-6 -->
-                                                    <% }) } %>
-                                                        <a href="/addAddress"><button class="btn btn-outline-primary-2">
-                                                                <span>Add Address</span>
-                                                                <i class="icon-long-arrow-right"></i>
-                                                            </button></a>
-                                            </div><!-- End .row -->
-                                    </div><!-- .End .tab-pane -->
-
-
-
+                        <h3 class="card-title">Your profile</h3><!-- End .card-title -->
+                        <p>
+                          <%= Details[0].name%><br>
+                            <%= Details[0].email%><br>
+                              <%= Details[0].mobile%><br>
+                                <a href="/editProfile?id=<%= Details[0]._id%>">Edit <i class="icon-edit"></i></a>
+                        </p>
+                      </div><!-- End .card-body -->
+                    </div><!-- End .card-dashboard -->
+                  </div><!-- End .col-lg-6 -->
+                  <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                    <div class="row">
+                      <%if(typeof coupons !=='undefined' || coupons.length> 0 ){ %>
+                        <% coupons.forEach((ele)=>{%>
+                          <%if(ele.status==true){%>
+                            <div class="col-lg-6">
+                              <div class="card card-dashboard">
+                                <div class="card-body">
+                                  <h3 class="card-title">
+                                    <%= ele.couponName %>
+                                  </h3>
+                                  <p>Coupon code : <span style="color: blueviolet;">
+                                      <%= ele.couponCode %>
+                                    </span></p>
+                                  <p>If you pruchase greater than ₹<%= ele.criteriaAmount %> you will get ₹<%=
+                                        ele.discountAmount %>
+                                        discount</p>
+                                  <!-- End .card-title -->
+                                </div><!-- End .card-body -->
+                              </div><!-- End .card-dashboard -->
+                            </div><!-- End .col-lg-6 -->
+                            <%}%>
+                              <% }) }else{ %>
+                                <p>No Coupons Found</p>
+                                <%}%>
+                    </div><!-- End .row -->
+                    <a href="/shop" class="btn btn-outline-primary-2"><span>GO SHOP</span><i
+                        class="icon-long-arrow-right"></i></a>
+                  </div><!-- .End .tab-pane -->
+                  <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
+                    <div class="row">
+                      <% if(typeof walletAmount !="undefined" ){%>
+                        <div class="col-lg-6">
+                          <div class="card card-dashboard">
+                            <div class="card-body">
+                              <h1 class="card-title">Wallet Amount</h1>
+                              <!-- End .card-title -->
+                              <br />
+                              <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                  <h2 class="mb-0">₹ &nbsp <%= walletAmount %>
+                                  </h2>
                                 </div>
-                            </div><!-- End .col-lg-9 -->
-                        </div><!-- End .row -->
-                    </div><!-- End .container -->
-                </div><!-- End .dashboard -->
-            </div><!-- End .page-content -->
-        </main><!-- End .main -->
-    </div><!-- End .page-wrapper -->
+                                <br />
+                              </div>
+                              <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- End .card-body -->
+                        </div>
+                        <!-- End .card-dashboard -->
+                        <% if(walletHistory.length> 0) { %>
 
-    <%- include('../userView/layouts/footer2.ejs')%>
+                          <div class="col-lg-6 grid-margin stretch-card">
+                            <div class="card">
+                              <div class="card-body">
+                                <br />
+                                <h4 class="card-title">Transaction History</h4>
+
+                                <% walletHistory.forEach((walletHistory)=> { %>
+                                  <div
+                                    class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3"
+                                    style="justify-content: space-between">
+                                    <div class="text-md-center text-xl-left">
+                                      <!-- <h6 class="mb-1">Cancel Refund</h6> -->
+                                      <p class="text-muted mb-0">
+                                        <%= walletHistory.date.toLocaleDateString('en-US', { year: 'numeric' ,
+                                          month: 'short' , day: '2-digit' }).replace(/\//g, '-' ) %>
+                                      </p>
+                                    </div>
+                                    <div
+                                      class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                                      <h6 class="font-weight-bold mb-0">
+                                        ₹&nbsp<%= walletHistory.amount %>
+                                      </h6>
+                                      <p>
+                                        <%= walletHistory.reason %>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <% }) %>
+                              </div>
+                            </div>
+                          </div>
+                          <% } %>
+                            <%}else{%>
+                              <div class="col-lg-6">
+                                <div class="card card-dashboard">
+                                  <div class="card-body">
+                                    <h1 class="card-title">Wallet is empty.</h1>
+                                    <!-- End .card-title -->
+                                    <br />
+
+                                    <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                      <div class="d-flex d-sm-block d-md-flex align-items-center">
+                                        <h2 class="mb-0">₹ &nbsp 0.00</h2>
+                                      </div>
+                                    </div>
+                                    <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+                                      <i class="icon-lg mdi mdi-wallet-travel text-danger ml-auto"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- End .card-body -->
+                              </div>
+                              <!-- End .card-dashboard -->
+
+                              <%}%>
+                    </div>
+                    <!-- End row -->
+                  </div>
+
+
+
+                  <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                    <p>The following addresses will be used on the checkout page by default.</p>
+
+                    <% if (address){ %>
+                      <div class="row">
+                        <% address.forEach((ele)=>{%>
+                          <div class="col-lg-6">
+                            <div class="card card-dashboard">
+                              <div class="card-body">
+                                <h3 class="card-title">Billing Address</h3>
+                                <!-- End .card-title -->
+
+                                <p><br>
+                                  <%= ele.fullname %><br>
+                                    <%= ele.mobile %><br>
+                                      <%= ele.email %><br>
+                                        <%= ele.houseName %><br>
+                                          <%= ele.city %> , <%= ele.state %>
+                                              <br>
+                                              <%= ele.pin %><br>
+                                                <a href="/editAddress?id=<%= ele._id %>">Edit
+                                                  <i class="icon-edit"></i></a>
+                                                <br>
+                                                <a href="/removeAddress?id=<%= ele._id %>">Remove</a>
+                                </p>
+                              </div><!-- End .card-body -->
+                            </div><!-- End .card-dashboard -->
+                          </div><!-- End .col-lg-6 -->
+                          <% }) } %>
+                            <a href="/addAddress"><button class="btn btn-outline-primary-2">
+                                <span>Add Address</span>
+                                <i class="icon-long-arrow-right"></i>
+                              </button></a>
+                      </div><!-- End .row -->
+                  </div><!-- .End .tab-pane -->
+                </div>
+              </div><!-- End .col-lg-9 -->
+            </div><!-- End .row -->
+          </div><!-- End .container -->
+        </div><!-- End .dashboard -->
+      </div><!-- End .page-content -->
+    </main><!-- End .main -->
+  </div><!-- End .page-wrapper -->
+
+  <%- include('../userView/layouts/footer2.ejs')%>

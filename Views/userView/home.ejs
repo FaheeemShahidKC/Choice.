@@ -31,28 +31,27 @@
                               <h2 class="mb-4 section-title">Crafted with excellent material.</h2>
                               <p class="mb-4">Purchase good products form good brand. Be professional with us. </p>
                               <p><a href="/shop" class="btn">Explore</a></p>
-                        </div> 
+                        </div>
                         <!-- End Column 1 -->
                         <% products.forEach((element)=>{ %>
-                              
-                        <!-- Start Column -->
-                        <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 m-4">
-                              <a class="product-item" href="/productDetails?id=<%= element._id %>">
-                                    <img src="/products/crop/<%= element.images.image1 %>" class="img-fluid product-thumbnail">
-                                    <h3 class="product-title"><%= element.name %></h3>
-                                    <strong class="product-price">₹<%= element.price %></strong>
 
-                                    <!-- <span class="icon-cross">
-                                          <img src="/userSide/images/cross.svg" class="img-fluid">
-                                    </span> -->
-                              </a>
-                        </div> 
-                        <!-- End Column -->
-                        <% }) %>
+                              <!-- Start Column -->
+                              <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 m-4">
+                                    <a class="product-item" href="/productDetails?id=<%= element._id %>">
+                                          <img src="/products/crop/<%= element.images.image1 %>"
+                                                class="img-fluid product-thumbnail">
+                                          <h3 class="product-title">
+                                                <%= element.name %>
+                                          </h3>
+                                          <strong class="product-price">₹<%= element.price %></strong>
+                                    </a>
+                              </div>
+                              <!-- End Column -->
+                              <% }) %>
                   </div>
             </div>
       </div>
-      
+
 
       <!-- Start Why Choose Us Section -->
       <div class="why-choose-section">
@@ -208,118 +207,134 @@
       <!-- End Popular Product -->
 
 
-      <% if (typeof banners !== "undefined" && banners.length > 0) { %>
-      <!-- Start Testimonial Slider -->
-      <div class="testimonial-section">
-            <div class="container">
-                  <div class="row">
-                        <div class="col-lg-7 mx-auto text-center">
-                              <h2 class="section-title" style="color: #3b5d50;">Something for you</h2>
+      <% if (typeof banners !=="undefined" && banners.length> 0) { %>
+            <!-- Start Testimonial Slider -->
+            <div class="testimonial-section">
+                  <div class="container">
+                        <div class="row">
+                              <div class="col-lg-7 mx-auto text-center">
+                                    <h2 class="section-title" style="color: #3b5d50;">Something for you</h2>
+                              </div>
                         </div>
-                  </div>
 
-                  <div class="row justify-content-center" style="height: 500px;">
-                        <div class="col-lg-12" style="height: 500px;">
-                              <div class="testimonial-slider-wrap text-center" style="height: 500px;">
+                        <div class="row justify-content-center" style="height: 500px;">
+                              <div class="col-lg-12" style="height: 500px;">
+                                    <div class="testimonial-slider-wrap text-center" style="height: 500px;">
 
-                                    <div id="testimonial-nav">
-                                          <span class="prev" data-controls="prev"><span
-                                                      class="fa fa-chevron-left"></span></span>
-                                          <span class="next" data-controls="next"><span
-                                                      class="fa fa-chevron-right"></span></span>
-                                    </div>
+                                          <div id="testimonial-nav">
+                                                <span class="prev" data-controls="prev"><span
+                                                            class="fa fa-chevron-left"></span></span>
+                                                <span class="next" data-controls="next"><span
+                                                            class="fa fa-chevron-right"></span></span>
+                                          </div>
                                           <div class="testimonial-slider" style="height: 500px;">
-                                            <% banners.forEach((banner) => { %>
-                                                <%if(banner.status){%>
-                                            <div class="item" >
-                                              <div class="row justify-content-center">
-                                                <div class="col-lg-8 mx-auto" style="background-image: url('/banner/<%= banner.image %>'); background-size: cover; height: 500px; width: 890px;">
-                                                      <a style="text-decoration: none; font-size: smaller; color: #0a3e74; padding-left: 800px;" href="<%=banner.linkUrl%>">Click me</a>
-                                                      <div class="testimonial-block text-center">
-                                                    <h2 style="color: aliceblue; padding-top: 10px;"><%= banner.title %></h2>
-                                                    <blockquote class="mb-5">
-                                                      <p style="color: black;">&ldquo;<%= banner.description %>&rdquo;</p>
-                                                    </blockquote>
-                                                    
-                                                    <!-- Additional content for each banner -->
-                                                  </div>
+                                                <% banners.forEach((banner)=> { %>
+                                                      <%if(banner.status){%>
+                                                            <div class="item">
+                                                                  <div class="row justify-content-center">
+                                                                        <div class="col-lg-8 mx-auto"
+                                                                              style="background-image: url('/banner/<%= banner.image %>'); background-size: cover; height: 500px; width: 890px;">
+                                                                              <a style="text-decoration: none; font-size: smaller; color: #0a3e74; padding-left: 800px;"
+                                                                                    href="<%=banner.linkUrl%>">Click
+                                                                                    me</a>
+                                                                              <div
+                                                                                    class="testimonial-block text-center">
+                                                                                    <h2
+                                                                                          style="color: aliceblue; padding-top: 10px;">
+                                                                                          <%= banner.title %>
+                                                                                    </h2>
+                                                                                    <blockquote class="mb-5">
+                                                                                          <p style="color: black;">
+                                                                                                &ldquo;<%=
+                                                                                                      banner.description
+                                                                                                      %>&rdquo;</p>
+                                                                                    </blockquote>
+
+                                                                                    <!-- Additional content for each banner -->
+                                                                              </div>
+                                                                        </div>
+                                                                  </div>
+                                                            </div>
+                                                            <%}%>
+                                                                  <% }) %>
+                                          </div>
+
+
+                                    </div>
+
+                              </div>
+                        </div>
+                  </div>
+            </div>
+            </div>
+            <!-- End Testimonial Slider -->
+            <% } %>
+
+                  <!-- Start Blog Section -->
+                  <div class="blog-section">
+                        <div class="container">
+                              <div class="row mb-5">
+                                    <div class="col-md-6">
+                                          <h2 class="section-title">Recent Blog</h2>
+                                    </div>
+                                    <div class="col-md-6 text-start text-md-end">
+                                          <a href="#" class="more">View All Posts</a>
+                                    </div>
+                              </div>
+
+                              <div class="row">
+
+                                    <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                          <div class="post-entry">
+                                                <a href="#" class="post-thumbnail"><img
+                                                            src="/userSide/images/post-1.jpg" alt="Image"
+                                                            class="img-fluid"></a>
+                                                <div class="post-content-entry">
+                                                      <h3><a href="#">First Time Home Owner Ideas</a></h3>
+                                                      <div class="meta">
+                                                            <span>by <a href="#">Kristin Watson</a></span> <span>on <a
+                                                                        href="#">Dec
+                                                                        19, 2021</a></span>
+                                                      </div>
                                                 </div>
-                                              </div>
-                                            </div>
-                                            <%}%>
-                                            <% }) %>
                                           </div>
-                                          
-                                          
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                          <div class="post-entry">
+                                                <a href="#" class="post-thumbnail"><img
+                                                            src="/userSide/images/post-2.jpg" alt="Image"
+                                                            class="img-fluid"></a>
+                                                <div class="post-content-entry">
+                                                      <h3><a href="#">How To Keep Your Furniture Clean</a></h3>
+                                                      <div class="meta">
+                                                            <span>by <a href="#">Robert Fox</a></span> <span>on <a
+                                                                        href="#">Dec 15,
+                                                                        2021</a></span>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
+                                          <div class="post-entry">
+                                                <a href="#" class="post-thumbnail"><img
+                                                            src="/userSide/images/post-3.jpg" alt="Image"
+                                                            class="img-fluid"></a>
+                                                <div class="post-content-entry">
+                                                      <h3><a href="#">Small Space Furniture Apartment Ideas</a></h3>
+                                                      <div class="meta">
+                                                            <span>by <a href="#">Kristin Watson</a></span> <span>on <a
+                                                                        href="#">Dec
+                                                                        12, 2021</a></span>
+                                                      </div>
+                                                </div>
+                                          </div>
                                     </div>
 
                               </div>
                         </div>
                   </div>
-            </div>
-      </div>
-      <!-- End Testimonial Slider -->
-      <% } %>
+                  <!-- End Blog Section -->
 
-      <!-- Start Blog Section -->
-      <div class="blog-section">
-            <div class="container">
-                  <div class="row mb-5">
-                        <div class="col-md-6">
-                              <h2 class="section-title">Recent Blog</h2>
-                        </div>
-                        <div class="col-md-6 text-start text-md-end">
-                              <a href="#" class="more">View All Posts</a>
-                        </div>
-                  </div>
-
-                  <div class="row">
-
-                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                              <div class="post-entry">
-                                    <a href="#" class="post-thumbnail"><img src="/userSide/images/post-1.jpg"
-                                                alt="Image" class="img-fluid"></a>
-                                    <div class="post-content-entry">
-                                          <h3><a href="#">First Time Home Owner Ideas</a></h3>
-                                          <div class="meta">
-                                                <span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec
-                                                            19, 2021</a></span>
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                              <div class="post-entry">
-                                    <a href="#" class="post-thumbnail"><img src="/userSide/images/post-2.jpg"
-                                                alt="Image" class="img-fluid"></a>
-                                    <div class="post-content-entry">
-                                          <h3><a href="#">How To Keep Your Furniture Clean</a></h3>
-                                          <div class="meta">
-                                                <span>by <a href="#">Robert Fox</a></span> <span>on <a href="#">Dec 15,
-                                                            2021</a></span>
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-                              <div class="post-entry">
-                                    <a href="#" class="post-thumbnail"><img src="/userSide/images/post-3.jpg"
-                                                alt="Image" class="img-fluid"></a>
-                                    <div class="post-content-entry">
-                                          <h3><a href="#">Small Space Furniture Apartment Ideas</a></h3>
-                                          <div class="meta">
-                                                <span>by <a href="#">Kristin Watson</a></span> <span>on <a href="#">Dec
-                                                            12, 2021</a></span>
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
-
-                  </div>
-            </div>
-      </div>
-      <!-- End Blog Section -->
-
-      <%- include('../userView/layouts/footer.ejs')%>
+                  <%- include('../userView/layouts/footer.ejs')%>

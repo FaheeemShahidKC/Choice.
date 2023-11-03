@@ -10,31 +10,42 @@
                                                 <div class="card">
                                                       <div class="card-body">
                                                             <h4 class="card-title">Add product</h4>
-                                                            <form method="post" action="/admin/editedBanner?id=<%= banner[0]._id%>"
+                                                            <form method="post"
+                                                                  action="/admin/editedBanner?id=<%= banner[0]._id%>"
                                                                   class="forms-sample" enctype="multipart/form-data">
                                                                   <div style="display: flex;">
-                                                                        <div class="col-lg-3 col-md-6 rounded-image-preview ">
-                                                                              <label for="imageInput1" class="image-label ">Banner Image
+                                                                        <div
+                                                                              class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                              <label for="imageInput1"
+                                                                                    class="image-label ">Banner Image
                                                                                     <div class="rounded-image-preview">
-                                                                                      <img id="imagePreview1"
-                                                                                      src="/banner/<%= banner[0].image %>"
-                                                                                        alt="Preview" />
+                                                                                          <img id="imagePreview1"
+                                                                                                src="/banner/<%= banner[0].image %>"
+                                                                                                alt="Preview" />
                                                                                     </div>
-                                                                                    <input name="image" value="<%= banner[0].image %>" type="file" accept="image/*" id="imageInput1" class="imageInput" >
-                                                                                  </label>
+                                                                                    <input name="image"
+                                                                                          value="<%= banner[0].image %>"
+                                                                                          type="file" accept="image/*"
+                                                                                          id="imageInput1"
+                                                                                          class="imageInput">
+                                                                              </label>
                                                                         </div>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label for="exampleInputName1">Banner
                                                                               Tittle</label>
-                                                                        <input value="<%=banner[0].title%>" type="text" name="bannerTitle"
-                                                                              class="form-control"
+                                                                        <input value="<%=banner[0].title%>" type="text"
+                                                                              name="bannerTitle" class="form-control"
                                                                               id="exampleInputName1" placeholder="Name">
                                                                   </div>
                                                                   <div class="form-group">
-                                                                        <label for="exampleTextarea1">Description</label>
-                                                                        <textarea class="form-control" name="description" id="exampleTextarea1" rows="4" placeholder=""><%= banner[0].description %></textarea>
-                                                                    </div>                                                                    
+                                                                        <label
+                                                                              for="exampleTextarea1">Description</label>
+                                                                        <textarea class="form-control"
+                                                                              name="description" id="exampleTextarea1"
+                                                                              rows="4"
+                                                                              placeholder=""><%= banner[0].description %></textarea>
+                                                                  </div>
                                                                   <button type="submit"
                                                                         class="btn btn-primary mr-2">Submit</button>
                                                                   <a href="/admin/bannerManagment"><button type="button"

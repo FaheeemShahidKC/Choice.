@@ -1,49 +1,54 @@
 <%- include('../userView/layouts/header.ejs')%>
 
-<body>
+      <body>
 
-      <div class="wrapper-login" style="background-image: url('');">
-            <div class="inner-login">
-                  <div class="image-holder">
-                        <img class="img-login" src="/userSide/images/sofa.png" alt="">
-                  </div>
-                  <form action="/verify" method="post">
-                        <h3 class="texts-login">Enter OTP</h3>
-                        <div class="form-wrapper-login">
-                              <input type="number" placeholder="OTP verification" name="verifyOtp" class="form-control-login style-login">
-                              <i class="zmdi zmdi-lock"></i>
+            <div class="wrapper-login" style="background-image: url('');">
+                  <div class="inner-login">
+                        <div class="image-holder">
+                              <img class="img-login" src="/userSide/images/sofa.png" alt="">
                         </div>
-                        <div id="otpTimer" >OTP will expire in <span id="timer" style="color: #050737;">59</span> seconds</div>
-                              <a href="/resendOtp" id="resendOTPLink" style="color: #050737; display:none; text-decoration: none;">Resend OTP</a>
-                        <P style="color: red;"><%=locals.error?error:""%></P>
-                        <button type="submit" class="style-login button-login">Verify
-                              <i class="zmdi zmdi-arrow-right"></i>
-                        </button>
-                  </form>
+                        <form action="/verify" method="post">
+                              <h3 class="texts-login">Enter OTP</h3>
+                              <div class="form-wrapper-login">
+                                    <input type="number" placeholder="OTP verification" name="verifyOtp"
+                                          class="form-control-login style-login">
+                                    <i class="zmdi zmdi-lock"></i>
+                              </div>
+                              <div id="otpTimer">OTP will expire in <span id="timer" style="color: #050737;">59</span>
+                                    seconds</div>
+                              <a href="/resendOtp" id="resendOTPLink"
+                                    style="color: #050737; display:none; text-decoration: none;">Resend OTP</a>
+                              <P style="color: red;">
+                                    <%=locals.error?error:""%>
+                              </P>
+                              <button type="submit" class="style-login button-login">Verify
+                                    <i class="zmdi zmdi-arrow-right"></i>
+                              </button>
+                        </form>
+                  </div>
             </div>
-      </div>
-      <script>
-            // Countdown timer function
-            function startTimer(duration, display) {
-                var timer = duration;
-                setInterval(function () {
-                    display.textContent = timer;
-    
-                    if (--timer < 0) {
-                        // Timer expired, show the Resend OTP link
-                        document.getElementById("otpTimer").style.display = "none";
-                        document.getElementById("resendOTPLink").style.display = "block";
-                    }
-                }, 1000);
-            }
-    
-            // Start the timer when the page loads
-            window.onload = function () {
-                var tenSeconds = 59,
-                    display = document.querySelector('#timer');
-                startTimer(tenSeconds, display);
-            };
-        </script>
-</body>
+            <script>
+                  // Countdown timer function
+                  function startTimer(duration, display) {
+                        var timer = duration;
+                        setInterval(function () {
+                              display.textContent = timer;
 
-<%- include('../userView/layouts/footer.ejs')%>
+                              if (--timer < 0) {
+                                    // Timer expired, show the Resend OTP link
+                                    document.getElementById("otpTimer").style.display = "none";
+                                    document.getElementById("resendOTPLink").style.display = "block";
+                              }
+                        }, 1000);
+                  }
+
+                  // Start the timer when the page loads
+                  window.onload = function () {
+                        var tenSeconds = 59,
+                              display = document.querySelector('#timer');
+                        startTimer(tenSeconds, display);
+                  };
+            </script>
+      </body>
+
+      <%- include('../userView/layouts/footer.ejs')%>

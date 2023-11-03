@@ -44,7 +44,6 @@ adminRoutes.post('/addedProduct',multer.productImagesUpload,productController.ad
 adminRoutes.get('/deleteProduct',productController.deleteProduct)
 adminRoutes.get('/editProduct',productController.editProduct)
 adminRoutes.post('/prodectEdited',multer.productImagesUpload,productController.prodectEdited)
-// adminRoutes.post('/delete-photo/:productId',productController.deletePhoto)
 
 //============================== Category managment =======================
 adminRoutes.get('/categoryManagment',categoryController.loadCategory)
@@ -80,6 +79,7 @@ adminRoutes.get('/blockBanner',bannerController.blockBanner)
 adminRoutes.get('/salesReport',adminController.salesReport)
 adminRoutes.get('/reportDown/:duration/:format', adminController.downloadReport)
 adminRoutes.get('/saleSortPage/:id', adminController.saleSorting)
+adminRoutes.post('/saleDateSort',adminController.saleDateSort)
 
 //============================== dashboard ===========================
 adminRoutes.get('/dashboard',adminController.loadDashboard)

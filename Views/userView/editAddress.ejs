@@ -1,72 +1,102 @@
 <%- include('../userView/layouts/header2.ejs') %>
-<div class="page-wrapper" style=" margin: 50px;">
-    <main class="main">
-        <div class="page-content">
-            <div class="dashboard">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6">
-                            <div class="tab-content">
-                                <div class="form-wrapper">
-                                    <h3>Edit Address</h3>
-                                    <% if(address){ %>
-                                    <form action="/update?id=<%= address.address[0]._id %>" method="post">
-                                          <input type="hidden" name="id" value="<%= address.address[0]._id %>">
-                                          <div class="form-group">
-                                                <label for="addName">Full Name * </label>
-                                                <input type="text" class="form-control" id="addName" value="<%= address.address[0].fullname %>" name="addName" required>
-                                          </div>
+      <div class="page-wrapper" style=" margin: 50px;">
+            <main class="main">
+                  <div class="page-content">
+                        <div class="dashboard">
+                              <div class="container">
+                                    <div class="row justify-content-center">
+                                          <div class="col-md-6">
+                                                <div class="tab-content">
+                                                      <div class="form-wrapper">
+                                                            <h3>Edit Address</h3>
+                                                            <% if(address){ %>
+                                                                  <form action="/update?id=<%= address.address[0]._id %>"
+                                                                        method="post">
+                                                                        <input type="hidden" name="id"
+                                                                              value="<%= address.address[0]._id %>">
+                                                                        <div class="form-group">
+                                                                              <label for="addName">Full Name * </label>
+                                                                              <input type="text" class="form-control"
+                                                                                    id="addName"
+                                                                                    value="<%= address.address[0].fullname %>"
+                                                                                    name="addName" required>
+                                                                        </div>
 
-                                          <div class="form-group">
-                                                <label for="addEmail">Email *</label>
-                                                <input type="email" class="form-control" id="addEmail" value="<%= address.address[0].email %>" name="addEmail" required>
-                                          </div>
+                                                                        <div class="form-group">
+                                                                              <label for="addEmail">Email *</label>
+                                                                              <input type="email" class="form-control"
+                                                                                    id="addEmail"
+                                                                                    value="<%= address.address[0].email %>"
+                                                                                    name="addEmail" required>
+                                                                        </div>
 
-                                          <div class="form-group">
-                                                <label for="addMobile">Mobile Number</label>
-                                                <input type="number" class="form-control" id="addMobile" value="<%= address.address[0].mobile %>" name="addMobile">
-                                          </div>
+                                                                        <div class="form-group">
+                                                                              <label for="addMobile">Mobile
+                                                                                    Number</label>
+                                                                              <input type="number" class="form-control"
+                                                                                    id="addMobile"
+                                                                                    value="<%= address.address[0].mobile %>"
+                                                                                    name="addMobile">
+                                                                        </div>
 
-                                          <div class="form-group">
-                                                <label for="addHouseName">House Name</label>
-                                                <input type="text" class="form-control" id="addHouseName" value="<%= address.address[0].houseName %>" name="addHouseName">
-                                          </div>
+                                                                        <div class="form-group">
+                                                                              <label for="addHouseName">House
+                                                                                    Name</label>
+                                                                              <input type="text" class="form-control"
+                                                                                    id="addHouseName"
+                                                                                    value="<%= address.address[0].houseName %>"
+                                                                                    name="addHouseName">
+                                                                        </div>
 
-                                          <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                      <label for="addCity">City</label>
-                                                      <input type="text" class="form-control" value="<%= address.address[0].city %>" id="addCity" name="addCity">
+                                                                        <div class="form-row">
+                                                                              <div class="form-group col-md-6">
+                                                                                    <label for="addCity">City</label>
+                                                                                    <input type="text"
+                                                                                          class="form-control"
+                                                                                          value="<%= address.address[0].city %>"
+                                                                                          id="addCity" name="addCity">
+                                                                              </div>
+
+                                                                              <div class="form-group col-md-6">
+                                                                                    <label for="addState">State</label>
+                                                                                    <input type="text"
+                                                                                          class="form-control"
+                                                                                          id="addState"
+                                                                                          value="<%= address.address[0].state %>"
+                                                                                          name="addState">
+                                                                              </div>
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                              <label for="addPincode">Pincode</label>
+                                                                              <input type="number" class="form-control"
+                                                                                    id="addPincode"
+                                                                                    value="<%= address.address[0].pin %>"
+                                                                                    name="addPincode">
+                                                                        </div>
+
+                                                                        <div class="form-group text-center">
+                                                                              <button type="submit"
+                                                                                    class="btn btn-primary">
+                                                                                    SAVE CHANGES <i
+                                                                                          class="icon-long-arrow-right"></i>
+                                                                              </button>
+                                                                              <a href="/profile"
+                                                                                    class="btn btn-secondary">
+                                                                                    CANCEL <i
+                                                                                          class="icon-long-arrow-right"></i>
+                                                                              </a>
+                                                                        </div>
+                                                                  </form>
+                                                                  <% } %>
+                                                      </div><!-- .End .tab-pane (Add Address Form) -->
                                                 </div>
+                                          </div><!-- End .col-md-6 -->
+                                    </div><!-- End .row -->
+                              </div><!-- End .container -->
+                        </div><!-- End .dashboard -->
+                  </div><!-- End .page-content -->
+            </main><!-- End .main -->
+      </div><!-- End .page-wrapper -->
 
-                                                <div class="form-group col-md-6">
-                                                      <label for="addState">State</label>
-                                                      <input type="text" class="form-control" id="addState" value="<%= address.address[0].state %>" name="addState">
-                                                </div>
-                                          </div>
-
-                                          <div class="form-group">
-                                                <label for="addPincode">Pincode</label>
-                                                <input type="number" class="form-control" id="addPincode" value="<%= address.address[0].pin %>" name="addPincode">
-                                          </div>
-
-                                          <div class="form-group text-center">
-                                                <button type="submit" class="btn btn-primary">
-                                                      SAVE CHANGES <i class="icon-long-arrow-right"></i>
-                                                </button>
-                                                <a href="/profile" class="btn btn-secondary">
-                                                      CANCEL <i class="icon-long-arrow-right"></i>
-                                                </a>
-                                          </div>
-                                    </form>
-                                    <% } %>
-                                </div><!-- .End .tab-pane (Add Address Form) -->
-                            </div>
-                        </div><!-- End .col-md-6 -->
-                    </div><!-- End .row -->
-                </div><!-- End .container -->
-            </div><!-- End .dashboard -->
-        </div><!-- End .page-content -->
-    </main><!-- End .main -->
-</div><!-- End .page-wrapper -->
-
-<%- include('../userView/layouts/footer2.ejs') %>
+      <%- include('../userView/layouts/footer2.ejs') %>

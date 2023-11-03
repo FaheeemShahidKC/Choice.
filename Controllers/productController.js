@@ -211,29 +211,6 @@ const prodectEdited = async (req, res) => {
       }
 };
 
-
-// const deletePhoto = async (req, res) => {
-//       try {
-//             console.log("mmmmm");
-//             const productId = req.params.productId;
-//             const photoNumber = req.body.photoNumber; 
-
-//             const product = await choiceProduct.findById(productId);
-
-//             if (!product) {
-//                   return res.status(404).send("Product not found");
-//             }
-
-            
-//             const currentImageFileName = product.images[`image${photoNumber}`];
-//            console.log(currentImageFileName);
-//       } catch (error) {
-//             console.error(error);
-//             res.status(500).send("Internal Server Error");
-//       }
-// }
-
-
 module.exports = {
       addedProduct,
       loadProductManagment,

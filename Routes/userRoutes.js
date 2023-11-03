@@ -91,6 +91,8 @@ userRoutes.get('/thankyou',auth.isLogin,orderController.thankyou)
 //================================= Orders ===============================
 userRoutes.get('/orders',auth.isLogin,orderController.orders)
 userRoutes.get('/viewOrderDetails',auth.isLogin,orderController.viewOrderDetails)
+userRoutes.post('/cancelOrder',orderController.cancelOrder)
+userRoutes.post('/returnOrder',orderController.returnOrder)
 
 //=============================== Shop ====================================
 userRoutes.get('/shop',userController.loadShop)
@@ -106,9 +108,6 @@ userRoutes.post('/removeWish',wishlistController.removeWishItem)
 
 //============================= payment ===========================
 userRoutes.post('/verify-payment',auth.isLogin,orderController.verifyPayment)
-
-userRoutes.post('/cancelOrder',orderController.cancelOrder)
-userRoutes.post('/returnOrder',orderController.returnOrder)
 
 //============================ review ==========================
 userRoutes.post('/submitReview',reviewController.submitReview)

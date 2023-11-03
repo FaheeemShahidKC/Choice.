@@ -13,17 +13,24 @@
                                                             <form method="post" action="/admin/addedBanner"
                                                                   class="forms-sample" enctype="multipart/form-data">
                                                                   <div style="display: flex;">
-                                                                        <div class="col-lg-3 col-md-6 rounded-image-preview ">
-                                                                              <label for="imageInput1" class="image-label ">Banner Image
-                                                                                <div class="rounded-image-preview">
-                                                                                  <img id="imagePreview1"
-                                                                                  src="https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Image-Upload-Icon-Graphics-10388650-1-580x386.jpg"
-                                                                                    alt="Preview" />
-                                                                                </div>
-                                                                                <input name="image" type="file" accept="image/*" id="imageInput1" class="imageInput" style="width: 500px; height: 300px;" >
-                                                                                <%if(bannerImage){%>
-                                                                                    <p style="color: red;">product image is required</p>
-                                                                              <%}%>
+                                                                        <div
+                                                                              class="col-lg-3 col-md-6 rounded-image-preview ">
+                                                                              <label for="imageInput1"
+                                                                                    class="image-label ">Banner Image
+                                                                                    <div class="rounded-image-preview">
+                                                                                          <img id="imagePreview1"
+                                                                                                src="https://www.creativefabrica.com/wp-content/uploads/2021/04/05/Image-Upload-Icon-Graphics-10388650-1-580x386.jpg"
+                                                                                                alt="Preview" />
+                                                                                    </div>
+                                                                                    <input name="image" type="file"
+                                                                                          accept="image/*"
+                                                                                          id="imageInput1"
+                                                                                          class="imageInput"
+                                                                                          style="width: 500px; height: 300px;">
+                                                                                    <%if(bannerImage){%>
+                                                                                          <p style="color: red;">product
+                                                                                                image is required</p>
+                                                                                          <%}%>
                                                                               </label>
                                                                         </div>
                                                                   </div>
@@ -31,30 +38,35 @@
                                                                         <label for="exampleInputName1">Banner
                                                                               Tittle</label>
                                                                         <input type="text" name="bannerTitle"
-                                                                              class="form-control" 
-                                                                              id="exampleInputName1" placeholder="Banner title">
-                                                                              <%if(bannerTitle){%>
-                                                                                    <p style="color: red;">Product title is required</p>
+                                                                              class="form-control"
+                                                                              id="exampleInputName1"
+                                                                              placeholder="Banner title">
+                                                                        <%if(bannerTitle){%>
+                                                                              <p style="color: red;">Product title is
+                                                                                    required</p>
                                                                               <%}%>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label for="exampleInputName1">Banner
                                                                               Url</label>
                                                                         <input type="text" name="url"
-                                                                              class="form-control" 
-                                                                              id="exampleInputName1" placeholder="url link">
-                                                                              <%if(bannerUrl){%>
-                                                                                    <p style="color: red;">Url link is required</p>
+                                                                              class="form-control"
+                                                                              id="exampleInputName1"
+                                                                              placeholder="url link">
+                                                                        <%if(bannerUrl){%>
+                                                                              <p style="color: red;">Url link is
+                                                                                    required</p>
                                                                               <%}%>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label
                                                                               for="exampleTextarea1">Description</label>
-                                                                        <textarea class="form-control" 
+                                                                        <textarea class="form-control"
                                                                               name="description" id="exampleTextarea1"
                                                                               rows="4"></textarea>
-                                                                              <%if(bannerDescription){%>
-                                                                                    <p style="color: red;">Description is required</p>
+                                                                        <%if(bannerDescription){%>
+                                                                              <p style="color: red;">Description is
+                                                                                    required</p>
                                                                               <%}%>
                                                                   </div>
                                                                   <button type="submit"

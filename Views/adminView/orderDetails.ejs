@@ -1,114 +1,110 @@
 <%- include('../adminView/layout/adminHeader.ejs')%>
-      <%- include('../adminView/layout/adminSidebar.ejs')%>
+  <%- include('../adminView/layout/adminSidebar.ejs')%>
 
-      <div class="main-panel">
-            <div class="content-wrapper">
-              <div class="col-lg-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Products List</h4>
-                    <div class="table-responsive">
-                      <ul>
-                        <span style="color: darkgrey">Amount: </span>
-                        <%= orders.totalAmount %>
-                      </ul>
-                      <ul>
-                        <span style="color: darkgrey"> Date: </span>
-                        <%= orders.date.toLocaleDateString('en-US', { year: 'numeric',
-                        month: 'short', day: '2-digit' }).replace(/\//g, '-') %>
-                      </ul>
-                      <ul>
-                        <span style="color: darkgrey">Status:</span>
-                        <%= orders.status %>
-                      </ul>
-                      <ul>
-                        <span style="color: darkgrey">Payment method: </span
-                        ><%= orders.paymentMethod %>
-                      </ul>
-                      <ul>
-                        <span style="color: darkgrey">Order status:</span>
-                        <%= orders.status %>
-                      </ul>
-                      <ul>
-                        <span style="color: darkgrey">Delivery details:</span><br>
-                        <%= address.address[0].fullname %>
-                        <br>
-                        <%= address.address[0].mobile %>
-                        <br>
-                        <%= address.address[0].email %>
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Products List</h4>
+              <div class="table-responsive">
+                <ul>
+                  <span style="color: darkgrey">Amount: </span>
+                  <%= orders.totalAmount %>
+                </ul>
+                <ul>
+                  <span style="color: darkgrey"> Date: </span>
+                  <%= orders.date.toLocaleDateString('en-US', { year: 'numeric' , month: 'short' , day: '2-digit'
+                    }).replace(/\//g, '-' ) %>
+                </ul>
+                <ul>
+                  <span style="color: darkgrey">Status:</span>
+                  <%= orders.status %>
+                </ul>
+                <ul>
+                  <span style="color: darkgrey">Payment method: </span>
+                  <%= orders.paymentMethod %>
+                </ul>
+                <ul>
+                  <span style="color: darkgrey">Order status:</span>
+                  <%= orders.status %>
+                </ul>
+                <ul>
+                  <span style="color: darkgrey">Delivery details:</span><br>
+                  <%= address.address[0].fullname %>
+                    <br>
+                    <%= address.address[0].mobile %>
+                      <br>
+                      <%= address.address[0].email %>
                         <br>
                         <%= address.address[0].houseName %>
-                        <br>
-                        <%= address.address[0].city %>
-                        <br>
-                        <%= address.address[0].state %>
-                        <br>
-                        <%= address.address[0].pin %>
-                        <br>
-                      </ul>
-          
-                        <td>
-                        <div class="dropdown">
-                          <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuOutlineButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Actions </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton5">
-                            <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=1">Cancel</a>
-                            <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=2">Shipped</a>
-                            <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=3">Delivery</a>
-                          </div>
-                        </div>
-                      </td>
-                      <br>
-            
-                        <table class="table table-dark">
-                          <thead>
-                            <tr>
-                              <th>No</th>
-                              <th>Name</th>
-                              <th>Product Price</th>
-                              <th>Category</th>
-                              <th>Quantity</th>
-                              <th>Order status</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <% if( orders.products.length > 0 ){
-                            orders.products.forEach((data)=>{ %>
-            
-                            <tr>
-                              <td>
-                                <img
-                                  src="/products/images/<%=data.productId.images.image1 %>"
-                                  alt=""
-                                />
-                              </td>
-                              <td><%= data.productId.name %></td>
-                              <td>Rs:<%= data.productId.price %></td>
-                              <td><%= data.productId.category %></td>
-                              
-                              <td><%= data.count %></td>
-                              
-                              <td><%= orders.status %></td>
-                              <!-- <% if(orders.status == "placed"){ %>
-                              <td><p><a href="/admin/delivered?id=<%= orders._id %>" class="badge badge-success">DELIVERY</a></p></td>
-                              <% }else if(orders.status == "delivered") {%>
-                                <td><p><a href="" class="badge badge-success">DELIVERED</a></p></td>
-                                <% } %> -->
-                                
-                            </tr>
-                            <!-- Button trigger modal -->
-                            <!-- Button trigger modal -->
-                            <!-- Button trigger modal -->
-            
-                            <!-- Modal -->
-                            
-            
-                            <% }) %> <%}%>
-                          </tbody>
-                      </table>
+                          <br>
+                          <%= address.address[0].city %>
+                            <br>
+                            <%= address.address[0].state %>
+                              <br>
+                              <%= address.address[0].pin %>
+                                <br>
+                </ul>
+
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-success dropdown-toggle" type="button"
+                      id="dropdownMenuOutlineButton5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Actions </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton5">
+                      <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=1">Cancel</a>
+                      <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=2">Shipped</a>
+                      <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=3">Delivery</a>
                     </div>
                   </div>
-                </div>
+                </td>
+                <br>
+
+                <table class="table table-dark">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Product Price</th>
+                      <th>Category</th>
+                      <th>Quantity</th>
+                      <th>Order status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if( orders.products.length> 0 ){
+                      orders.products.forEach((data)=>{ %>
+
+                      <tr>
+                        <td>
+                          <img src="/products/images/<%=data.productId.images.image1 %>" alt="" />
+                        </td>
+                        <td>
+                          <%= data.productId.name %>
+                        </td>
+                        <td>Rs:<%= data.productId.price %>
+                        </td>
+                        <td>
+                          <%= data.productId.category %>
+                        </td>
+
+                        <td>
+                          <%= data.count %>
+                        </td>
+
+                        <td>
+                          <%= orders.status %>
+                        </td>
+                      </tr>
+                      <% }) %>
+                        <%}%>
+                  </tbody>
+                </table>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-<%- include('../adminView/layout/adminFooter.ejs')%>
+      <%- include('../adminView/layout/adminFooter.ejs')%>

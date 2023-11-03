@@ -1,7 +1,6 @@
 <%- include('../userView/layouts/header.ejs')%>
 
       <body>
-
             <div class="wrapper-login" style="background-image: url('');">
                   <div class="inner-login">
                         <div class="image-holder">
@@ -10,7 +9,8 @@
                         <form method="post" action="/clickedSignup">
                               <h3 class="texts-login">Registration Form</h3>
                               <div class="form-wrapper-login">
-                                    <input type="text" placeholder="Username" name="signupName" class="form-control-login style-login">
+                                    <input type="text" placeholder="Username" name="signupName"
+                                          class="form-control-login style-login">
                                     <i class="zmdi zmdi-account"></i>
                               </div>
                               <div class="form-wrapper-login">
@@ -19,8 +19,7 @@
                                     <i class="zmdi zmdi-email"></i>
                               </div>
                               <div class="form-wrapper-login">
-                                    <input type="number" placeholder="Mobile"
-                                          class="form-control-login style-login"
+                                    <input type="number" placeholder="Mobile" class="form-control-login style-login"
                                           name="signupMobileNumber">
                                     <i class="zmdi zmdi-email"></i>
                               </div>
@@ -34,7 +33,9 @@
                                           class="form-control-login style-login">
                                     <i class="zmdi zmdi-lock"></i>
                               </div>
-                              <P style="color: red;"><%=locals.error?error:""%></P>
+                              <P style="color: red;">
+                                    <%=locals.error?error:""%>
+                              </P>
                               <button type="submit" class="style-login button-login">Signup
                                     <i class="zmdi zmdi-arrow-right"></i>
                               </button>
@@ -44,7 +45,6 @@
                         </form>
                   </div>
             </div>
-
       </body>
 
       <%- include('../userView/layouts/footer.ejs')%>

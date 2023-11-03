@@ -10,12 +10,10 @@ exports.addToCart = async (req, res) => {
             const productId = req.body.id
             const user = await choiceUser.findOne({ _id: userId })
             const product = await choiceProduct.findOne({ _id: productId })
-            console.log(product);
             if (product.quantity < 1) {
                   res.json({ quantity: true })
             } else {
                   const cart = await choicecart.findOne({ userId: userId })
-                  console.log(cart);
                   const price = product.price
                   if (userId === undefined) {
                         res.json({ login: true })
@@ -106,9 +104,6 @@ exports.removeFromCart = async (req, res) => {
       try {
             const userId = req.session.user_id;
             const productIdToRemove = req.body.product;
-
-            console.log(productIdToRemove);
-
             const result = await choicecart.updateOne(
                   { userId: userId }, // Assuming you have a user document with the _id
                   { $pull: { products: { productId: productIdToRemove } } }
@@ -205,10 +200,12 @@ exports.loadcheckout = async (req, res) => {
                                     },
                               },
                         ]);
+                        const user = await choiceUser.find({_id : userId})
+                        const walletBalance = user[0].wallet
                         const address = await choiceAddress.find({ users: userId })
                         if (address.length > 0) {
                               const addressData = address[0].address
-                              res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: addressData })
+                              res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: addressData , walletBalance })
                         } else {
                               res.render('checkout', { name: req.session.userName, cartProducts: cart.products, total: total, address: null })
                         }

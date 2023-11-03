@@ -2,93 +2,102 @@
 <html lang="en">
 
 <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="author" content="Untree.co">
-      <link rel="shortcut icon" href="/userSide/images/logo.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="/userSide/images/logo.png">
 
-      <meta name="description" content="" />
-      <meta name="keywords" content="bootstrap, bootstrap4" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      <!-- Bootstrap CSS -->
-      <link href="/userSide/css/bootstrap.min.css" rel="stylesheet">
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-      <link href="/userSide/css/tiny-slider.css" rel="stylesheet">
-      <link href="/userSide/css/style.css" rel="stylesheet">
-      
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="/userSide/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="/userSide/css/tiny-slider.css" rel="stylesheet">
+    <link href="/userSide/css/style.css" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.0/dist/sweetalert2.all.min.js"></script>
 
 
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-      <!-- login css  -->
-      <link rel="stylesheet" href="/userSide/loginPage/style.css">
-      
-      <title>Choice.</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- login css  -->
+    <link rel="stylesheet" href="/userSide/loginPage/style.css">
+
+    <title>Choice.</title>
 </head>
 
 <body>
 
-      <!-- Start Header/Navigation -->
-      <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+    <!-- Start Header/Navigation -->
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
-            <div class="container">
-                  <a class="navbar-brand" href="index.html">Choice<span>.</span></a>
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Choice<span>.</span></a>
 
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-                        aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                  </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <div class="collapse navbar-collapse" id="navbarsFurni">
-                        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/home">Home</a>
-                            </li>
-                            <li><a class="nav-link" href="/shop">Shop</a></li>
-                            <li class="dropdown">
-                                <% if(name){ %>
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= name %></a>
-                                <% }else{ %>
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Account</a>
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li><a class="nav-link" href="/shop">Shop</a></li>
+                    <li class="dropdown">
+                        <% if(name){ %>
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <%= name %>
+                            </a>
+                            <% }else{ %>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Account</a>
                                 <% } %>
-                                <div class="dropdown-menu" style="background-color: #3b5d50;">
-                                    <% if(name){ %>
-                                        <a class="dropdown-item" href="/profile">Profile</a>
-                                        <a class="dropdown-item" href="/orders">Orders</a>
-                                        <a class="dropdown-item" href="/logout">Logout</a>
-                                    <% }else{ %>
-                                        <a class="dropdown-item" href="/login">Login</a>
-                                        <a class="dropdown-item" href="/signup">Signup</a>
-                                    <% } %>
-                                </div>
-                            </li>
-                        </ul>
-                        <% if(typeof shop !== 'undefined'){ %>
-                        <ul>
-                            <li>
-                                <form class="navbar-form navbar-left" role="search" action="/productSearch" method="post">
-                                    <div class="form-group" style="display: flex;">
-                                        <div class="input-group">
-                                            <input type="text" name="search" style="height: 30px;  width: 150px; background-color: #3b5d50; border-color: #274134; color: #fff;" class="form-control" placeholder="Search">
-                                            <div class="input-group-prepend">
-                                                <button type="submit" style="background: none; border: none;"><span class="input-group-text" style="background-color: #3b5d50; border-color: #274134; border-top-right-radius: 10px; border-bottom-right-radius: 10px;"><i class="fas fa-search" style="color: #fff;"></i></span></button>
-                                            </div>
-                                        </div>
-                                        <P style="color: red;"><%=locals.searchError?searchError:""%></P>
+                                    <div class="dropdown-menu" style="background-color: #3b5d50;">
+                                        <% if(name){ %>
+                                            <a class="dropdown-item" href="/profile">Profile</a>
+                                            <a class="dropdown-item" href="/orders">Orders</a>
+                                            <a class="dropdown-item" href="/logout">Logout</a>
+                                            <% }else{ %>
+                                                <a class="dropdown-item" href="/login">Login</a>
+                                                <a class="dropdown-item" href="/signup">Signup</a>
+                                                <% } %>
                                     </div>
-                                </form>                                
-                            </li>
-                        </ul>
-                        <%}%>
+                    </li>
+                </ul>
+                <% if(typeof shop !=='undefined' ){ %>
+                    <ul>
+                        <li>
+                            <form class="navbar-form navbar-left" role="search" action="/productSearch" method="post">
+                                <div class="form-group" style="display: flex;">
+                                    <div class="input-group">
+                                        <input type="text" name="search"
+                                            style="height: 30px;  width: 150px; background-color: #3b5d50; border-color: #274134; color: #fff;"
+                                            class="form-control" placeholder="Search">
+                                        <div class="input-group-prepend">
+                                            <button type="submit" style="background: none; border: none;"><span
+                                                    class="input-group-text"
+                                                    style="background-color: #3b5d50; border-color: #274134; border-top-right-radius: 10px; border-bottom-right-radius: 10px;"><i
+                                                        class="fas fa-search" style="color: #fff;"></i></span></button>
+                                        </div>
+                                    </div>
+                                    <P style="color: red;">
+                                        <%=locals.searchError?searchError:""%>
+                                    </P>
+                                </div>
+                            </form>
+                        </li>
+                    </ul>
+                    <%}%>
                         <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                             <li><a class="nav-link" href="/wishlist"><img src="/userSide/images/user.svg"></a></li>
                             <li><a class="nav-link" href="/cart"><img src="/userSide/images/cart.svg"></a></li>
                         </ul>
-                        
-                    </div>
-                    
+
             </div>
-      </nav>
-      <!-- End Header/Navigation -->
+
+        </div>
+    </nav>
+    <!-- End Header/Navigation -->

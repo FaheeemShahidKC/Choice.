@@ -257,6 +257,45 @@ const saleSorting = async (req, res) => {
       }
 }
 
+const saleDateSort = async (req, res) => {
+      try {
+            const start = new Date(req.body.startD)
+            const end = new Date(req.body.endD)
+            const orders = await choiceOrder.aggregate([
+                  {
+                        $unwind: "$products",
+                  },
+                  {
+                        $match: {
+                              status: "Delivered",
+                              deliveryDate: { $gt: start, $lt: end },
+                        },
+                  },
+                  {
+                        $sort: { deliveryDate: -1 },
+                  },
+                  {
+                        $lookup: {
+                              from: "choiceproducts",
+                              let: { productId: { $toObjectId: "$products.productId" } },
+                              pipeline: [{ $match: { $expr: { $eq: ["$_id", "$$productId"] } } }],
+                              as: "products.productDetails",
+                        },
+                  },
+                  {
+                        $addFields: {
+                              "products.productDetails": {
+                                    $arrayElemAt: ["$products.productDetails", 0],
+                              },
+                        },
+                  },
+            ]);
+            res.render('salesReport', { orders });
+      } catch (error) {
+            console.log(error.message);
+      }
+}
+
 const loadDashboard = async (req, res) => {
       try {
             const users = await choiceUser.find({ is_block: 0 });
@@ -281,7 +320,13 @@ const loadDashboard = async (req, res) => {
                                     count: { $sum: 1 },
                               },
                         },
+                        {
+                              $match: {
+                                    count: { $gt: 0 }
+                              }
+                        }
                   ]);
+
 
                   const monthRev = await choiceOrder.aggregate([
                         {
@@ -324,7 +369,6 @@ const loadDashboard = async (req, res) => {
                         }
                   ])
                   const totalRevenue = totalRev[0].totalRevenue
-
                   res.render('dashboard', {
                         users,
                         products,
@@ -369,5 +413,6 @@ module.exports = {
       salesReport,
       downloadReport,
       loadDashboard,
-      saleSorting
+      saleSorting,
+      saleDateSort
 }

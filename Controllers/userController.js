@@ -323,8 +323,6 @@ const loadProfile = async (req, res) => {
                   } else {
                         res.render('profile', { name: req.session.userName, Details: Details, address: null, coupons: coupons })
                   }
-            } else {
-                  console.log("No user");
             }
       } catch (error) {
             console.log(error.message);
@@ -382,7 +380,6 @@ const forgetOtpVerified = async (req, res) => {
 
 const passwordChanged = async (req, res) => {
       try {
-            console.log(req.body.newPassword);
             if (req.body.newPassword == req.body.newConfirmPassword) {
                   const newPass = await securePassword(req.body.newPassword)
                   await choiceUser.updateOne(
@@ -408,7 +405,7 @@ const passwordChanged = async (req, res) => {
 const loadShop = async (req, res) => {
       try {
             const page = req.query.page || 1; // Get the requested page from the query string
-            const itemsPerPage = 16; // Number of items to display per page
+            const itemsPerPage = 6; // Number of items to display per page
             const totalCount = await choiceProduct.countDocuments(); // Get the total count of products
 
             if (totalCount) {
