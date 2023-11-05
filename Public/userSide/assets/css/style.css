@@ -159,7 +159,7 @@ h6,
       font-weight: 500;
       line-height: 1.1;
       margin-bottom: 1.4rem;
-      color: #333;
+      color: #3b5d50ff;
       letter-spacing: -.03em
 }
 
@@ -196,14 +196,14 @@ h6,
 }
 
 a {
-      color: #3b5d50;
+      color: #bdbbbb;
       text-decoration: none;
       transition: color 0.3s ease
 }
 
 a:hover,
 a:focus {
-      color: #bf8040;
+      color: rgb(75, 233, 172);
       text-decoration: none
 }
 
@@ -216,11 +216,11 @@ a:focus {
 }
 
 .text-secondary {
-      color: #a6c76c !important
+      color: #3a432b !important
 }
 
 .text-dark {
-      color: #333 !important
+      color: #fff !important
 }
 
 .text-light {
@@ -238,7 +238,7 @@ blockquote {
       position: relative;
       margin: 0 0 4.2rem;
       padding: 0;
-      color: #777;
+      color: #fff;
       font-style: italic;
       font-size: 1.6rem;
       line-height: 1.625
@@ -272,7 +272,7 @@ blockquote.text-white cite {
 }
 
 blockquote.text-white cite span {
-      color: #777
+      color: #fff
 }
 
 @media screen and (min-width: 768px) {
@@ -678,7 +678,7 @@ blockquote.text-white cite span {
       font-size: 1.3rem;
       line-height: 1.5;
       letter-spacing: 0;
-      color: #777;
+      color: #fff;
       margin-bottom: .1rem
 }
 
@@ -1311,12 +1311,13 @@ blockquote.text-white cite span {
       border: none;
       line-height: 38px;
       height: 38px;
-      color: #777;
-      padding: .1rem 4rem .1rem 2rem;
+      color: #fff;
+      padding: 0.1rem 4rem 0.1rem 2rem;
       border-radius: 0;
-      -moz-appearance: none;
-      -webkit-appearance: none
-}
+      /* -moz-appearance: none;
+      -webkit-appearance: none; */
+  }
+  
 
 .header-search select:focus {
       outline: none !important
@@ -2696,7 +2697,7 @@ blockquote.text-white cite span {
 
 @media screen and (min-width: 992px) {
       .sticky-header.fixed {
-            position: fixed;
+            position: absolute;
             left: 0;
             right: 0;
             top: 0;
@@ -2920,7 +2921,7 @@ blockquote.text-white cite span {
 
 .mmenu-btn:hover,
 .mmenu-btn:focus {
-      color: #3b5d50
+      color: #fff
 }
 
 .open>a>.mmenu-btn::after {
@@ -2938,14 +2939,17 @@ blockquote.text-white cite span {
       height: 36px;
       margin-bottom: 0;
       -webkit-appearance: none;
+      -moz-appearance: none; 
+      appearance: none;
       font-size: 1.2rem;
       line-height: 1.5;
       padding: .8rem 1.5rem;
       max-width: calc(100% - 36px);
       background-color: #333;
       border-color: rgba(255, 255, 255, 0.1);
-      border-right-width: 0
+      border-right-width: 0;
 }
+    
 
 .mobile-search .form-control::placeholder {
       color: rgba(255, 255, 255, 0.45)
@@ -3122,7 +3126,7 @@ p {
       font-weight: 300;
       font-family: 'Poppins';
       letter-spacing: 0;
-      color: #777
+      color: #fff
 }
 
 .header-2 {
@@ -3806,7 +3810,7 @@ p {
 .header-6 .header-middle {
       display: flex;
       min-height: 84px;
-      color: #777;
+      color: #fff;
       font-weight: 400;
       font-size: 1.6rem;
       line-height: 1.5;
@@ -3897,7 +3901,7 @@ p {
 .header-6 .header-top .social-icons a {
       font-size: 1.4rem;
       font-weight: 500;
-      color: #777
+      color: #fff
 }
 
 .header-6 .header-right .top-menu+.header-dropdown {
@@ -5581,7 +5585,7 @@ p {
       font-size: 1.1rem;
       font-weight: 300;
       letter-spacing: 0;
-      color: #777;
+      color: #fff;
       margin-top: .3rem;
       transition: all .3s
 }
@@ -5680,7 +5684,7 @@ p {
       width: 100%;
       font-weight: 300;
       font-size: 1.4rem;
-      color: #777;
+      color: #fff;
       background-color: #fff
 }
 
@@ -5821,7 +5825,7 @@ p {
 
 #scroll-top:hover,
 #scroll-top:focus {
-      color: #777;
+      color: #fff;
       background-color: #eaeaea
 }
 
@@ -6178,7 +6182,7 @@ p {
 }
 
 .breadcrumb-item a {
-      color: #777
+      color: #fff
 }
 
 .breadcrumb-item a:hover,
@@ -6187,7 +6191,7 @@ p {
 }
 
 .breadcrumb-item.active {
-      color: #333333
+      color: #fff
 }
 
 .breadcrumb-item+.breadcrumb-item {
@@ -6252,11 +6256,11 @@ p {
 }
 
 .text-white .title-separator {
-      color: #777
+      color: #fff
 }
 
 .title-desc {
-      color: #777;
+      color: #fff;
       font-weight: 300;
       font-size: 1.4rem;
       line-height: 1.5;
@@ -6310,7 +6314,7 @@ p {
 }
 
 .icon-box {
-      color: #777;
+      color: #fff;
       font-weight: 300;
       font-size: 1.6rem;
       line-height: 1.5;
@@ -6493,7 +6497,9 @@ p {
 .card-title {
       font-size: 1.8rem;
       line-height: 1.2;
-      margin-bottom: 0
+      margin-bottom: 0;
+      color: #eae8e8;
+      
 }
 
 .card-title a {
@@ -6544,7 +6550,8 @@ p {
 .card-body {
       padding: .4rem 4rem 1.8rem 1.2rem;
       border: none;
-      border-radius: 0
+      border-radius: 30px;
+      background-color: #1f312a;
 }
 
 .accordion-icon .card-body {
@@ -6635,7 +6642,7 @@ p {
 }
 
 .nav.nav-tabs .nav-link {
-      color: #777;
+      color: #fff;
       font-weight: 500;
       font-size: 1.4rem;
       line-height: 1.5;
@@ -6694,7 +6701,7 @@ p {
 }
 
 .nav.nav-pills .nav-link {
-      color: #777;
+      color: #fff;
       font-weight: 400;
       font-size: 1.4rem;
       line-height: 1.5;
@@ -7224,7 +7231,7 @@ p {
 }
 
 .btn-outline-primary-2 {
-      color: #3b5d50;
+      color: #fff;
       background-color: transparent;
       background-image: none;
       border-color: #3b5d50;
@@ -7546,7 +7553,7 @@ p {
 }
 
 .bg-image .btn-wrap>span {
-      color: #777
+      color: #fff
 }
 
 .bg-image .btn-link-dark {
@@ -7780,7 +7787,7 @@ p {
 }
 
 .product-cat {
-      color: #777;
+      color: #fff;
       font-weight: 300;
       font-size: 1.3rem;
       line-height: 1.2;
@@ -9087,7 +9094,7 @@ p {
 }
 
 .product.product-list .product-content {
-      color: #777;
+      color: #fff;
       font-weight: 300;
       font-size: 1.4rem;
       line-height: 1.43;
@@ -9115,7 +9122,7 @@ p {
 }
 
 .product.product-list .btn-product {
-      color: #777;
+      color: #fff;
       padding-top: 0;
       padding-bottom: 0;
       line-height: 1.4;
@@ -9365,7 +9372,7 @@ p {
 }
 
 .banner-subtitle {
-      color: #777;
+      color: #fff;
       font-weight: 300;
       font-size: 1.6rem;
       line-height: 1.2;
@@ -9646,7 +9653,7 @@ p {
       padding-left: 0;
       max-width: 460px;
       font-size: 1.5rem;
-      color: #777
+      color: #fff
 }
 
 .video-box-content .video-banner-title {
@@ -9937,7 +9944,7 @@ p {
       font-size: 1.6rem;
       width: 4rem;
       height: 4rem;
-      color: #777;
+      color: #fff;
       margin: 0;
       background-color: transparent;
       border: .1rem solid #e1e2e6;
@@ -10134,7 +10141,7 @@ p {
       font-size: 1.4rem;
       line-height: 1.5;
       font-weight: 300;
-      color: #777;
+      color: #fff;
       background-color: #fafafa;
       border: 1px solid #ebebeb;
       border-radius: 0;
@@ -10152,7 +10159,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .form-control:focus {
-      color: #777;
+      color: #fff;
       background-color: #fff;
       border-color: #3b5d50;
       box-shadow: none;
@@ -10160,7 +10167,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .form-control::placeholder {
-      color: #777
+      color: #fff
 }
 
 textarea.form-control {
@@ -10393,7 +10400,7 @@ small.form-text {
       right: 0;
       top: 50%;
       font-size: 2.4rem;
-      color: #777;
+      color: #fff;
       transform: translateY(-50%);
       transition: all 0.3s
 }
@@ -11401,7 +11408,7 @@ button:focus {
 }
 
 .blog-posts .entry {
-      color: #777;
+      color: #fff;
       font-size: 1.5rem;
       line-height: 1.73;
       letter-spacing: -.01em;
@@ -11618,7 +11625,7 @@ button:focus {
 .quickView-content .btn-product span {
       font-size: 1.3rem;
       letter-spacing: .01em;
-      color: #777;
+      color: #fff;
       text-transform: uppercase
 }
 
@@ -11653,7 +11660,7 @@ button:focus {
       font-size: 1.4rem;
       font-weight: 400;
       letter-spacing: .01em;
-      color: #777;
+      color: #fff;
       margin-bottom: 4.5rem
 }
 
@@ -11747,7 +11754,7 @@ button:focus {
       text-align: center;
       width: 4rem;
       height: 4rem;
-      color: #777;
+      color: #fff;
       font-weight: normal;
       font-size: 2rem;
       line-height: 1;
@@ -12373,7 +12380,7 @@ button:focus {
       font-size: 1.3rem;
       line-height: 1;
       border-radius: .6rem;
-      color: #777;
+      color: #fff;
       background-color: #f8f8f8
 }
 
@@ -12519,7 +12526,7 @@ button:focus {
       text-align: center;
       width: 4rem;
       height: 4rem;
-      color: #777;
+      color: #fff;
       font-weight: normal;
       font-size: 2rem;
       line-height: 1;
@@ -12858,7 +12865,7 @@ button:focus {
 }
 
 .size-guide {
-      color: #777;
+      color: #fff;
       display: inline-flex;
       align-items: center
 }
@@ -12949,7 +12956,7 @@ button:focus {
 }
 
 .product-details-footer {
-      color: #777;
+      color: #fff;
       display: flex;
       font-weight: 400;
       align-items: center;
@@ -13143,7 +13150,7 @@ button:focus {
 }
 
 .review-action a {
-      color: #777;
+      color: #fff;
       transition: all .35s ease
 }
 
@@ -13689,7 +13696,7 @@ button:focus {
       display: flex;
       align-items: center;
       flex-flow: wrap;
-      color: #777;
+      color: #fff;
       font-size: 1.4rem;
       line-height: 1.5;
       margin-bottom: .5rem
@@ -13734,7 +13741,7 @@ button:focus {
 }
 
 .entry-cats {
-      color: #777;
+      color: #fff;
       font-size: 1.4rem;
       line-height: 1.5;
       margin-bottom: 1.5rem
@@ -14049,7 +14056,7 @@ button:focus {
 }
 
 .banner-sidebar-title {
-      color: #777;
+      color: #fff;
       text-align: center;
       font-weight: 300;
       font-size: 1.3rem;
@@ -14142,7 +14149,7 @@ button:focus {
 
 .tagcloud a {
       display: block;
-      color: #777;
+      color: #fff;
       font-weight: 300;
       font-size: 1.4rem;
       line-height: 1.4;
@@ -14380,7 +14387,7 @@ button:focus {
 
 .entry-tags a {
       display: block;
-      color: #777;
+      color: #fff;
       font-weight: 300;
       font-size: 1.4rem;
       line-height: 1.4;
@@ -14453,7 +14460,7 @@ button:focus {
 }
 
 .author-link {
-      color: #777;
+      color: #fff;
       letter-spacing: -.01em;
       transition: all .35s ease
 }
@@ -14648,7 +14655,7 @@ button:focus {
 .comment-reply {
       display: flex;
       align-items: center;
-      color: #777;
+      color: #fff;
       position: absolute;
       right: 0;
       top: 0;
@@ -14856,7 +14863,7 @@ button:focus {
 
 .nav-filter a {
       display: inline-block;
-      color: #777;
+      color: #fff;
       padding: .4rem 1rem;
       font-weight: 400;
       font-size: 1.4rem;
@@ -15009,7 +15016,7 @@ button:focus {
       opacity: 0;
       z-index: 2;
       visibility: hidden;
-      -webkit-backface-visibility: hidden
+      /* -webkit-backface-visibility: hidden */
 }
 
 .portfolio-overlay .portfolio-content.portfolio-content-center {
@@ -15354,7 +15361,7 @@ button:focus {
 
 .store {
       margin-bottom: 3rem;
-      color: #777
+      color: #fff
 }
 
 .store address,
@@ -16519,7 +16526,7 @@ button:focus {
       font-size: 1.4rem;
       line-height: 1.5;
       padding: 1.4rem 0;
-      color: #333;
+      color: #fff;
       border-bottom: .1rem solid #ebebeb
 }
 
@@ -16540,7 +16547,7 @@ button:focus {
 .nav-dashboard .nav-link:hover,
 .nav-dashboard .nav-link:focus,
 .nav-dashboard .nav-link.active {
-      color: #3b5d50
+      color: #c0ffe7
 }
 
 .nav-dashboard .nav-link.active {
@@ -16554,7 +16561,8 @@ button:focus {
 
 .card-dashboard {
       margin-bottom: 3rem;
-      background-color: #f9f9f9;
+      background-color: #1f312a;
+      border-radius: 30px;
       border: .1rem solid #ebebeb
 }
 
@@ -16568,7 +16576,7 @@ button:focus {
 }
 
 .error-content {
-      color: #777;
+      color: #fff;
       font-weight: 400;
       font-size: 1.8rem;
       line-height: 1.5;
@@ -17798,7 +17806,7 @@ button:focus {
       font-family: "molla";
       font-style: normal;
       font-weight: normal;
-      speak: none;
+      /* speak: none; */
       display: inline-block;
       text-decoration: inherit;
       text-align: center;

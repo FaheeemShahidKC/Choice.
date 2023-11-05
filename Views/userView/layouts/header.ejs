@@ -34,7 +34,7 @@
     <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
         <div class="container">
-            <a class="navbar-brand" href="index.html">Choice<span>.</span></a>
+            <a class="navbar-brand" href="/home">Choice<span>.</span></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,7 @@
                     </li>
                     <li><a class="nav-link" href="/shop">Shop</a></li>
                     <li class="dropdown">
-                        <% if(name){ %>
+                        <% if(typeof name != "undefined"){ %>
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                 <%= name %>
                             </a>
@@ -56,7 +56,7 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">My Account</a>
                                 <% } %>
                                     <div class="dropdown-menu" style="background-color: #3b5d50;">
-                                        <% if(name){ %>
+                                        <% if(typeof name != "undefined"){ %>
                                             <a class="dropdown-item" href="/profile">Profile</a>
                                             <a class="dropdown-item" href="/orders">Orders</a>
                                             <a class="dropdown-item" href="/logout">Logout</a>

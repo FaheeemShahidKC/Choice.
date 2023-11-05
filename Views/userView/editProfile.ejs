@@ -8,39 +8,39 @@
                             <div class="col-md-6">
                                 <div class="tab-content">
                                     <div class="form-wrapper">
-                                        <h3>Edit Address</h3>
+                                        <h3 style="color: aliceblue;">Edit Profile</h3>
                                         <% if(userProfile[0]) { %>
                                             <form action="/profileUpdated?id=<%= userProfile[0]._id %>" method="post">
 
                                                 <div class="form-group">
-                                                    <label for="addName">Full Name * </label>
+                                                    <label for="addName" style="color: aliceblue;">Full Name * </label>
                                                     <input type="text" class="form-control" id="name"
                                                         value="<%= userProfile[0].name %>" name="addName" required>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="addEmail">Email *</label>
+                                                    <label for="addEmail"style="color: aliceblue;">Email *</label>
                                                     <input type="email" class="form-control" id="email"
                                                         value="<%= userProfile[0].email %>" name="addEmail" required>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="addMobile">Mobile Number</label>
+                                                    <label for="addMobile"style="color: aliceblue;">Mobile Number</label>
                                                     <input type="number" class="form-control" id="mobile"
                                                         value="<%= userProfile[0].mobile %>" name="addMobile" required>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="addMobile">Current Password</label>
+                                                    <label for="addMobile"style="color: aliceblue;">Current Password</label>
                                                     <p>(Only if you need to change password)</p>
                                                     <input type="password" class="form-control" id="currentPasssword"
                                                         value="" name="addMobile">
                                                     <a href="/forgetPassword?id=<%= userProfile[0]._id %>"
-                                                        class="icon-edit">forget password?</a>
+                                                        class="icon-edit" >forget password?</a>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="addMobile">New Password</label>
+                                                    <label for="addMobile"style="color: aliceblue;">New Password</label>
                                                     <p>(Only if you need to change password)</p>
                                                     <input type="password" class="form-control" id="newPassword"
                                                         value="" name="addMobile">

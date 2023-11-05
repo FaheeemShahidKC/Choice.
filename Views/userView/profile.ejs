@@ -1,32 +1,7 @@
 <%- include('../userView/layouts/header2.ejs')%>
 
-  <div class="page-wrapper">
-    <header class="header">
-      <div class="header-middle sticky-header">
-        <div class="container">
-          <div class="header-left">
-            <button class="mobile-menu-toggler">
-              <span class="sr-only">Toggle mobile menu</span>
-              <i class="icon-bars"></i>
-            </button>
-            <a href="/home" class="logo" style="font-size: 35px">
-              Choice.
-            </a>
-            <nav class="main-nav">
-              <ul class="menu sf-arrows">
-                <li class="megamenu-container active">
-                  <a href="/home">Home</a>
-                </li>
-                <li>
-                  <a href="/shop">Shop</a>
-                </li>
-              </ul><!-- End .menu -->
-            </nav><!-- End .main-nav -->
-          </div><!-- End .header-left -->
-        </div><!-- End .container -->
-      </div><!-- End .header-middle -->
-    </header><!-- End .header -->
-    <main class="main">
+  
+    <main class="main" >
       <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         <div class="container">
           <h1 class="page-title">
@@ -34,10 +9,10 @@
           </h1>
         </div><!-- End .container -->
       </div><!-- End .page-header -->
-      <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
-        <div class="container">
+      <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3" >
+        <div class="container" >
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item"><a href="/home">Home</a ></li>
             <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
             <li class="breadcrumb-item active" aria-current="page">My Account</li>
           </ol>
@@ -74,26 +49,24 @@
                     <p>Hello <span class="font-weight-normal text-dark">
                         <%= Details[0].name%>
                           <br>
-                          From your account dashboard you can view your <a href="#tab-orders"
-                            class="tab-trigger-link link-underline">recent orders</a>,
+                          From your Profile you can view your <a href="#tab-orders"
+                            class="tab-trigger-link link-underline">Coupons</a>,
                           manage your <a href="#tab-address" class="tab-trigger-link">shipping
-                            and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your
-                            password and account
-                            details</a>.</p>
+                            and billing addresses</a> etc.</p>
+                            <div class="col-lg-6" >
+                              <div class="card card-dashboard"  >
+                                <div class="card-body" >
+                                  <h3 class="card-title">Your profile</h3><!-- End .card-title -->
+                                  <p>
+                                    <%= Details[0].name%><br>
+                                      <%= Details[0].email%><br>
+                                        <%= Details[0].mobile%><br>
+                                          <a href="/editProfile?id=<%= Details[0]._id%>">Edit <i class="icon-edit"></i></a>
+                                  </p>
+                                </div><!-- End .card-body -->
+                              </div><!-- End .card-dashboard -->
+                            </div><!-- End .col-lg-6 -->
                   </div><!-- .End .tab-pane -->
-                  <div class="col-lg-6">
-                    <div class="card card-dashboard">
-                      <div class="card-body">
-                        <h3 class="card-title">Your profile</h3><!-- End .card-title -->
-                        <p>
-                          <%= Details[0].name%><br>
-                            <%= Details[0].email%><br>
-                              <%= Details[0].mobile%><br>
-                                <a href="/editProfile?id=<%= Details[0]._id%>">Edit <i class="icon-edit"></i></a>
-                        </p>
-                      </div><!-- End .card-body -->
-                    </div><!-- End .card-dashboard -->
-                  </div><!-- End .col-lg-6 -->
                   <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
                     <div class="row">
                       <%if(typeof coupons !=='undefined' || coupons.length> 0 ){ %>
@@ -105,7 +78,7 @@
                                   <h3 class="card-title">
                                     <%= ele.couponName %>
                                   </h3>
-                                  <p>Coupon code : <span style="color: blueviolet;">
+                                  <p>Coupon code : <span style="color: rgb(0, 186, 170); font-weight: 500; font-size: xx-large;" >
                                       <%= ele.couponCode %>
                                     </span></p>
                                   <p>If you pruchase greater than ₹<%= ele.criteriaAmount %> you will get ₹<%=
@@ -134,7 +107,7 @@
                               <br />
                               <div class="col-8 col-sm-12 col-xl-8 my-auto">
                                 <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                  <h2 class="mb-0">₹ &nbsp <%= walletAmount %>
+                                  <h2 class="mb-0"  style="color: aliceblue;" >₹ &nbsp <%= walletAmount %>
                                   </h2>
                                 </div>
                                 <br />
@@ -191,7 +164,7 @@
 
                                     <div class="col-8 col-sm-12 col-xl-8 my-auto">
                                       <div class="d-flex d-sm-block d-md-flex align-items-center">
-                                        <h2 class="mb-0">₹ &nbsp 0.00</h2>
+                                        <h2 style="color: aliceblue;" class="mb-0">₹ &nbsp 0.00</h2>
                                       </div>
                                     </div>
                                     <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">

@@ -319,13 +319,26 @@ const loadDashboard = async (req, res) => {
                                     _id: { $dateToString: { format: '%m', date: '$deliveryDate' } },
                                     count: { $sum: 1 },
                               },
-                        },
-                        {
-                              $match: {
-                                    count: { $gt: 0 }
-                              }
                         }
                   ]);
+                  const data = []
+                  let ind = 0;
+                  if (monthlyOrderCounts.length != 0) {
+                        for (let i = 0; i < 12; i++) {
+
+                              if (i + 1 < monthlyOrderCounts[0]._id) {
+                                    data.push(0)
+                              } else {
+                                    if (monthlyOrderCounts[ind]) {
+                                          let count = monthlyOrderCounts[ind].count
+                                          data.push(count)
+                                    } else {
+                                          data.push(0)
+                                    }
+                                    ind++
+                              }
+                        }
+                  }
 
 
                   const monthRev = await choiceOrder.aggregate([
@@ -379,7 +392,7 @@ const loadDashboard = async (req, res) => {
                         codCount,
                         walletCount,
                         onlinePaymentCount,
-                        monthlyOrderCounts
+                        data
                   });
             } else {
                   // If there is no data, set all values to 0
@@ -393,7 +406,7 @@ const loadDashboard = async (req, res) => {
                         codCount: 0,
                         walletCount: 0,
                         onlinePaymentCount: 0,
-                        monthlyOrderCounts: []
+                        data: []
                   });
             }
       } catch (error) {

@@ -13,7 +13,8 @@
                                                       <div class="col-8 col-sm-12 col-xl-8 my-auto">
                                                             <div class="d-flex d-sm-block d-md-flex align-items-center">
                                                                   <h2 class="mb-0">₹&nbsp;
-                                                                        <%=totalRevenue?totalRevenue:'' %>.00</h2>
+                                                                        <%=totalRevenue?totalRevenue:'' %>.00
+                                                                  </h2>
                                                             </div>
                                                       </div>
                                                       <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
@@ -209,31 +210,21 @@
                                                 </div>
                                           </div>
                                     </div>
-
-
-
                                     <input type="text" id="cod" value="<%= codCount %>" hidden>
                                     <input type="text" id="wallet" value="<%= walletCount %>" hidden>
                                     <input type="text" id="online" value="<%= onlinePaymentCount %>" hidden>
-                                    <% monthlyOrderCounts.forEach((data)=> { %>
-
-                                          <input type="text" id="jan" value="<%= data._id=='01'?data.count:0 %>" hidden>
-                                          <input type="text" id="feb" value="<%= data._id=='02'?data.count:0 %>" hidden>
-                                          <input type="text" id="mar" value="<%= data._id=='03'?data.count:0 %>" hidden>
-                                          <input type="text" id="apr" value="<%= data._id=='04'?data.count:0 %>" hidden>
-                                          <input type="text" id="may" value="<%= data._id=='05'?data.count:0 %>" hidden>
-                                          <input type="text" id="jun" value="<%= data._id=='06'?data.count:0 %>" hidden>
-                                          <input type="text" id="jul" value="<%= data._id=='07'?data.count:0 %>" hidden>
-                                          <input type="text" id="aug" value="<%= data._id=='08'?data.count:0 %>" hidden>
-                                          <input type="text" id="sep" value="<%= data._id=='09'?data.count:0 %>" hidden>
-                                          <input type="text" id="oct" value="<%= data._id=='10'?data.count:0 %>" hidden>
-                                          <input type="text" id="nov" value="<%= data._id=='11'?data.count:0 %>" hidden>
-                                          <input type="text" id="dec" value="<%= data._id=='12'?data.count:0 %>" hidden>
-
-                                          <% }) %>
-
-
-
+                                    <input type="text" id="jan" value="<%= data[0] %>" hidden>
+                                    <input type="text" id="feb" value="<%= data[1] %>" hidden>
+                                    <input type="text" id="mar" value="<%= data[2] %>" hidden>
+                                    <input type="text" id="apr" value="<%= data[3] %>" hidden>
+                                    <input type="text" id="may" value="<%= data[4] %>" hidden>
+                                    <input type="text" id="jun" value="<%= data[5] %>" hidden>
+                                    <input type="text" id="jul" value="<%= data[6] %>" hidden>
+                                    <input type="text" id="aug" value="<%= data[7] %>" hidden>
+                                    <input type="text" id="sep" value="<%= data[8] %>" hidden>
+                                    <input type="text" id="oct" value="<%= data[9] %>" hidden>
+                                    <input type="text" id="nov" value="<%= data[10] %>" hidden>
+                                    <input type="text" id="dec" value="<%= data[11] %>" hidden>
                   </div>
                   <!-- content-wrapper ends -->
 
@@ -281,7 +272,7 @@
                               let Dec = document.getElementById("dec").value;
 
                               const xValues = ["Jan", "Feb", "Mar", "Apr", "May", 'Jun', 'Jul', "Aug", "Sep", "Oct", "Nov", "Dec"];
-                              const yValues = [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, 1, 3, Dec];
+                              const yValues = [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec];
                               new Chart("monthChart", {
                                     type: "bar",
                                     data: {

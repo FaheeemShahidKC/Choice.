@@ -66,6 +66,8 @@ userRoutes.get('/editProfile',auth.isLogin,addressController.editProfile)
 userRoutes.post('/profileUpdated',auth.isLogin,addressController.editedUser)
 
 //========================= Forget Password =============================
+userRoutes.get('/forgetEmail',userController.enterEmail)
+userRoutes.post('/enteredEmail',userController.enteredEmail)
 userRoutes.get('/forgetPassword',userController.forgetPassSendOtp)
 userRoutes.post('/verifyForgetOtp',userController.forgetOtpVerified)
 userRoutes.get('/resendForgetOtp',userController.forgetResendOtp)

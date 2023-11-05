@@ -2,38 +2,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .checked {
-            color: orange;
+            color: yellow;
         }
     </style>
-    <div class="page-wrapper">
-        <header class="header">
-            <div class="header-middle sticky-header">
-                <div class="container">
-                    <div class="header-left">
-
-                        <a href="index.html" class="logo" style="font-size: 30px;">
-                            Choice.
-                        </a>
-
-                        <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container active">
-                                    <a href="/home">Home</a>
-                                </li>
-                                <li>
-                                    <a href="/shop">Shop</a>
-                                </li>
-                            </ul><!-- End .menu -->
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-                    </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-middle -->
-        </header><!-- End .header -->
-
-        <main class="main">
+        <main class="main" style="background-color: #4c6d58 ">
+            
             <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
                 <div class="container d-flex align-items-center">
                     <ol class="breadcrumb">
@@ -46,9 +19,9 @@
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-                <div class="container">
-                    <div class="product-details-top">
-                        <div class="row">
+                <div class="container" >
+                    <div class="product-details-top" >
+                        <div class="row" >
                             <div class="col-md-6">
                                 <div class="product-gallery product-gallery-vertical">
                                     <div class="row">
@@ -111,7 +84,7 @@
                                             <%}%>
                                     </div><!-- End .rating-container -->
 
-                                    <div class="product-price">
+                                    <div class="product-price" style="color: #ffffff;">
                                         ₹<%= prodectData.price %>
                                     </div><!-- End .product-price -->
 
@@ -120,13 +93,13 @@
                                             <%= prodectData.description %>
                                         </p>
                                     </div><!-- End .product-content -->
-                                    <div class="product-details-action">
-                                        <a onclick="addToCart('<%= prodectData._id %>')"
+                                    <div class="product-details-action" >
+                                        <a onclick="addToCart('<%= prodectData._id %>')" style="color: #ffffff;"
                                             class="btn-product btn-cart"><span>add to cart</span></a>
 
-                                        <div class="details-action-wrapper">
-                                            <a onclick="addToWishlist('<%= prodectData._id %>')"
-                                                class="btn-product btn-wishlist" title="Wishlist"><span>Add to
+                                        <div class="details-action-wrapper" >
+                                            <a onclick="addToWishlist('<%= prodectData._id %>')" style="color: #ffffff;"
+                                                class="btn-product btn-wishlist" title="Wishlist" ><span style="color: #ffffff;">Add to
                                                     Wishlist</span></a>
                                         </div><!-- End .details-action-wrapper -->
                                     </div><!-- End .product-details-action -->
@@ -134,9 +107,7 @@
                                     <div class="product-details-footer">
                                         <div class="product-cat">
                                             <span>Category:</span>
-                                            <a href="#">
                                                 <%= prodectData.category %>
-                                            </a>
                                         </div><!-- End .product-cat -->
                                     </div><!-- End .product-details-footer -->
                                 </div><!-- End .product-details -->
@@ -176,10 +147,7 @@
                     </div><!-- End .product -->
                 </div><!-- End .owl-carousel -->
             </div><!-- End .container -->
-    </div><!-- End .page-content -->
-    </main><!-- End .main -->
-    </div><!-- End .page-wrapper -->
-    <div class="bor10 m-t-50 p-t-43 p-b-40">
+            <div class="bor10 m-t-50 p-t-43 p-b-40">
         <!-- Tab01 -->
         <div class="tab01">
             <!-- Nav tabs -->
@@ -187,10 +155,11 @@
                 <li class="nav-item p-b-10">
                     <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
                 </li>
-
+                <%if(reviews.length >0){%>
                 <li class="nav-item p-b-10">
                     <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (<%= reviews.length %>)</a>
                 </li>
+                <%}%>
             </ul>
 
             <!-- Tab panes -->
@@ -205,7 +174,7 @@
                 </div>
 
                 <!-- - -->
-                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                <div class="tab-pane fade" id="reviews" role="tabpanel" style="background-color: #4c6d58">
                     <div class="row" id="reloadArea">
                         <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                             <div class="p-b-30 m-lr-15-sm">
@@ -213,19 +182,20 @@
                                 <% reviews.forEach(function(review) { %>
                                     <div class="flex-w flex-t p-b-68" style="padding-left: 60px;">
                                         <div class="size-207"
-                                            style="background-color: rgb(240, 240, 240); padding-left: 10px;">
+                                            style="background-color: #2d4636; padding-left: 10px; border-radius: 5px;" >
                                             <div class="flex-w flex-sb-m p-b-17">
                                                 <p style="color: black;">
                                                     <%= review.user.name %>
                                                 </p>
 
-                                                <div class="ratings-container">
-                                                    <span class="fa fa-star checked"> &nbsp; <%=review.rating%></span>
+                                                <div class="ratings-container" >
+                                                    <p>Rating : &nbsp;&nbsp; <span class="fa fa-star checked"> &nbsp;<%=review.rating%></span></p>
                                                 </div>
+                                                
+                                                <p class="stext-102 cl6">
+                                                    <p>Comment : <span><%= review.comment %></span></p>
+                                                </p>
                                             </div>
-                                            <p class="stext-102 cl6">
-                                                <%= review.comment %>
-                                            </p>
                                             <input id="tyrating" value="<%= review.rating %>" hidden>
                                         </div>
                                         <br><br>
@@ -238,6 +208,10 @@
             </div>
         </div>
     </div>
+    </div><!-- End .page-content -->
+    </main><!-- End .main -->
+    </div><!-- End .page-wrapper -->
+    
 
 
     <script>

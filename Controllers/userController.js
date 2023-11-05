@@ -37,15 +37,15 @@ function validateMobileNumber(mobileNumber) {
 }
 
 //================================ name validation ================================
-function validateName(name) {
-      const trimmedName = name.trim();
-      if (/^[A-Za-z\s]{2,}$/i.test(trimmedName)) {
-            return true; // Valid name
+function validateMobileNumber(mobileNumber) {
+      const cleanNumber = mobileNumber.replace(/\D/g, '');
+  
+      if (cleanNumber.length === 10 && cleanNumber[0] !== '0') {
+          return true;
       } else {
-            return false; // Invalid name
+          return false;
       }
 }
-
 
 //========================== bcrypting password ============================
 const bcrypt = require('bcrypt')
@@ -214,7 +214,7 @@ const OtpClickedLoadHome = async (req, res) => {
                         await choiceUser.insertMany([signupUser])
                         req.session.userName = signupUser.name
                         // req.session.user_id = signupUser
-                        res.redirect('/')
+                        res.redirect('/login')
                   } else {
                         res.render('otp', { error: "invalid OTP!!" })
                   }
@@ -257,7 +257,7 @@ const productSearch = async (req, res) => {
                   ]
             });
             const userName = req.session.userName
-            if (products.length > 0 ) {
+            if (products.length > 0) {
                   res.render('shop', { products: products, name: userName, search: "dd", shop: 'a' });
             } else {
                   res.render('shop', { name: userName, products: null, shop: 'a', search: "dd", error: "No products related to your search" })
@@ -340,6 +340,38 @@ const loadAddAddress = async (req, res) => {
 }
 
 //================================== forget password ===================================
+const enterEmail = async (req, res) => {
+      try {
+            res.render("forgetEmail")
+      } catch (error) {
+            console.log(error.message);
+      }
+}
+
+const enteredEmail = async (req, res) => {
+      try {
+            if (validateEmail(req.body.forgetEmail)) {
+                  choiceUser.findOne({ email: req.body.forgetEmail }).then(async (email) => {
+                        if (email) {
+                              const userdata = await choiceUser.findOne({ email: req.body.forgetEmail })
+                              const randomNumber = Math.floor(Math.random() * 9000) + 1000;
+                              otp = randomNumber;
+                              sendMail(userdata.name, userdata.email, otp);
+                              req.session.forgetEmail = userdata.email
+                              res.render('forgetOtp', { name: req.session.userName })
+                        } else {
+                              res.render("forgetEmail", { error: "This email doesn't exist!" })
+                        }
+                  })
+            } else {
+                  res.render("forgetEmail", { error: "Enter a valid email!" })
+            }
+
+      } catch (error) {
+            console.log(error.message);
+      }
+}
+
 const forgetPassSendOtp = async (req, res) => {
       try {
             const user = req.query.id
@@ -369,7 +401,7 @@ const forgetOtpVerified = async (req, res) => {
                   if (req.body.verifyOtp == otp) {
                         res.render('changePassword', { name: req.session.userName })
                   } else {
-                        res.render('forgetOtp', { name: req.session.userName })
+                        res.render('forgetOtp', { name: req.session.userName , error : "OTP is incorrect!"})
                   }
             }
       } catch (error) {
@@ -380,19 +412,30 @@ const forgetOtpVerified = async (req, res) => {
 
 const passwordChanged = async (req, res) => {
       try {
-            if (req.body.newPassword == req.body.newConfirmPassword) {
+            if ((req.body.newPassword.trim() != "" || req.body.newConfirmPassword != "") && (req.body.newConfirmPassword == req.body.newPassword)) {
                   const newPass = await securePassword(req.body.newPassword)
-                  await choiceUser.updateOne(
-                        { _id: req.session.user_id },
-                        {
-                              $set: {
-                                    password: newPass
-                              },
-                        }
-                  )
+                  if(req.session.user_id){
+                        await choiceUser.updateOne(
+                              { _id: req.session.user_id },
+                              {
+                                    $set: {
+                                          password: newPass
+                                    },
+                              }
+                        )
+                  }else if(req.session.forgetEmail){
+                        await choiceUser.updateOne(
+                              { email: req.session.forgetEmail },
+                              {
+                                    $set: {
+                                          password: newPass
+                                    },
+                              }
+                        )
+                  }
                   res.redirect('/profile')
             } else {
-                  res.render('changePassword', { name: req.session.userName })
+                  res.render('changePassword', { name: req.session.userName , error : "Check the password!"})
             }
 
       } catch (error) {
@@ -494,5 +537,7 @@ module.exports = {
       forgetOtpVerified,
       passwordChanged,
       loadShop,
-      filter
+      filter,
+      enterEmail,
+      enteredEmail
 }
