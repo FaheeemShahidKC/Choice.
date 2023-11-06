@@ -3,6 +3,7 @@ const choiceUser = require('../Models/userModel')
 const choiceorder = require('../Models/orderModel');
 const choiceProduct = require('../Models/productModel');
 const choiceAddress = require('../Models/addressModel')
+const choiceCoupon = require('../Models/coopenModel')
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 
@@ -17,6 +18,9 @@ exports.placeOrder = async (req, res) => {
       try {
             const id = req.session.user_id;
             if (id) {
+                  const code = req.body.applyedCouponCode
+                  await choiceCoupon.updateOne({ couponCode: code }, { $inc: { usersLimit: -1 } })
+                  await choiceCoupon.updateOne({ couponCode: code }, { $push: { usedUsers: req.session.user_id } })
                   const address = req.body.addressId;
                   const CheckcartData = await choicecart.findOne({ userId: req.session.user_id }).populate('products.productId')
                   const cartData = await choicecart.findOne({ userId: req.session.user_id })
@@ -28,8 +32,8 @@ exports.placeOrder = async (req, res) => {
                         }
                   })
                   if (flag) {
-                        res.json({inventry : true})
-                  }else{
+                        res.json({ inventry: true })
+                  } else {
                         const total = parseInt(req.body.Total);
                         const paymentMethods = req.body.payment;
                         const userData = await choiceUser.findOne({ _id: id });
@@ -73,7 +77,7 @@ exports.placeOrder = async (req, res) => {
                                                 currency: "INR",
                                                 receipt: "" + orderId,
                                           };
-      
+
                                           instance.orders.create(options, function (err, order) {
                                                 res.json({ order });
                                           });
@@ -110,14 +114,14 @@ exports.placeOrder = async (req, res) => {
                                           } else {
                                                 res.json({ walletFailed: true });
                                           }
-      
+
                                     }
                               }
                         } else {
                               console.log('order data storing issue');
                         }
                   }
-                  
+
             }
 
       } catch (error) {

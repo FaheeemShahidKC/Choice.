@@ -13,45 +13,46 @@
                                         <form action="/addedAddress" method="post">
                                             <div class="form-group">
                                                 <label for="addName" style="color: aliceblue;">Full Name *</label>
-                                                <input type="text" class="form-control" id="addName" name="addName"
-                                                    required>
+                                                <input type="text" class="form-control"style="color: black;" id="addName" name="addName"
+                                                    >
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="addEmail"style="color: aliceblue;" >Email *</label>
-                                                <input type="email" class="form-control" id="addEmail" name="addEmail"
-                                                    required>
+                                                <input type="text" class="form-control"style="color: black;" id="addEmail" name="addEmail"
+                                                    >
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="addMobile" style="color: aliceblue;">Mobile Number</label>
-                                                <input type="number" class="form-control" id="addMobile"
+                                                <input type="text" class="form-control"style="color: black;" id="addMobile"
                                                     name="addMobile">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="addHouseName"style="color: aliceblue;">House Name</label>
-                                                <input type="text" class="form-control" id="addHouseName"
+                                                <input type="text" class="form-control"style="color: black;" id="addHouseName"
                                                     name="addHouseName">
                                             </div>
 
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="addCity"style="color: aliceblue;">City</label>
-                                                    <input type="text" class="form-control" id="addCity" name="addCity">
+                                                    <input type="text" class="form-control" id="addCity"style="color: black;" name="addCity">
                                                 </div>
 
                                                 <div class="form-group col-md-6">
                                                     <label for="addState"style="color: aliceblue;">State</label>
-                                                    <input type="text" class="form-control" id="addState"
+                                                    <input type="text" class="form-control" id="addState" style="color: black;"
                                                         name="addState">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="addPincode"style="color: aliceblue;">Pincode</label>
-                                                <input type="number" class="form-control" id="addPincode"
+                                                <input type="text" class="form-control" id="addPincode" style="color: black;"
                                                     name="addPincode">
+                                                    <p style="color: red;"><%= typeof error != "undefined"? error : ""%></p>
                                             </div>
 
                                             <div class="form-group text-center">

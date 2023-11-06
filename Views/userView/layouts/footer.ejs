@@ -108,6 +108,7 @@
 
       </div>
 </footer>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <!-- End Footer Section -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -117,6 +118,25 @@
 <script src="/userSide/js/bootstrap.bundle.min.js"></script>
 <script src="/userSide/js/tiny-slider.js"></script>
 <script src="/userSide/js/custom.js"></script>
+<script>
+      function confirmLogout() {
+            Swal.fire({
+                  title: 'Are you sure?',
+                  text: 'This action cannot be undone!',
+                  icon: false,
+                  showCancelButton: true,
+                  confirmButtonColor: '#3b5d50',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Logout!'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                        // If the user confirms, redirect to the removal URL
+                        window.location.href = '/logout'
+                  }
+            });
+      }
+
+</script>
 </body>
 
 </html>

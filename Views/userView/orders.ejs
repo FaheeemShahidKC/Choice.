@@ -35,7 +35,7 @@
 
                                                       <tbody>
 
-                                                            <% for(let i=0;i<orders.length;i++){ %>
+                                                            <% for(let i=0; i< orders.length; i++){ %>
                                                                   <tr>
                                                                         <td>
                                                                               <%= i+1 %>
@@ -60,12 +60,10 @@
                                                                                     class=" btn-outline-dark btn-round">View
                                                                                     Details</a>
                                                                         </td>
-                                                                        </td>
                                                                   </tr>
-
+                                                                  <% } %>
                                                       </tbody>
                                                 </table><!-- End .table table-wishlist -->
-                                                <% } %>
                                                       <% } else{ %>
                                                             <div class="error-content text-center" style="background-color: #2f453c;">
                                                                   <div class="container">

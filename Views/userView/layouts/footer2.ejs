@@ -11,6 +11,26 @@
 <script src="/userSide/assets/js/jquery.magnific-popup.min.js"></script>
 <!-- Main JS File -->
 <script src="/userSide/assets/js/main.js"></script>
+
+<script>
+      function confirmRemove(addressId) {
+            Swal.fire({
+                  title: 'Are you sure?',
+                  text: 'This action cannot be undone!',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3b5d50',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, remove it!'      
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                        // If the user confirms, redirect to the removal URL
+                        window.location.href = '/removeAddress?id=' + addressId;
+                  }
+            });
+      }
+
+</script>
 </body>
 
 

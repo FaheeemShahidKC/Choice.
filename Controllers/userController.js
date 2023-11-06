@@ -374,7 +374,7 @@ const enteredEmail = async (req, res) => {
 
 const forgetPassSendOtp = async (req, res) => {
       try {
-            const user = req.query.id
+            const user = req.session.user_id
             const userdata = await choiceUser.find({ _id: user })
             const randomNumber = Math.floor(Math.random() * 9000) + 1000;
             otp = randomNumber;

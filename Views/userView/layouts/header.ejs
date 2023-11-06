@@ -59,7 +59,7 @@
                                         <% if(typeof name != "undefined"){ %>
                                             <a class="dropdown-item" href="/profile">Profile</a>
                                             <a class="dropdown-item" href="/orders">Orders</a>
-                                            <a class="dropdown-item" href="/logout">Logout</a>
+                                            <a class="dropdown-item" onclick="confirmLogout()" href="#">Logout</a>
                                             <% }else{ %>
                                                 <a class="dropdown-item" href="/login">Login</a>
                                                 <a class="dropdown-item" href="/signup">Signup</a>

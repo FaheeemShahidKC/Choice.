@@ -164,10 +164,7 @@ exports.applyCoupon = async (req, res) => {
                                           if (couponData.criteriaAmount >= amount) {
                                                 res.json({ cartAmount: true });
                                           } else {
-                                                //user limit decreasing
-                                                await choiceCoupon.updateOne({ couponCode: code }, { $inc: { usersLimit: -1 } })
-                                                //user name adding
-                                                await choiceCoupon.updateOne({ couponCode: code }, { $push: { usedUsers: req.session.user_id } })
+                                                
 
                                                 const disAmount = couponData.discountAmount;
                                                 const disTotal = Math.round(amount - disAmount);
