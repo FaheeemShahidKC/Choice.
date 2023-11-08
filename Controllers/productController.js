@@ -41,10 +41,11 @@ const addProduct = async (req, res) => {
             let image3 = req.session.image3
             let image4 = req.session.image4
             let description = req.session.description
+            console.log(productName);
             if (catdata.length > 0) {
-                  res.render('addProduct', { categoryData: catdata , productName,category,quantity,price,image1,image2,image3,image4,description })
+                  res.render('addProduct', { productName, categoryData: catdata ,category,quantity,price,image1,image2,image3,image4,description })
             } else {
-                  res.render('addProduct')
+                  res.render('addProduct',{productName,quantity,category,price,image1,image2,image3,image4,description})
             }
       } catch (error) {
             console.log(error.message);

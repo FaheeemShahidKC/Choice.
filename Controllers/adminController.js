@@ -102,6 +102,7 @@ const salesReport = async (req, res) => {
                         },
                   },
             ]);
+            console.log(orderData);
             res.render("salesReport", {
                   orders: orderData, users,
             });

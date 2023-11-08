@@ -21,7 +21,7 @@
                         <th> Stock </th>
                         <th> Price </th>
                         <th> Edit </th>
-                        <th> Delete </th>
+                        <!-- <th> Delete </th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -48,10 +48,10 @@
                             </td>
                             <td><a href="/admin/editProduct?id=<%= element._id %>"><button type="button"
                                   class="btn btn-inverse-info ">Edit</button></a></td>
-                            <td><a href="/admin/deleteProduct?id=<%= element._id %>"><button type="button"
+                            <!-- <td><a href="/admin/deleteProduct?id=<%= element._id %>"><button type="button"
                                   class="btn btn-inverse-danger "
                                   onclick="return confirm('Are you sure you? Do you want to Delete ?')">Delete</button></a>
-                            </td>
+                            </td> -->
                           </tr>
 
                           <% count++ %>

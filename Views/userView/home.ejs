@@ -9,7 +9,7 @@
                                     <h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
                                     <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet
                                           velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
-                                    <p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="#"
+                                    <p><a href="/shop" class="btn btn-secondary me-2">Shop Now</a><a href="/shop"
                                                 class="btn btn-white-outline">Explore</a></p>
                               </div>
                         </div>
@@ -25,7 +25,7 @@
       <!-- Start Product Section -->
       <div class="product-section">
             <div class="container">
-                  <div class="row">
+                  <div class="row" id="knowledge">
                         <!-- Start Column 1 -->
                         <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
                               <h2 class="mb-4 section-title">Crafted with excellent material.</h2>
@@ -33,28 +33,27 @@
                               <p><a href="/shop" class="btn">Explore</a></p>
                         </div>
                         <!-- End Column 1 -->
-                        <% products.forEach((element)=>{ %>
-
-                              <!-- Start Column -->
+                        <% if(typeof products != 'undefined' && products.length > 0){
+                              products.forEach((element)=>{ %>
                               <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 m-4">
                                     <a class="product-item" href="/productDetails?id=<%= element._id %>">
                                           <img src="/products/crop/<%= element.images.image1 %>"
                                                 class="img-fluid product-thumbnail">
                                           <h3 class="product-title">
-                                                <%= element.name %>
+                                                <%= element.name ? element.name : '' %>
                                           </h3>
-                                          <strong class="product-price">₹<%= element.price %></strong>
+                                          <strong class="product-price">₹<%= element.price ? element.price : '' %></strong>
                                     </a>
                               </div>
-                              <!-- End Column -->
-                              <% }) %>
+                              <% })
+                        } %>
                   </div>
             </div>
       </div>
 
 
       <!-- Start Why Choose Us Section -->
-      <div class="why-choose-section">
+      <div class="why-choose-section" id="about">
             <div class="container">
                   <div class="row justify-content-between">
                         <div class="col-lg-6">
@@ -138,7 +137,7 @@
                                     </div>
                               </div>
                         </div>
-                        <div class="col-lg-5 ps-lg-5">
+                        <div class="col-lg-5 ps-lg-5" id="help">
                               <h2 class="section-title mb-4">We Help You Make Modern Interior Design</h2>
                               <p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus
                                     malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor
@@ -150,7 +149,7 @@
                                     <li>Donec vitae odio quis nisl dapibus malesuada</li>
                                     <li>Donec vitae odio quis nisl dapibus malesuada</li>
                               </ul>
-                              <p><a herf="#" class="btn">Explore</a></p>
+                              <p><a herf="/shop" class="btn">Explore</a></p>
                         </div>
                   </div>
             </div>
@@ -207,7 +206,7 @@
       <!-- End Popular Product -->
 
 
-      <% if (typeof banners !=="undefined" && banners.length> 0) { %>
+      <% if (typeof banners !== "undefined" && banners.length> 0) { %>
             <!-- Start Testimonial Slider -->
             <div class="testimonial-section">
                   <div class="container">
@@ -271,7 +270,7 @@
             <% } %>
 
                   <!-- Start Blog Section -->
-                  <div class="blog-section">
+                  <div class="blog-section" id="blog">
                         <div class="container">
                               <div class="row mb-5">
                                     <div class="col-md-6">

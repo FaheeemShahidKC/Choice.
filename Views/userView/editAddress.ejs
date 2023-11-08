@@ -9,7 +9,7 @@
                                                 <div class="tab-content">
                                                       <div class="form-wrapper">
                                                             <h3 style="color: aliceblue;">Edit Address</h3>
-                                                            <% if(address){ %>
+                                                            <% if(typeof address != 'undefined'){ %>
                                                                   <form  action="/update?id=<%= address.address[0]._id %>"
                                                                         method="post">
                                                                         <input type="hidden" name="id"

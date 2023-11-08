@@ -31,22 +31,9 @@
                 </ul>
                 <ul>
                   <span style="color: darkgrey">Delivery details:</span><br>
-                  <%= address.address[0].fullname %>
-                    <br>
-                    <%= address.address[0].mobile %>
-                      <br>
-                      <%= address.address[0].email %>
-                        <br>
-                        <%= address.address[0].houseName %>
-                          <br>
-                          <%= address.address[0].city %>
-                            <br>
-                            <%= address.address[0].state %>
-                              <br>
-                              <%= address.address[0].pin %>
-                                <br>
+                  <%= address %>
                 </ul>
-
+                <%if(orders.status != "Delivered" && orders.status != "cancelled"){%>
                 <td>
                   <div class="dropdown">
                     <button class="btn btn-outline-success dropdown-toggle" type="button"
@@ -54,13 +41,15 @@
                       Actions </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOutlineButton5">
                       <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=1">Cancel</a>
-                      <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=2">Shipped</a>
-                      <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=3">Delivery</a>
+                      <%if(orders.status != "shipped"){%>
+                      <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=2">Ship</a>
+                      <%}%>
+                      <a class="dropdown-item" href="/admin/statusUpdate?id=<%= orders._id %>&status=3">Deliver</a>
                     </div>
                   </div>
                 </td>
                 <br>
-
+                <%}%>
                 <table class="table table-dark">
                   <thead>
                     <tr>

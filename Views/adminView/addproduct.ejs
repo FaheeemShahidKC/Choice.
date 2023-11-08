@@ -28,11 +28,13 @@
                                                                               for="exampleInputCategory">Category</label>
                                                                         <select name="category" class="form-control"
                                                                               id="exampleInputCategory">
-                                                                              <% categoryData.forEach((element)=>{ %>
+                                                                              <%if(typeof categoryData != "undefined"){ 
+                                                                                    categoryData.forEach((element)=>{ %>
                                                                                     <option>
                                                                                           <%=element.categoryName%>
                                                                                     </option>
-                                                                                    <% }) %>
+                                                                                    <% })
+                                                                              } %>
                                                                         </select>
                                                                         <%if(category){%>
                                                                               <p style="color: red;">product category is

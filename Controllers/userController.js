@@ -14,6 +14,18 @@ const choiceReview = require('../Models/reviewModel')
 let signupUser
 let otp;
 
+//============================= name validation =========================
+function validateName(name) {
+      // Check if the input is empty
+      if (name.trim() === '') {
+            return false;
+      }
+
+      // Use a regular expression to match only letters and spaces
+      const regex = /^[A-Za-z\s]+$/;
+      return regex.test(name);
+}
+
 //=========================== email validation ============================
 function validateEmail(email) {
       try {
@@ -25,25 +37,14 @@ function validateEmail(email) {
       }
 }
 
-// =========================== mobile validation ================================
-function validateMobileNumber(mobileNumber) {
-      const cleanNumber = mobileNumber.replace(/\D/g, '');
-
-      if (cleanNumber.length === 10) {
-            return true;
-      } else {
-            return false;
-      }
-}
-
 //================================ name validation ================================
 function validateMobileNumber(mobileNumber) {
       const cleanNumber = mobileNumber.replace(/\D/g, '');
-  
+
       if (cleanNumber.length === 10 && cleanNumber[0] !== '0') {
-          return true;
+            return true;
       } else {
-          return false;
+            return false;
       }
 }
 
@@ -401,7 +402,7 @@ const forgetOtpVerified = async (req, res) => {
                   if (req.body.verifyOtp == otp) {
                         res.render('changePassword', { name: req.session.userName })
                   } else {
-                        res.render('forgetOtp', { name: req.session.userName , error : "OTP is incorrect!"})
+                        res.render('forgetOtp', { name: req.session.userName, error: "OTP is incorrect!" })
                   }
             }
       } catch (error) {
@@ -414,7 +415,7 @@ const passwordChanged = async (req, res) => {
       try {
             if ((req.body.newPassword.trim() != "" || req.body.newConfirmPassword != "") && (req.body.newConfirmPassword == req.body.newPassword)) {
                   const newPass = await securePassword(req.body.newPassword)
-                  if(req.session.user_id){
+                  if (req.session.user_id) {
                         await choiceUser.updateOne(
                               { _id: req.session.user_id },
                               {
@@ -423,7 +424,7 @@ const passwordChanged = async (req, res) => {
                                     },
                               }
                         )
-                  }else if(req.session.forgetEmail){
+                  } else if (req.session.forgetEmail) {
                         await choiceUser.updateOne(
                               { email: req.session.forgetEmail },
                               {
@@ -435,7 +436,7 @@ const passwordChanged = async (req, res) => {
                   }
                   res.redirect('/profile')
             } else {
-                  res.render('changePassword', { name: req.session.userName , error : "Check the password!"})
+                  res.render('changePassword', { name: req.session.userName, error: "Check the password!" })
             }
 
       } catch (error) {
@@ -449,23 +450,19 @@ const loadShop = async (req, res) => {
       try {
             const page = req.query.page || 1; // Get the requested page from the query string
             const itemsPerPage = 6; // Number of items to display per page
-            const totalCount = await choiceProduct.countDocuments(); // Get the total count of products
+            let totalCount = await choiceProduct.countDocuments(); // Get the total count of products
 
-            if (totalCount) {
-                  const skip = (page - 1) * itemsPerPage; // Calculate the number of items to skip
-                  const products = await choiceProduct
-                        .find()
-                        .skip(skip)
-                        .limit(itemsPerPage);
+            const skip = (page - 1) * itemsPerPage; // Calculate the number of items to skip
+            const products = await choiceProduct
+                  .find()
+                  .skip(skip)
+                  .limit(itemsPerPage);
 
-                  if (products) {
-                        const category = await choiceCategory.find({})
-                        res.render('shop', { products: products, shop: 'shop', currentPage: parseInt(page), totalPages: Math.ceil(totalCount / itemsPerPage), name: req.session.userName, category: category });
-                  } else {
-                        res.status(500).send("Internal Ser Error");
-                  }
+            if (products.length > 0) {
+                  const category = await choiceCategory.find({})
+                  res.render('shop', { products: products, shop: 'shop', currentPage: parseInt(page), totalPages: Math.ceil(totalCount / itemsPerPage), name: req.session.userName, category: category });
             } else {
-                  res.status(500).send("Internal  Error");
+                  res.render('shop', { name: req.session.userName, error: '"Welcome to Choice. shop" There is some stock managment going on."' })
             }
       } catch (error) {
             console.log(error.message);
@@ -494,7 +491,6 @@ const filter = async (req, res) => {
             }
 
             if (filter.length === 0) {
-                  // Handle the case when no products match the criteria
                   res.render('shop', {
                         products: null,
                         shop: 'shop',

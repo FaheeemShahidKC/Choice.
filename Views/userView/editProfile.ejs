@@ -9,7 +9,7 @@
                                 <div class="tab-content">
                                     <div class="form-wrapper">
                                         <h3 style="color: aliceblue;">Edit Profile</h3>
-                                        <% if(userProfile[0]) { %>
+                                        <% if(typeof userProfile[0] != 'undefined') { %>
                                             <div id="profileChangeDiv" style="display: block;">
                                                 <form action="/profileUpdated?id=<%= userProfile[0]._id %>"
                                                     method="post">

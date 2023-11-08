@@ -1,124 +1,131 @@
 <%- include('../userView/layouts/header.ejs')%>
 
-<!-- Start Hero Section -->
-<div class="hero">
-      <div class="container">
-            <div class="row justify-content-between">
-                  <div class="col-lg-5">
-                        <div class="intro-excerpt">
-                              <h1>Shop</h1>
+      <!-- Start Hero Section -->
+      <div class="hero">
+            <div class="container">
+                  <div class="row justify-content-between">
+                        <div class="col-lg-5">
+                              <div class="intro-excerpt">
+                                    <h1>Shop</h1>
+                              </div>
                         </div>
-                  </div>
-                  <div class="col-lg-7">
-                        
-                  </div>
-            </div>
-      </div>
-</div>
-<!-- End Hero Section -->
-<%if(typeof search == 'undefined'){%>
-<div class="container">
-      <div class="row">
-            <button id="show-filter" style="background-color:#c2c0c0; color: #000000; border: none; border-radius: 4px; padding: 10px 20px; cursor: pointer;">Filter</button>
-      </div>
-  </div>
-  
+                        <div class="col-lg-7">
 
-  <form action="/filter" method="post">
-  <div class="container" id="filter-form" style="background-color: #c2c0c0; padding: 10px; display: none;">
-      <div class="row" style="display: flex; justify-content: space-evenly;">
-            <div style="display: flex; justify-content: space-evenly;">
-                  <div class="col-md-3">
-                        <div class="form-group">
-                              <label for="category">Price Range</label>
-                              <select name="price" class="form-control" id="category">
-                              <option value="all">All</option>
-                              <option value="Low to High">Low to High</option>
-                              <option value="High to Low">High to Low</option>
-                              </select>
-                        </div>
-                  </div>
-                  <div class="col-md-3">
-                        <div class="form-group">
-                              <label for="price">Category</label>
-                              <select name="category" class="form-control" id="price">
-                              <option value="all">All</option>
-                              <%category.forEach((ele)=>{%>
-                              <option value="<%= ele.categoryName %>"><%= ele.categoryName %></option>
-                              <%})%>
-                              </select>
                         </div>
                   </div>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100px;">Done</button>
-          
-          <!-- <div class="col-md-3">
-              <div class="form-group">
-                  <label for="rating">Rating</label>
-                  <select class="form-control" id="rating">
-                      <option value="all">All</option>
-                      <option value="4+">4 stars and above</option>
-                      <option value="3+">3 stars and above</option>
-                  </select>
-              </div>
-          </div> -->
       </div>
-  </div>
-</form>
-<%}%>
+      <!-- End Hero Section -->
+      <%if(typeof search=='undefined' ){%>
+            <%if(typeof products != "undefined" && products.length > 0){%>
+            <div class="container">
+                  <div class="row">
+                        <button id="show-filter"
+                              style="background-color:#c2c0c0; color: #000000; border: none; border-radius: 4px; padding: 10px 20px; cursor: pointer;">Filter</button>
+                  </div>
+            </div>
 
-<div class="untree_co-section product-section before-footer-section">
-<div class="container">
-      <%if(products){%>
-            <div class="row">
-                  <% products.forEach((element)=>{ %>
-                  <!-- Start Column 1 -->
-                  <div class="col-12 col-md-4 col-lg-3 mb-5">
-                        <a class="product-item" href="/productDetails?id=<%= element._id %>">
-                              <img src="/products/crop/<%= element.images.image1 %>" class="img-fluid product-thumbnail">
-                              <h3 class="product-title"><%= element.name %></h3>
-                              <strong class="product-price">₹<%= element.price %></strong>
-      
-                              <!-- <span class="icon-cross">
-                                    <img src="/userSide/images/cross.svg" class="img-fluid">
-                              </span> -->
-                        </a>
-                  </div> 
-                  <!-- End Column 1 -->
-                  <%})%>
-            </div>     
-            <%}else{%>
-                  <p><%=typeof error !== 'undefined'?error:""%></p>
-                  <%}%>
-      <% if(typeof currentPage !== 'undefined'){ %>
-            <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center">
-                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
-                              <a class="page-link" href="?page=<%= currentPage - 1 %>" tabindex="-1">Previous</a>
-                        </li>
-                        <% for (let i = 1; i <= totalPages; i++) { %>
-                              <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                                    <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-                              </li>
-                        <% } %>
-                        <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-                              <a class="page-link" href="?page=<%= encodeURIComponent(currentPage + 1) %>">Next</a>
-                        </li>                
-                  </ul>
-            </nav>          
-      <% } %>
-</div>
-</div>
 
-<script>
-      // JavaScript to toggle the visibility of the filter form
-      document.getElementById("show-filter").addEventListener("click", function () {
-          var filterForm = document.getElementById("filter-form");
-          if (filterForm.style.display === "none") {
-              filterForm.style.display = "block";
-          } else {
-              filterForm.style.display = "none";
-          }
-      });
-  </script>
-<%- include('../userView/layouts/footer.ejs')%>
+            <form action="/filter" method="post">
+                  <div class="container" id="filter-form"
+                        style="background-color: #c2c0c0; padding: 10px; display: none;">
+                        <div class="row" style="display: flex; justify-content: space-evenly;">
+                              <div style="display: flex; justify-content: space-evenly;">
+                                    <div class="col-md-3">
+                                          <div class="form-group">
+                                                <label for="category">Price Range</label>
+                                                <select name="price" class="form-control" id="category">
+                                                      <option value="all">All</option>
+                                                      <option value="Low to High">Low to High</option>
+                                                      <option value="High to Low">High to Low</option>
+                                                </select>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                          <div class="form-group">
+                                                <label for="price">Category</label>
+                                                <select name="category" class="form-control" id="price">
+                                                      <option value="all">All</option>
+                                                      <%if(typeof category !="undefined" ){%>
+                                                            <%category.forEach((ele)=>{%>
+                                                                  <option value="<%= ele.categoryName %>">
+                                                                        <%= ele.categoryName %>
+                                                                  </option>
+                                                                  <%})%>
+                                                                        <%}%>
+                                                </select>
+                                          </div>
+                                    </div>
+                              </div>
+                              <button type="submit" class="btn btn-primary" style="width: 100px;">Done</button>
+                        </div>
+                  </div>
+            </form>
+            <%}%>
+            <% } %>
+
+                  <div class="untree_co-section product-section before-footer-section">
+                        <div class="container">
+                              <%if(typeof products != "undefined" && products.length > 0){%>
+                                    <div class="row">
+                                          <% products.forEach((element)=>{ %>
+                                                <div class="col-12 col-md-4 col-lg-3 mb-5">
+                                                      <a class="product-item"
+                                                            href="/productDetails?id=<%= element._id %>">
+                                                            <img src="/products/crop/<%= element.images.image1 %>"
+                                                                  class="img-fluid product-thumbnail">
+                                                            <h3 class="product-title">
+                                                                  <%= element.name %>
+                                                            </h3>
+                                                            <strong class="product-price">₹<%= element.price %></strong>
+                                                      </a>
+                                                </div>
+                                                <%})%>
+                                    </div>
+                                    <%}else{%>
+                                          <p>
+                                                <%=typeof error !=='undefined' ?error :""%>
+                                          </p>
+                                          <%}%>
+
+                                                <% if(typeof currentPage !=='undefined' ){ %>
+                                                      <nav aria-label="Page navigation example">
+                                                            <ul class="pagination justify-content-center">
+                                                                  <li
+                                                                        class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                                                        <a class="page-link"
+                                                                              href="?page=<%= currentPage - 1 %>"
+                                                                              tabindex="-1">Previous</a>
+                                                                  </li>
+                                                                  <% for (let i=1; i <=totalPages; i++) { %>
+                                                                        <li
+                                                                              class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                                              <a class="page-link"
+                                                                                    href="?page=<%= i %>">
+                                                                                    <%= i %>
+                                                                              </a>
+                                                                        </li>
+                                                                        <% } %>
+                                                                              <li
+                                                                                    class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                                                                    <a class="page-link"
+                                                                                          href="?page=<%= encodeURIComponent(currentPage + 1) %>">Next</a>
+                                                                              </li>
+                                                            </ul>
+                                                      </nav>
+                                                      <% } %>
+                        </div>
+                  </div>
+
+                  <script>
+                        // JavaScript to toggle the visibility of the filter form
+                        document.getElementById("show-filter").addEventListener("click", function () {
+                              var filterForm = document.getElementById("filter-form");
+                              if (filterForm.style.display === "none") {
+                                    filterForm.style.display = "block";
+                              } else {
+                                    filterForm.style.display = "none";
+                              }
+                        });
+                  </script>
+                  <%- include('../userView/layouts/footer.ejs')%>

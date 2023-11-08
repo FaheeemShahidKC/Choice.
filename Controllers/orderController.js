@@ -42,7 +42,7 @@ exports.placeOrder = async (req, res) => {
                         const status = paymentMethods === "cash" ? "placed" : "pending";
                         const walletBalance = userData.wallet;
                         const order = new choiceorder({
-                              deliveryDetails: address,
+                              deliveryDetails: req.body.orderAddressDetails,
                               uniqueId: uniNum,
                               userId: id,
                               userName: name,
@@ -214,17 +214,17 @@ exports.viewOrderDetails = async (req, res) => {
             );
             const user = orderedProduct.userId
             const address = orderedProduct.deliveryDetails
-            const deliveryAddress = await choiceAddress.findOne({
-                  users: user,
-                  "address._id": address
-            },
-                  { "address.$": 1 }
-            );
+            // const deliveryAddress = await choiceAddress.findOne({
+            //       users: user,
+            //       "address._id": address
+            // },
+            //       { "address.$": 1 }
+            // );
             const currentDate = new Date();
             const deliveryDate = orderedProduct.date;
             const timeDiff = currentDate - deliveryDate;
             const daysDiff = Math.floor(timeDiff / (24 * 60 * 60 * 1000));
-            res.render("orderDetails", { orders: orderedProduct, address: deliveryAddress, daysDiff: daysDiff });
+            res.render("orderDetails", { orders: orderedProduct, address: address, daysDiff: daysDiff });
       } catch (error) {
             console.log(error.message);
             res.render('404')
@@ -355,13 +355,14 @@ exports.orderDetails = async (req, res) => {
             );
             const user = orderedProduct.userId
             const address = orderedProduct.deliveryDetails
-            const deliveryAddress = await choiceAddress.findOne({
-                  users: user,
-                  "address._id": address
-            },
-                  { "address.$": 1 }
-            );
-            res.render("orderDetails", { orders: orderedProduct, address: deliveryAddress });
+            // const deliveryAddress = await choiceAddress.findOne({
+            //       users: user,
+            //       "address._id": address
+            // },
+            //       { "address.$": 1 }
+            // );
+            // console.log(orderedProduct);
+            res.render("orderDetails", { orders: orderedProduct, address: address });
       } catch (error) {
             console.log(error.message);
             res.render('404')

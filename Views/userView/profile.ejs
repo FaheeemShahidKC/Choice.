@@ -89,9 +89,25 @@
                               </div><!-- End .card-body -->
                             </div><!-- End .card-dashboard -->
                           </div><!-- End .col-lg-6 -->
-                          <%}%>
+                          <%}else{%>
+                            <div class="col-lg-6">
+                              <div class="card card-dashboard">
+                                <div class="card-body">
+                                  <p>Ohh! No more coupons.</p>
+                                  <!-- End .card-title -->
+                                </div><!-- End .card-body -->
+                              </div><!-- End .card-dashboard -->
+                            </div><!-- End .col-lg-6 -->
+                            <%}%>
                             <% }) }else{ %>
-                              <p>No Coupons Found</p>
+                              <div class="col-lg-6">
+                                <div class="card card-dashboard">
+                                  <div class="card-body">
+                                    <p>Ohh! No more coupons.</p>
+                                    <!-- End .card-title -->
+                                  </div><!-- End .card-body -->
+                                </div><!-- End .card-dashboard -->
+                              </div><!-- End .col-lg-6 -->
                               <%}%>
                   </div><!-- End .row -->
                   <a href="/shop" class="btn btn-outline-primary-2"><span>GO SHOP</span><i
@@ -124,7 +140,7 @@
                       <% if(walletHistory.length> 0) { %>
 
                         <div class="col-lg-6 grid-margin stretch-card">
-                          <div class="card">
+                          <div class="card" style="border-radius: 30px;">
                             <div class="card-body">
                               <br />
                               <h4 class="card-title">Transaction History</h4>
@@ -132,7 +148,7 @@
                               <% walletHistory.forEach((walletHistory)=> { %>
                                 <div
                                   class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3"
-                                  style="justify-content: space-between">
+                                  style="justify-content: space-between; ">
                                   <div class="text-md-center text-xl-left">
                                     <!-- <h6 class="mb-1">Cancel Refund</h6> -->
                                     <p class="text-muted mb-0">

@@ -25,27 +25,21 @@
           <div class="col-md-6 mb-5 mb-md-0">
             <div class="p-3 p-lg-5 border bg-white" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
               <p style="font-size: x-large;">Wallet Balance</p><br>
-              <%if(walletBalance){%>
-                <p style="font-size: 50px; color: black;">₹<%=walletBalance?walletBalance:""%>
-                </p>
-                <%}else{%>
-                  <p style="font-size: 50px; color: black;">₹0</p>
-                  <%}%>
+              <p style="font-size: 50px; color: black;">₹<%= typeof walletBalance !== "undefined" ? walletBalance : 0 %></p>
             </div>
             <div class="p-3 p-lg-5 border bg-white" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
-              <!-- <form id="billing-address-form"> -->
               <h3>Select Billing Address</h3><br>
               <div class="form-check">
-                <% if (address) { %>
-                  <% address.forEach((ele)=> { %>
+                <% if (Array.isArray(address) && address.length > 0) { %>
+                  <% address.forEach((ele) => { %>
                     <label class="form-check-label">
-                      <input type="radio" checked class="form-check-input" name="selectedAddress" value="<%= ele._id %>"
-                        required>
-                      <%= ele.fullname %>, <%= ele.houseName %>, <%= ele.city %>, <%= ele.state %>, <%= ele.pin %>
+                      <input type="radio" checked class="form-check-input" name="selectedAddress" value="<%= ele._id %>" required>
+                      <%= ele.fullname ? ele.fullname : '' %>, <%= ele.houseName ? ele.houseName : '' %>, <%= ele.city ? ele.city : '' %>, <%= ele.state ? ele.state : '' %>, <%= ele.pin ? ele.pin : '' %>
+                      <input type="text" value="<%= ele.fullname ? ele.fullname : '' %>, <%= ele.houseName ? ele.houseName : '' %>, <%= ele.city ? ele.city : '' %>, <%= ele.state ? ele.state : '' %>, <%= ele.pin ? ele.pin : '' %>" name="" id="orderAddressDetails" hidden>
                     </label>
                     <br><br>
-                    <% }); %>
-                      <a href="/profile">Add address</a>
+                  <% }); %>
+                <a href="/profile">Add address</a>                
                       <% }else{ %>
                         <a href="/profile">Add address</a>
                         <% } %>
@@ -83,22 +77,23 @@
                       <th>Total</th>
                     </thead>
                     <tbody>
-                      <% if(cartProducts){ %>
-                        <% cartProducts.forEach((product)=>{ %>
+                      <% if (cartProducts && cartProducts.length > 0) { %>
+                        <% cartProducts.forEach((product) => { %>
                           <tr>
                             <td>
                               <%= product.productId.name %> <strong class="mx-2"></strong>
-                                <%= product.productId.count %>
+                              <%= product.productId.count %>
                             </td>
                             <td>
                               <%= product.totalPrice %>
                             </td>
                           </tr>
-                          <% })} %>
+                        <% })
+                      } %>
                             <tr>
                               <td class="text-black font-weight-bold"><strong>Subtotal</strong></td>
                               <td id="subTotal" class="text-black">
-                                <%= total[0].total %>
+                                <%= total[0].total?total[0].total:'' %>
                               </td>
                             </tr>
                             <tr>
@@ -109,7 +104,7 @@
                               <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
                               <strong>
                                 <td id="disTotal" class="text-black font-weight-bold">
-                                  <%= total[0].total %>
+                                  <%= total[0].total?total[0].total:'' %>
                                 </td>
                               </strong>
                             </tr>
@@ -226,11 +221,12 @@
       let total = document.getElementById("disTotal").innerHTML; // Modified to use jQuery instead of plain JavaScript
       let payment = $("input[name = paymentMethod]:checked").val();
       let applyedCouponInput = $("#applyedCoupon").val();
+      let orderAddressDetails = $("#orderAddressDetails").val()
 
       $.ajax({
         url: "/placeOrder",
         method: "post",
-        data: { Total: total, addressId: addressId, payment: payment ,applyedCouponCode : applyedCouponInput},
+        data: { Total: total, addressId: addressId, payment: payment ,applyedCouponCode : applyedCouponInput ,orderAddressDetails : orderAddressDetails},
         success: (response) => {
           if (response.codsuccess == true) {
             location.href = `/thankyou`;
