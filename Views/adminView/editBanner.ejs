@@ -36,17 +36,22 @@
                                                                               Tittle</label>
                                                                         <input value="<%=banner[0].title%>" type="text"
                                                                               name="bannerTitle" class="form-control"
-                                                                              id="exampleInputName1" placeholder="Name">
+                                                                              id="title" placeholder="Name">
+                                                                        <p style="color: red; display: none;"
+                                                                              id="titleError"></p>
+
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label
                                                                               for="exampleTextarea1">Description</label>
                                                                         <textarea class="form-control"
-                                                                              name="description" id="exampleTextarea1"
+                                                                              name="description" id="description"
                                                                               rows="4"
                                                                               placeholder=""><%= banner[0].description %></textarea>
+                                                                        <p style="color: red; display: none;"
+                                                                              id="desError"></p>
                                                                   </div>
-                                                                  <button type="submit"
+                                                                  <button type="submit" id="editBanner"
                                                                         class="btn btn-primary mr-2">Submit</button>
                                                                   <a href="/admin/bannerManagment"><button type="button"
                                                                               class="btn btn-dark">Cancel</button></a>
@@ -58,14 +63,8 @@
                               </div>
                         </div>
                   </div>
-                  <!-- content-wrapper ends -->
-                  <!-- partial:partials/_footer.html -->
-                  <!-- partial -->
             </div>
-            <!-- main-panel ends -->
             </div>
-            <!-- page-body-wrapper ends -->
             </div>
-            <!-- container-scroller -->
-
+            <script src="/admin/assets/js/editBanner.js"></script>
             <%- include('../adminView/layout/adminFooter.ejs')%>

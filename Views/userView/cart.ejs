@@ -143,13 +143,14 @@
         <%}%>
           <script>
             function deleteCartItem(proId) {
-              console.log(proId);
               swal
                 .fire({
                   title: "Are You Sure?",
                   Text: " You wont be able to revert this!",
                   icon: "warning",
                   showCancelButton: true,
+                  background: "#3b5d50",
+                  color: "#fff",
                   confirmButtonColor: "#3085d6",
                   cancelButtonColor: "#d33",
                   confirmButtonText: "Yes, delete it!",
@@ -198,6 +199,8 @@
                     Swal.fire({
                       icon: "error",
                       title: "Oops...",
+                      background: "#3b5d50",
+                      color: "#fff",
                       text: "Out of stock",
                     }).then(() => {
                       location.reload();

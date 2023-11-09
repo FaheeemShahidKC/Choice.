@@ -261,7 +261,7 @@ const productSearch = async (req, res) => {
             if (products.length > 0) {
                   res.render('shop', { products: products, name: userName, search: "dd", shop: 'a' });
             } else {
-                  res.render('shop', { name: userName, products: null, shop: 'a', search: "dd", error: "No products related to your search" })
+                  res.render('shop', { name: userName, shop: 'a', search: "dd", error: "No products related to your search" })
             }
       } catch (error) {
             console.log(error.message);
@@ -284,7 +284,7 @@ const loadProduct = async (req, res) => {
             if (proData) {
                   res.render('productDetails', { prodectData: proData, reviews: reviews, averageRating: averageRating })
             } else {
-                  res.status(500).send("Internal Server Error");
+                  res.render('404')
             }
       } catch (error) {
             console.log(error.message);
@@ -492,7 +492,6 @@ const filter = async (req, res) => {
 
             if (filter.length === 0) {
                   res.render('shop', {
-                        products: null,
                         shop: 'shop',
                         name: req.session.userName,
                         category: category,

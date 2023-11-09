@@ -10,7 +10,7 @@ exports.addCoupon = async (req, res) => {
             let discountAmount = req.session.discountAmount
             let usersLimit = req.session.usersLimit
             let couponCode = req.session.couponCode
-            res.render('addCoupon', { couponAlready,couponCode,activationDate,couponName,criteriaAmount,expiryDate,discountAmount,usersLimit })
+            res.render('addCoupon', { couponAlready, couponCode, activationDate, couponName, criteriaAmount, expiryDate, discountAmount, usersLimit })
       } catch (error) {
             console.log(error.message);
             res.render('404')
@@ -44,25 +44,25 @@ exports.addedCoupon = async (req, res) => {
             if (req.body.couponName.trim() === "") {
                   req.session.couponName = true;
                   res.redirect('/admin/addCoupon')
-            }else if (req.body.couponCode.trim() === "") {
+            } else if (req.body.couponCode.trim() === "") {
                   req.session.couponCode = true;
                   res.redirect('/admin/addCoupon')
-            }else if (already) {
+            } else if (already) {
                   req.session.couponAlready = true;
                   res.redirect('/admin/addCoupon')
-            }else if (req.body.discountAmount <= 0) {
+            } else if (req.body.discountAmount <= 0) {
                   req.session.discountAmount = true;
                   res.redirect('/admin/addCoupon')
             } else if (req.body.activationDate < Today) {
                   req.session.activationDate = true;
                   res.redirect('/admin/addCoupon')
-            }else if (req.body.expiryDate < req.body.activationDate) {
+            } else if (req.body.expiryDate < req.body.activationDate) {
                   req.session.expiryDate = true;
                   res.redirect('/admin/addCoupon')
-            }else if (req.body.criteriaAmount <= 0) {
+            } else if (req.body.criteriaAmount <= 0) {
                   req.session.criteriaAmount = true;
                   res.redirect('/admin/addCoupon')
-            }else if (req.body.usersLimit <= 0) {
+            } else if (req.body.usersLimit <= 0) {
                   req.session.usersLimit = true;
                   res.redirect('/admin/addCoupon')
             } else {
@@ -110,21 +110,35 @@ exports.editCoupon = async (req, res) => {
 
 exports.editedCoupon = async (req, res) => {
       try {
-            const updatedCoupon = await choiceCoupon.findOne({ _id: req.query.id });
-
-            if (updatedCoupon) {
-                  updatedCoupon.couponName = req.body.couponName;
-                  updatedCoupon.couponCode = req.body.couponCode;
-                  updatedCoupon.discountAmount = req.body.discountAmount;
-                  updatedCoupon.activationDate = req.body.activationDate;
-                  updatedCoupon.expiryDate = req.body.expiryDate;
+            const TodayDate = new Date()
+            const Today = TodayDate.toISOString().split('T')[0];
+            const active = req.body.activeDate;
+            if (req.body.name.trim() === "" || req.body.code.trim() === "" || req.body.discount.trim() === "" || req.body.activeDate.trim() === "" || req.body.expDate.trim() === "" || req.body.criteriaAmount.trim() === "" || req.body.userLimit.trim() === "") {
+                  res.json({ require: true })
+            } else if (req.body.discount <= 0) {
+                  res.json({ disMinus: true })
+            } else if (req.body.criteriaAmount <= 0) {
+                  res.json({ amountMinus: true })
+            } else if (active > req.body.expDate && req.body.expDate < Today) {
+                  res.json({ expDate: true })
+            } else if (req.body.userLimit <= 0) {
+                  res.json({ limit: true })
+            } else {
+                  const updatedCoupon = await choiceCoupon.findOne({ _id: req.query.id });
+                  updatedCoupon.couponName = req.body.name;
+                  updatedCoupon.couponCode = req.body.code;
+                  updatedCoupon.discountAmount = req.body.discount;
+                  updatedCoupon.activationDate = req.body.activeDate;
+                  updatedCoupon.expiryDate = req.body.expDate;
                   updatedCoupon.criteriaAmount = req.body.criteriaAmount;
-                  updatedCoupon.usersLimit = req.body.usersLimit;
+                  updatedCoupon.usersLimit = req.body.userLimit;
 
                   const saved = await updatedCoupon.save();
-                  res.redirect('/admin/couponManagment');
-            } else {
-                  res.status(404).send('Coupon not found');
+                  if (saved) {
+                        res.json({success:true})
+                  }else{
+                      res.json({failed:true})
+                  }
             }
       } catch (error) {
             console.log(error.message);
@@ -164,7 +178,7 @@ exports.applyCoupon = async (req, res) => {
                                           if (couponData.criteriaAmount >= amount) {
                                                 res.json({ cartAmount: true });
                                           } else {
-                                                
+
 
                                                 const disAmount = couponData.discountAmount;
                                                 const disTotal = Math.round(amount - disAmount);

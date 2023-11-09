@@ -34,94 +34,99 @@ exports.placeOrder = async (req, res) => {
                   if (flag) {
                         res.json({ inventry: true })
                   } else {
-                        const total = parseInt(req.body.Total);
-                        const paymentMethods = req.body.payment;
-                        const userData = await choiceUser.findOne({ _id: id });
-                        const name = userData.name;
-                        const uniNum = Math.floor(Math.random() * 900000) + 100000;
-                        const status = paymentMethods === "cash" ? "placed" : "pending";
-                        const walletBalance = userData.wallet;
-                        const order = new choiceorder({
-                              deliveryDetails: req.body.orderAddressDetails,
-                              uniqueId: uniNum,
-                              userId: id,
-                              userName: name,
-                              paymentMethod: paymentMethods,
-                              products: products,
-                              totalAmount: total,
-                              date: new Date(),
-                              status: status,
-                        });
-                        const orderData = await order.save();
-                        const orderid = order._id;
-                        if (orderData) {
-
-                              if (order.status === "placed") {
-                                    await choicecart.deleteOne({ userId: req.session.user_id });
-                                    for (let i = 0; i < products.length; i++) {
-                                          const pro = products[i].productId;
-                                          const count = products[i].count;
-                                          await choiceProduct.findOneAndUpdate(
-                                                { _id: pro },
-                                                { $inc: { quantity: -count } }
-                                          );
-                                    }
-
-                                    res.json({ codsuccess: true });
-                              } else {
-                                    const orderId = orderData._id;
-                                    const totalAmount = orderData.totalAmount;
-                                    if (order.paymentMethod == "Rayzor pay") {
-                                          var options = {
-                                                amount: totalAmount * 100,
-                                                currency: "INR",
-                                                receipt: "" + orderId,
-                                          };
-
-                                          instance.orders.create(options, function (err, order) {
-                                                res.json({ order });
-                                          });
-                                    } else if (order.paymentMethod == "wallet") {
-                                          if (walletBalance >= total) {
-                                                const result = await choiceUser.findOneAndUpdate(
-                                                      { _id: id },
-                                                      {
-                                                            $inc: { wallet: -total },
-                                                            $push: {
-                                                                  walletHistory: {
-                                                                        date: new Date(),
-                                                                        amount: total,
-                                                                        reason: "Purchaced Amount Debited.",
-                                                                  },
-                                                            },
-                                                      },
-                                                      { new: true }
+                        if (req.body.orderAddressDetails) {
+                              const total = parseInt(req.body.Total);
+                              const paymentMethods = req.body.payment;
+                              const userData = await choiceUser.findOne({ _id: id });
+                              const name = userData.name;
+                              const uniNum = Math.floor(Math.random() * 900000) + 100000;
+                              const status = paymentMethods === "cash" ? "placed" : "pending";
+                              const walletBalance = userData.wallet;
+                              const order = new choiceorder({
+                                    deliveryDetails: req.body.orderAddressDetails,
+                                    uniqueId: uniNum,
+                                    userId: id,
+                                    userName: name,
+                                    paymentMethod: paymentMethods,
+                                    products: products,
+                                    totalAmount: total,
+                                    date: new Date(),
+                                    status: status,
+                              });
+                              const orderData = await order.save();
+                              const orderid = order._id;
+                              if (orderData) {
+                                    if (order.status === "placed") {
+                                          await choicecart.deleteOne({ userId: req.session.user_id });
+                                          for (let i = 0; i < products.length; i++) {
+                                                const pro = products[i].productId;
+                                                const count = products[i].count;
+                                                await choiceProduct.findOneAndUpdate(
+                                                      { _id: pro },
+                                                      { $inc: { quantity: -count } }
                                                 );
-                                                await choiceorder.findByIdAndUpdate(
-                                                      { _id: orderid },
-                                                      { $set: { status: "placed" } }
-                                                )
-                                                await choicecart.deleteOne({ userId: req.session.user_id });
-                                                for (let i = 0; i < products.length; i++) {
-                                                      const pro = products[i].productId;
-                                                      const count = products[i].count;
-                                                      await choiceProduct.findOneAndUpdate(
-                                                            { _id: pro },
-                                                            { $inc: { quantity: -count } }
-                                                      );
-                                                }
-                                                res.json({ codsuccess: true, orderid });
-                                          } else {
-                                                res.json({ walletFailed: true });
                                           }
 
+                                          res.json({ codsuccess: true });
+                                    } else {
+                                          const orderId = orderData._id;
+                                          const totalAmount = orderData.totalAmount;
+                                          if (order.paymentMethod == "Rayzor pay") {
+                                                var options = {
+                                                      amount: totalAmount * 100,
+                                                      currency: "INR",
+                                                      receipt: "" + orderId,
+                                                };
+
+                                                instance.orders.create(options, function (err, order) {
+                                                      res.json({ order });
+                                                });
+                                          } else if (order.paymentMethod == "wallet") {
+                                                if (walletBalance >= total) {
+                                                      const result = await choiceUser.findOneAndUpdate(
+                                                            { _id: id },
+                                                            {
+                                                                  $inc: { wallet: -total },
+                                                                  $push: {
+                                                                        walletHistory: {
+                                                                              date: new Date(),
+                                                                              amount: total,
+                                                                              reason: "Purchaced Amount Debited.",
+                                                                        },
+                                                                  },
+                                                            },
+                                                            { new: true }
+                                                      );
+                                                      await choiceorder.findByIdAndUpdate(
+                                                            { _id: orderid },
+                                                            { $set: { status: "placed" } }
+                                                      )
+                                                      await choicecart.deleteOne({ userId: req.session.user_id });
+                                                      for (let i = 0; i < products.length; i++) {
+                                                            const pro = products[i].productId;
+                                                            const count = products[i].count;
+                                                            await choiceProduct.findOneAndUpdate(
+                                                                  { _id: pro },
+                                                                  { $inc: { quantity: -count } }
+                                                            );
+                                                      }
+                                                      res.json({ codsuccess: true, orderid });
+                                                } else {
+                                                      res.json({ walletFailed: true });
+                                                }
+
+                                          }
                                     }
+                              } else {
+                                    res.render('404')
                               }
                         } else {
-                              console.log('order data storing issue');
+                              res.json({ addAddress: true });
                         }
                   }
 
+            } else {
+                  res.render('404')
             }
 
       } catch (error) {

@@ -10,59 +10,65 @@
                                                 <div class="card">
                                                       <div class="card-body">
                                                             <h4 class="card-title">Add Coupon</h4>
-                                                            <form method="post"
-                                                                  action="/admin/editedCoupon?id=<%= coupons._id %>"
-                                                                  class="forms-sample">
+                                                            <form class="forms-sample">
+                                                                  <input type="text" id="id" value="<%= coupons._id %>" hidden>
                                                                   <div class="form-group">
                                                                         <label>Coupon name</label>
                                                                         <input type="text" name="couponName"
                                                                               class="form-control"
                                                                               value="<%= coupons.couponName %>"
-                                                                              id="exampleInputName1">
+                                                                              id="name">
+                                                                              <div id="nameError" style="display: none; color: red;"></div>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label>Coupon code</label>
-                                                                        <input type="text" name="couponCode"
+                                                                        <input type="text" name="couponCode" 
                                                                               class="form-control"
                                                                               value="<%= coupons.couponCode %>"
-                                                                              id="exampleInputName1">
+                                                                              id="code">
+                                                                              <div id="codeError" style="display: none; color: red;"></div>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label>Discount amount</label>
                                                                         <input type="number" name="discountAmount"
                                                                               class="form-control"
                                                                               value="<%= coupons.discountAmount %>"
-                                                                              id="exampleInputName1">
+                                                                              id="discount">
+                                                                              <div id="disError" style="display: none; color: red;"></div>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label>Activation date</label>
                                                                         <input type="date" name="activationDate"
                                                                               class="form-control"
                                                                               value="<%= coupons.activationDate ? coupons.activationDate.toISOString().split('T')[0] : '' %>"
-                                                                              id="activationDateInput">
+                                                                              id="active">
+                                                                              <div id="activeError" style="display: none; color: red;"></div>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label>Expiry date</label>
                                                                         <input type="date" name="expiryDate"
                                                                               class="form-control"
                                                                               value="<%= coupons.expiryDate ? coupons.expiryDate.toISOString().split('T')[0] : '' %>"
-                                                                              id="expiryDateInput">
+                                                                              id="expiry">
+                                                                              <div id="expError" style="display: none; color: red;"></div>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label>Criteria amount</label>
                                                                         <input type="number" name="criteriaAmount"
                                                                               class="form-control"
                                                                               value="<%= coupons.criteriaAmount %>"
-                                                                              id="exampleInputName1">
+                                                                              id="amount">
+                                                                              <div id="amountError" style="display: none; color: red;"></div>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label>Users limit</label>
                                                                         <input type="number" name="usersLimit"
                                                                               class="form-control"
                                                                               value="<%= coupons.usersLimit %>"
-                                                                              id="exampleInputName1">
+                                                                              id="limit">
+                                                                              <div id="limitError" style="display: none; color: red;"></div>
                                                                   </div>
-                                                                  <button type="submit"
+                                                                  <button type="submit" id="editCoupon"
                                                                         class="btn btn-primary mr-2">Submit</button>
                                                                   <a href="/admin/couponManagment"
                                                                         class="btn btn-primary mr-2">Cancel</a>
@@ -74,14 +80,8 @@
                               </div>
                         </div>
                   </div>
-                  <!-- content-wrapper ends -->
-                  <!-- partial:partials/_footer.html -->
-                  <!-- partial -->
             </div>
-            <!-- main-panel ends -->
             </div>
-            <!-- page-body-wrapper ends -->
             </div>
-            <!-- container-scroller -->
-
+            <script src="/admin/assets/js/editCouponVal.js"></script>
             <%- include('../adminView/layout/adminFooter.ejs')%>

@@ -10,23 +10,23 @@
                                                 <div class="card">
                                                       <div class="card-body">
                                                             <h4 class="card-title">Add product</h4>
-                                                            <form action="/admin/prodectEdited?id=<%= updateData._id %>"
+                                                            <form id="editPro" action="/admin/prodectEdited?id=<%= updateData._id %>"
                                                                   method="post" class="forms-sample"
                                                                   enctype="multipart/form-data">
                                                                   <div class="form-group">
                                                                         <label for="exampleInputName1">Product
                                                                               Name</label>
-                                                                        <input type="text" name="name"
+                                                                        <input type="text" id="name" name="name"
                                                                               class="form-control"
-                                                                              value="<%= updateData.name %>" required
-                                                                              id="exampleInputName1" placeholder="Name">
+                                                                              value="<%= updateData.name %>" 
+                                                                              placeholder="Name">
+                                                                              <p id="nameError" style="color: red; display: none;"></p>
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label
                                                                               for="exampleInputCategory">Category</label>
-                                                                        <select name="category" required
+                                                                        <select id="category" name="category"
                                                                               class="form-control"
-                                                                              id="exampleInputCategory">
                                                                               <% categoryData.forEach((element)=>{ %>
                                                                                     <option>
                                                                                           <%=element.categoryName%>
@@ -36,19 +36,20 @@
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label for="exampleInputName1">Stock</label>
-                                                                        <input type="number" name="quantity"
+                                                                        <input type="number" id="quantity" name="quantity"
                                                                               class="form-control"
                                                                               value="<%= updateData.quantity %>"
-                                                                              required id="exampleInputName1"
                                                                               placeholder="Stock">
+                                                                              <p id="quanError" style="color: red; display: none;"></p>
+                                                                              
                                                                   </div>
                                                                   <div class="form-group">
                                                                         <label for="exampleInputName1">Price</label>
-                                                                        <input type="number" name="price"
+                                                                        <input type="number" id="price" name="price"
                                                                               class="form-control"
-                                                                              value="<%= updateData.price %>" required
-                                                                              id="exampleInputName1"
+                                                                              value="<%= updateData.price %>" 
                                                                               placeholder="Price">
+                                                                              <p id="priceError" style="color: red; display: none;"></p>
                                                                   </div>
                                                                   <!-- hashir -->
                                                                   <div style="display: flex;">
@@ -104,7 +105,7 @@
                                                                                     </div>
                                                                                     <input name="image4" type="file"
                                                                                           accept="image/*"
-                                                                                          id="imageInput4" accept=""
+                                                                                          id="imageInput4" 
                                                                                           class="imageInput">
                                                                               </label>
                                                                         </div>
@@ -112,10 +113,11 @@
                                                                   <div class="form-group">
                                                                         <label
                                                                               for="exampleTextarea1">Description</label>
-                                                                        <textarea class="form-control" required
-                                                                              name="description" id="exampleTextarea1"
+                                                                        <textarea class="form-control" 
+                                                                        id="description" name="description"
                                                                               rows="4"><%= updateData.description %>
-                                                            </textarea>
+                                                                        </textarea>
+                                                                        <p id="descError" style="color: red; display: none;"></p>
                                                                   </div>
                                                                   <button type="submit"
                                                                         class="btn btn-primary mr-2">Submit</button>
@@ -139,4 +141,5 @@
             </div>
             <!-- container-scroller -->
 
+            <script src="/admin/assets/js/editProductVal.js"></script>
             <%- include('../adminView/layout/adminFooter.ejs')%>

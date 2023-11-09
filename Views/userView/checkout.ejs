@@ -251,6 +251,15 @@
               showCancelButton: false,
               timer: 1500,
             });
+          }else if (response.addAddress == true) {
+            swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Add devilvery address",
+              showConfirmButton: false,
+              showCancelButton: false,
+              timer: 1500,
+            });
           } else {
             razorPayment(response.order);
           }
