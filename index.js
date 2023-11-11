@@ -16,7 +16,7 @@ const adminRoutes = require('./Routes/adminRoutes')
 const noCache = require("nocache");
 
 //================ Making public folder as atatic ======================
-app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static(path.join(__dirname, "Public")))
 
 app.use(noCache());
 //====================== Route setup ==================================

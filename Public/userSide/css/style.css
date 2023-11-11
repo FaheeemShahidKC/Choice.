@@ -189,34 +189,35 @@ a.more {
 
 .hero .hero-img-wrap img {
   position: relative;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   z-index: 2;
-  max-width: 780px;
-  left: -20px;
+  width: 100%; /* Adjust the image width */
+  max-width: none; /* Remove specific max-width */
+  left: 0; /* Adjust initial left position */
 }
 
 @media (min-width: 768px) {
   .hero .hero-img-wrap img {
-    right: 0px;
-    left: -100px;
+      right: 0;
+      left: -10%; /* Adjust the left positioning */
   }
 }
 
 @media (min-width: 992px) {
   .hero .hero-img-wrap img {
-    left: 0px;
-    top: -80px;
-    position: absolute;
-    right: -50px;
+      left: 0;
+      top: -8%; /* Adjust top positioning */
+      position: absolute;
+      right: -5%; /* Adjust right positioning */
   }
 }
 
 @media (min-width: 1200px) {
   .hero .hero-img-wrap img {
-    left: 0px;
-    top: -80px;
-    right: -100px;
+      left: 0;
+      top: -8%; /* Adjust top positioning */
+      right: -10%; /* Adjust right positioning */
   }
 }
 
@@ -234,9 +235,10 @@ a.more {
 
 @media (min-width: 1200px) {
   .hero .hero-img-wrap:after {
-    top: -40px;
+      top: -40px;
   }
 }
+
 
 .btn {
   font-weight: 600;

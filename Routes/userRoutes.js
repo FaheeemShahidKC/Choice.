@@ -28,7 +28,7 @@ userRoutes.use(express.urlencoded({extended:true}))
 
 // ======================= view engine setup =======================
 userRoutes.set('view engine','ejs')
-userRoutes.set('views','./views/userView')
+userRoutes.set('views','./Views/userView')
 
 //=============================== Route setup =====================
 // ================================== Home ========================
