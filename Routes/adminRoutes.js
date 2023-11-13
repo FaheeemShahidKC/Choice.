@@ -27,7 +27,7 @@ adminRoutes.use(express.urlencoded({extended:true}))
 
 //=========================== view engine setup ======================== 
 adminRoutes.set('view engine','ejs')
-adminRoutes.set('views','./views/adminView')
+adminRoutes.set('views','./Views/adminView')
 
 // ============================== Admin login ==========================
 adminRoutes.get('/',adminController.loadLogin)
@@ -56,7 +56,6 @@ adminRoutes.get('/deleteCategory',categoryController.deleteCategory)
 adminRoutes.get('/orderManagment',orderController.loadOrderManagment)
 adminRoutes.get('/orderDetails',orderController.orderDetails)
 adminRoutes.get('/delivered',orderController.delivered)
-// adminRoutes.get('/cancelled',orderController.cancelled)
 adminRoutes.get('/statusUpdate',orderController.statusUpdate)
 
 //============================= coupon managment ===============================

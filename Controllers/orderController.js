@@ -264,8 +264,7 @@ exports.cancelOrder = async (req, res) => {
                   amount: amount,
                   reason: "Cancelled the order"
             };
-
-            if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
+            if ((order.status == "Delivered" && req.body.refundMethod == "wallet")) {
                   // Update the user's wallet and wallet history
                   const user = await choiceUser.updateOne(
                         { _id: req.session.user_id },
@@ -274,7 +273,16 @@ exports.cancelOrder = async (req, res) => {
                               $push: { walletHistory: history }
                         }
                   );
+            }else if((order.status == "placed" || order.status == "shipped") && order.paymentMethod != "cash" && req.body.refundMethod == "wallet"){
+                  const user = await choiceUser.updateOne(
+                        { _id: req.session.user_id },
+                        {
+                              $set: { wallet: totalWallet },
+                              $push: { walletHistory: history }
+                        }
+                  );
             }
+
             // Update the order's status to 'Cancelled'
             const updatedOrder = await choiceorder.updateOne(
                   { _id: orderId },
@@ -291,7 +299,6 @@ exports.cancelOrder = async (req, res) => {
 exports.returnOrder = async (req, res) => {
       try {
             const orderId = req.query.id;
-            // Find the order by orderId
             const order = await choiceorder.findOne({ _id: orderId });
             const cancelledProducts = order.products
             for (i = 0; i < cancelledProducts.length; i++) {
@@ -308,7 +315,7 @@ exports.returnOrder = async (req, res) => {
             }
 
             const amount = order.totalAmount;
-            // Create a history object
+           
             const walletuser = await choiceUser.find({ _id: req.session.user_id })
             const totalWallet = walletuser[0].wallet + amount
             const history = {
@@ -317,7 +324,7 @@ exports.returnOrder = async (req, res) => {
                   reason: "returned product"
             };
             if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
-                  // Update the user's wallet and wallet history
+                  
                   const user = await choiceUser.updateOne(
                         { _id: req.session.user_id },
                         {
@@ -326,7 +333,7 @@ exports.returnOrder = async (req, res) => {
                         }
                   );
             }
-            // Update the order's status to 'Cancelled'
+            
             const updatedOrder = await choiceorder.updateOne(
                   { _id: orderId },
                   { $set: { status: 'Returned' } }
@@ -360,13 +367,6 @@ exports.orderDetails = async (req, res) => {
             );
             const user = orderedProduct.userId
             const address = orderedProduct.deliveryDetails
-            // const deliveryAddress = await choiceAddress.findOne({
-            //       users: user,
-            //       "address._id": address
-            // },
-            //       { "address.$": 1 }
-            // );
-            // console.log(orderedProduct);
             res.render("orderDetails", { orders: orderedProduct, address: address });
       } catch (error) {
             console.log(error.message);
@@ -375,66 +375,67 @@ exports.orderDetails = async (req, res) => {
 }
 
 exports.delivered = async (req, res) => {
-      try {
-            const orderId = req.query.id
-            const updatedOrder = await choiceorder.updateOne(
-                  { _id: orderId },
-                  { $set: { status: 'Delivered', deliveryDate: new Date() } }
-            );
-            res.redirect('/admin/orderManagment')
-      } catch (error) {
-            console.log(error.message);
-            res.render('404')
-      }
+      // try {
+      //       const orderId = req.query.id
+      //       const updatedOrder = await choiceorder.updateOne(
+      //             { _id: orderId },
+      //             { $set: { status: 'Delivered', deliveryDate: new Date() } }
+      //       );
+      //       res.redirect('/admin/orderManagment')
+      // } catch (error) {
+      //       console.log(error.message);
+      //       res.render('404')
+      // }
 }
 
-exports.cancelled = async (req, res) => {
-      try {
-            const orderId = req.query.id
-            const order = await choiceorder.findOne({ _id: orderId });
-            const cancelledProducts = order.products
-            for (i = 0; i < cancelledProducts.length; i++) {
-                  const pro = cancelledProducts[i].productId;
-                  const count = cancelledProducts[i].count;
-                  await choiceProduct.findOneAndUpdate(
-                        { _id: pro },
-                        { $inc: { quantity: count } }
-                  );
-            }
-            if (!order) {
-                  return res.status(404).send('Order not found');
-            }
+// exports.cancelled = async (req, res) => {
+//       try {
+//             const orderId = req.query.id
+//             const order = await choiceorder.findOne({ _id: orderId });
+//             const cancelledProducts = order.products
+//             for (i = 0; i < cancelledProducts.length; i++) {
+//                   const pro = cancelledProducts[i].productId;
+//                   const count = cancelledProducts[i].count;
+//                   await choiceProduct.findOneAndUpdate(
+//                         { _id: pro },
+//                         { $inc: { quantity: count } }
+//                   );
+//             }
+//             if (!order) {
+//                   return res.status(404).send('Order not found');
+//             }
 
-            const amount = order.totalAmount;
-            // Create a history object
-            const walletuser = await choiceUser.find({ _id: req.session.user_id })
-            const totalWallet = walletuser[0].wallet + amount
-            const history = {
-                  date: new Date(),
-                  amount: amount,
-                  reason: "Cancelled the order"
-            };
+//             const amount = order.totalAmount;
+//             console.log(req.body.refundMethod);
+//             // Create a history object
+//             const walletuser = await choiceUser.find({ _id: req.session.user_id })
+//             const totalWallet = walletuser[0].wallet + amount
+//             const history = {
+//                   date: new Date(),
+//                   amount: amount,
+//                   reason: "Cancelled the order"
+//             };
 
-            if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
-                  // Update the user's wallet and wallet history
-                  const user = await choiceUser.updateOne(
-                        { _id: req.session.user_id },
-                        {
-                              $set: { wallet: totalWallet },
-                              $push: { walletHistory: history }
-                        }
-                  );
-            }
-            const updatedOrder = await choiceorder.updateOne(
-                  { _id: orderId },
-                  { $set: { status: 'Cancelled' } }
-            );
-            res.redirect('/admin/orderManagment')
-      } catch (error) {
-            console.log(error.message);
-            res.render('404')
-      }
-}
+//             if (order.status == "Delivered" && req.body.refundMethod == "wallet") {
+//                   // Update the user's wallet and wallet history
+//                   const user = await choiceUser.updateOne(
+//                         { _id: req.session.user_id },
+//                         {
+//                               $set: { wallet: totalWallet },
+//                               $push: { walletHistory: history }
+//                         }
+//                   );
+//             }
+//             const updatedOrder = await choiceorder.updateOne(
+//                   { _id: orderId },
+//                   { $set: { status: 'Cancelled' } }
+//             );
+//             res.redirect('/admin/orderManagment')
+//       } catch (error) {
+//             console.log(error.message);
+//             res.render('404')
+//       }
+// }
 
 
 

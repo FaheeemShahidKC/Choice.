@@ -61,11 +61,9 @@
                             <td><a href="/admin/edit-coupon-page?id=<%= coupons._id %>"
                                 class="badge badge-info">Update</a></td>
                             <% if(coupons.status==true ){ %>
-                              <td><a href="/admin/block-coupons?id=<%= coupons._id %>" class="badge badge-danger"
-                                  onclick="return confirm('Are you sure you? Do you want to Block ?')">Block</a></td>
+                              <td><a  class="badge badge-danger" onclick="confirmBlockCoupon('<%= coupons._id %>')">Block</a></td>
                               <%}else if(coupons.status==false ){%>
-                                <td><a href="/admin/block-coupons?id=<%= coupons._id %>" class="badge badge-success"
-                                    onclick="return confirm('Are you sure you? Do you want to Unblock ?')">Unblock</a>
+                                <td><a onclick="confirmBlockCoupon('<%= coupons._id %>')" class="badge badge-success">Unblock</a>
                                 </td>
                                 <% } %>
                           </tr>

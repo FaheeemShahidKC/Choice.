@@ -40,13 +40,13 @@
                               </td>
                               <td>
                                 <% if(user.is_block){ %>
-                                  <a href="/admin/blockUser?id=<%= user._id %>"><button type="button"
+                                  <a ><button type="button"
                                       class="btn btn-inverse-success "
-                                      onclick="return confirm('Are you sure you? Do you want to Block ?')">Unblock</button></a>
+                                      onclick="confirmBlockUser('<%= user._id %>')">Unblock</button></a>
                                   <% }else{ %>
-                                    <a href="/admin/blockUser?id=<%= user._id %>"><button type="button"
+                                    <a><button type="button"
                                         class="btn btn-inverse-danger "
-                                        onclick="return confirm('Are you sure you? Do you want to UnBlock ?')">Block</button></a>
+                                        onclick="confirmBlockUser('<%= user._id %>')">Block</button></a>
                                     <% } %>
                               </td>
                             </tr>

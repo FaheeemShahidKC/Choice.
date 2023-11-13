@@ -40,11 +40,9 @@
                               <td><a href="/admin/edit-banner-page?id=<%= banner._id %>"
                                   class="badge badge-info">Update</a></td>
                               <% if(banner.status==true ){ %>
-                                <td><a href="/admin/blockBanner?id=<%= banner._id %>" class="badge badge-danger"
-                                    onclick="return confirm('Are you sure you? Do you want to Block ?')">Block</a></td>
+                                <td><a onclick="confirmBlockBanner('<%= banner._id %>')" class="badge badge-danger">Block</a></td>
                                 <%}else if(banner.status==false ){%>
-                                  <td><a href="/admin/blockBanner?id=<%= banner._id %>" class="badge badge-success"
-                                      onclick="return confirm('Are you sure you? Do you want to Unblock ?')">Unblock</a>
+                                  <td><a onclick="confirmBlockBanner('<%= banner._id %>')" class="badge badge-success">Unblock</a>
                                   </td>
                                   <% } %>
                             </tr>

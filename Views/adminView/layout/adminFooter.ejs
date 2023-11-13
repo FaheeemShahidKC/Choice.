@@ -11,6 +11,62 @@
 <script src="/admin/assets/js/todolist.js"></script>
 <script src="/admin/assets/js/script.js"></script>
 
+<script>
+      function confirmBlockBanner(id) {
+            Swal.fire({
+                  title: 'Are you sure?',
+                  text: 'This action cannot be undone!',
+                  icon: false,
+                  showCancelButton: true,
+                  background: "#191C24",
+                  color:"#fff",
+                  confirmButtonColor: '#558170',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Confirm'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                        window.location.href = '/admin/blockBanner?id='+ id
+                  }
+            });
+      }
+
+      function confirmBlockUser(id) {
+            Swal.fire({
+                  title: 'Are you sure?',
+                  text: 'This action cannot be undone!',
+                  icon: false,
+                  showCancelButton: true,
+                  background: "#191C24",
+                  color:"#fff",
+                  confirmButtonColor: '#558170',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Confirm'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                        window.location.href = '/admin/blockUser?id='+ id
+                  }
+            });
+      }
+
+      function confirmBlockCoupon(id) {
+            Swal.fire({
+                  title: 'Are you sure?',
+                  text: 'This action cannot be undone!',
+                  icon: false,
+                  showCancelButton: true,
+                  background: "#191C24",
+                  color:"#fff",
+                  confirmButtonColor: '#558170',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Confirm'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                        window.location.href = '/admin/block-coupons?id='+ id
+                  }
+            });
+      }
+</script>
+
 <!-- endinject -->
 </body>
 

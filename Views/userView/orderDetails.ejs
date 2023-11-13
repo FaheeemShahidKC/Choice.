@@ -93,7 +93,7 @@
                                 </tr>
                     </tbody>
                   </table>
-                  <% if (orders.status=="placed" || orders.status=="pending" ) { %>
+                  <% if (orders.status=="placed" || orders.status=="pending" || orders.status=="shipped") { %>
                     <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab"
                       aria-controls="tab-address" aria-selected="false"> 
                       <button type="button" 
@@ -122,14 +122,14 @@
                           <% } %>
                 </div>
               </aside>.
-              <% if (orders.status=="placed" || orders.status=="pending" ) { %>
+              <% if (orders.status=="placed" || orders.status=="pending" || orders.status=="shipped") { %>
                 <div style="width: 1180px;" class="tab-pane fade" id="tab-address" role="tabpanel"
                   aria-labelledby="tab-address-link">
                   <div id="cancel" class="summary">
                     <form action="/cancelOrder?id=<%=orders._id%>" method="post">
                       Enter the reason for cancellation <br><br>
                       <input type="text" style="width: 1075px;" name="cancelReason"><br><br>
-                      <%if((orders.status=='placed' || orders.status=="pending" ) && orders.paymentMethod !='cash' ){%>
+                      <%if((orders.status == 'placed' || orders.status == "shipped" ) && orders.paymentMethod !='cash' ){%>
                         <!-- Add a dropdown menu for refund method -->
                         <label for="refundMethod">Select Refund Method:</label>
                         <select id="refundMethod" name="refundMethod">
