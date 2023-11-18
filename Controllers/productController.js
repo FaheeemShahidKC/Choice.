@@ -41,11 +41,10 @@ const addProduct = async (req, res) => {
             let image3 = req.session.image3
             let image4 = req.session.image4
             let description = req.session.description
-            console.log(productName);
             if (catdata.length > 0) {
-                  res.render('addProduct', { productName, categoryData: catdata ,category,quantity,price,image1,image2,image3,image4,description })
+                  res.render('addproduct', { productName, categoryData: catdata ,category,quantity,price,image1,image2,image3,image4,description })
             } else {
-                  res.render('addProduct',{productName,quantity,category,price,image1,image2,image3,image4,description})
+                  res.render('addproduct',{productName,quantity,category,price,image1,image2,image3,image4,description})
             }
       } catch (error) {
             console.log(error.message);
@@ -175,13 +174,13 @@ const prodectEdited = async (req, res) => {
                   await Sharp("Public/products/images/" + img1)
                         .resize(500, 500)
                         .toFile("Public/products/crop/" + img1);
-                  await Sharp("public/products/images/" + img2)
+                  await Sharp("Public/products/images/" + img2)
                         .resize(500, 500)
                         .toFile("Public/products/crop/" + img2);
-                  await Sharp("public/products/images/" + img3)
+                  await Sharp("Public/products/images/" + img3)
                         .resize(500, 500)
                         .toFile("Public/products/crop/" + img3);
-                  await Sharp("public/products/images/" + img4)
+                  await Sharp("Public/products/images/" + img4)
                         .resize(500, 500)
                         .toFile("Public/products/crop/" + img4);
 
